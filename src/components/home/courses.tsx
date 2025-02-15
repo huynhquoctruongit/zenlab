@@ -30,10 +30,10 @@ const listCourses = [
 const Courses = () => {
   return (
     <div className='relative'>
-      <div className='rounded-t-[50px] w-full bg-[#f5f5f7] bg-[url(/images/background.png)] bg-cover absolute -top-10 py-6'>
+      <div className='rounded-t-[50px] w-full bg-[#f5f5f7] bg-[url(/images/background.png)] bg-cover absolute -top-3 md:-top-10 py-6'>
         <div className='max-w-[1440px] px-6 mx-auto my-6'>
           <h1 className='text-primary1 text-3xl my-6'>CÁC KHOÁ HỌC</h1>
-          <div className='grid grid-cols-4 gap-4 mt-4'>
+          <div className='grid md:grid-cols-4 gap-4 mt-4'>
             {listCourses.map((course, index) => (
               <div
                 style={{ background: course.color }}

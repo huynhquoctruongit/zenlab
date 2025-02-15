@@ -17,7 +17,7 @@ const menuList = [
 ]
 const Menu = () => {
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className="md:flex items-center justify-center gap-4 hidden">
       {menuList.map((menu, index) => (
         <div key={index} className="text-sm hover:text-primary1">
           <a href={menu.url}>{menu.title}</a>
