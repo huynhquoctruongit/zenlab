@@ -35,7 +35,7 @@ const Practice = () => {
           </div>
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>
-          {dataList.map((question: any) => {
+          {/* {dataList.map((question: any) => {
             const location =
               question.location.start === question.location.end
                 ? question.location.start
@@ -48,7 +48,7 @@ const Practice = () => {
                 {dataType(question)}
               </div>
             )
-          })}
+          })} */}
         </div>
       </div>
       <PracticeFooter onSubmit={onSubmit} dataList={dataList} />
