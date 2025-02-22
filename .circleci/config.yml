@@ -77,7 +77,7 @@ jobs:
             --header 'Content-Type: application/json' \
             --data "{
                 \"id\": 44,
-                \"StackFileContent\": \"version: '3'\nservices:\n  glasses:\n    image: truonghq1611/zenlab:$VERSION:\${IMAGE_TAG:-latest}\n    restart: always\n    ports:\n      - 3000:3000\n    networks:\n      - nginx-proxy\n\nnetworks:\n  nginx-proxy:\n    external: true\n\n\",
+                \"StackFileContent\": \"version: '3'\nservices:\n  zenlab:\n    image: truonghq1611/zenlab:$VERSION:\${IMAGE_TAG:-latest}\n    restart: always\n    ports:\n      - 3001:3000\n    networks:\n      - traefik-net\n\nnetworks:\n  traefik-net:\n    external: true\n\n\",
                 \"Env\": [
                     {
                         \"name\": \"IMAGE_TAG\",
