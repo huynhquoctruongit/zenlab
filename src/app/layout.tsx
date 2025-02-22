@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { MuseoModerno } from 'next/font/google'
+import { Be_Vietnam_Pro } from 'next/font/google'
 import './globals.css'
 import LayoutCommon from '@/components/layouts'
 
-const MuseoModernoFont: any = MuseoModerno({
+const Be_Vietnam_Pro_Font: any = Be_Vietnam_Pro({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
-  variable: '--MuseoModerno'
+  variable: '--Be_Vietnam_Pro_Font'
 })
 export const metadata: Metadata = {
   title: 'Zenlab - Practice IELTS Online',
@@ -21,7 +21,7 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${MuseoModernoFont.className}`}>
+      <body className={`${Be_Vietnam_Pro_Font.className}`}>
         <LayoutCommon>{children}</LayoutCommon>
       </body>
     </html>
