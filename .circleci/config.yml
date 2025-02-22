@@ -1,0 +1,113 @@
+version: 2.1
+jobs:
+  general-version:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Generate Version
+          command: |
+            mkdir -p workspace 
+            TAG_NAME="v$(date +'%Y.%m.%d').$CIRCLE_BUILD_NUM"
+            echo "Creating tag: $TAG_NAME"
+            git tag $TAG_NAME
+            git push origin $TAG_NAME
+            echo "VERSION=$TAG_NAME" > workspace/bash.env
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - bash.env
+            
+  build-dockerimage-production:
+    docker:
+      - image: cimg/base:stable
+    environment:
+      PIPELINE_NUMBER: << pipeline.number >>
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
+      - run: |
+          cat /tmp/workspace/bash.env >> $BASH_ENV
+      - setup_remote_docker:
+          version: docker24
+      - run:
+          name: docker login
+          command: docker login -u newbie.dev.js@gmail.com --password $TOKEN_DOCKER_HUB
+      - run:
+          name: docker buildx
+          command: |
+            echo "VERSION: $VERSION"
+            echo "Building Docker image with tag: truonghq1611/zenlab:$VERSION"
+            if [[ "$CIRCLE_BRANCH" == "main" ]]; then
+              if [[ -f env.production ]]; then
+                cp -rf env.production .env
+              fi
+              DOCKER_BUILDKIT=1 docker buildx build -t "truonghq1611/zenlab:$VERSION" --push . 
+            fi
+
+  deploy-production:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: |
+          cat /tmp/workspace/bash.env >> $BASH_ENV
+      - run:
+          name: deploy
+          command: |
+            # if [[ "$CIRCLE_BRANCH" == "main" ]]; then
+            #   echo "Deploying to Production"
+            #   echo "$SSH_KEY" > /tmp/ssh_key
+            #   base64 -d /tmp/ssh_key > /tmp/ssh_key_fe
+            #   chmod 600 /tmp/ssh_key_fe
+            #   ssh -i /tmp/ssh_key_fe -o StrictHostKeyChecking=no -p 22 "root@$HOST_PRODUCTION_FE" "cd /app/kylongtech-fe;bash deploy_script.sh $VERSION"
+            # else
+            #   echo "Not on main branch, skipping deployment"
+            # fi
+            # Update the Stack with new image tag
+
+            echo "Deploying to Production"
+            echo "VERSION: $VERSION"
+
+            curl --location --request PUT "http://$PORTAINER:9000/api/stacks/44?endpointId=2" \
+            --header "x-api-key: $PORTAINER_TOKEN" \
+            --header 'Content-Type: application/json' \
+            --data "{
+                \"id\": 44,
+                \"StackFileContent\": \"version: '3'\nservices:\n  glasses:\n    image: truonghq1611/zenlab:$VERSION:\${IMAGE_TAG:-latest}\n    restart: always\n    ports:\n      - 3000:3000\n    networks:\n      - nginx-proxy\n\nnetworks:\n  nginx-proxy:\n    external: true\n\n\",
+                \"Env\": [
+                    {
+                        \"name\": \"IMAGE_TAG\",
+                        \"value\":  \"$VERSION\"
+
+                    }
+                ],
+                \"Prune\": true,
+                \"PullImage\": true
+            }"
+
+workflows:
+  build-and-deploy:
+    jobs:
+      - general-version:
+          filters:
+            branches:
+              only:
+                - main
+      - build-dockerimage-production:
+          requires:
+           - general-version
+          filters:
+            branches:
+              only:
+                - main 
+      - deploy-production:
+          requires:
+           - build-dockerimage-production
+          filters:
+            branches:
+              only:
+                - main
