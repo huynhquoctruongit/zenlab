@@ -26,7 +26,7 @@ const LayoutCommon = ({ children }: any) => {
           <Header />
           {/* <LoginByGoogle /> */}
           <div className='flex-1 h-full relative overflow-auto'>{children}</div>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </SWRConfig>
     </Suspense>
