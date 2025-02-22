@@ -4,7 +4,6 @@ import { questionList, content } from '../../components/practice/data'
 import FillBlank from '@/components/practice/data-types/fill_blank'
 import Selection from '@/components/practice/data-types/selection'
 import Multiple from '@/components/practice/data-types/checkbox'
-import useAnswerList from '@/components/practice/helper/use-answer'
 import Radio from '@/components/practice/data-types/radio'
 import PracticeFooter from '@/components/practice/footer'
 import { useRouter } from 'next/navigation'
@@ -35,20 +34,21 @@ const Practice = () => {
           </div>
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>
-          {/* {dataList.map((question: any) => {
-            const location =
-              question.location.start === question.location.end
-                ? question.location.start
-                : `${question.location.start} - ${question.location.end}`
+          {dataList.map((question: any) => {
+            const { location, title, id } = question
+            const index =
+              location.start === location.end
+                ? location.start
+                : `${location.start} - ${location.end}`
             return (
-              <div key={question.id}>
+              <div key={id}>
                 <div className='py-2 mb-2 mt-3 text-primary1'>
-                  {location}. {question.title}
+                  {index}. {title}
                 </div>
                 {dataType(question)}
               </div>
             )
-          })} */}
+          })}
         </div>
       </div>
       <PracticeFooter onSubmit={onSubmit} dataList={dataList} />

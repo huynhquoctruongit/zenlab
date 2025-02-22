@@ -25,8 +25,8 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
   const parsedHtml = question.fill_blank.replace(
     regexInput,
     (_: any, index: any, value: any) => {
-      const choised = answer[index]
-      const { correct }: any = choised
+      const choised = answer?.[index]
+      const { correct }: any = choised || {}
       return `<input class={${
         correct ? 'bg-green' : 'bg-red'
       }} data-index="${index}" data-value="${value}" />`
