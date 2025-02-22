@@ -34,7 +34,7 @@ jobs:
           version: docker24
       - run:
           name: docker login
-          command: docker login -u newbie.dev.js@gmail.com --password $TOKEN_DOCKER_HUB
+          command: docker login -u truonghq1611 --password $TOKEN_DOCKER_HUB
       - run:
           name: docker buildx
           command: |
