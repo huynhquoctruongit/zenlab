@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { fetcherClient } from "./api/axios-client";
+import { NEXT_PUBLIC_CMS } from "@/services/helpers";
 
 export function cn (...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,7 +19,7 @@ export const sleep = (ms: number) => {
 export const createImage = (id: string, width?: number) => {
   if (!id) return "";
   if (id.includes("http")) return id + (width ? "?width=" + width : "");
-  const domain = process.env.NEXT_PUBLIC_CMS;
+  const domain = NEXT_PUBLIC_CMS;
   return domain + "/assets/" + id + (width ? "?width=" + width : "");
 };
 

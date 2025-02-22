@@ -4,7 +4,7 @@ import { getCookie } from 'react-use-cookie'
 
 // axios for API CMS
 export const AxiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_CMS,
+  baseURL: "https://cms.zenlab.edu.vn",
   headers: {
     'Content-Type': 'application/json'
   }

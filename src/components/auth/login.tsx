@@ -1,7 +1,7 @@
 'use client'
+import { NEXT_PUBLIC_CMS } from '@/services/helpers'
 import { LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
-
 
 export const LoginByGoogle = () => {
   const [loading, setLoading] = useState(false)
@@ -12,7 +12,7 @@ export const LoginByGoogle = () => {
       ? location.href + '&callback=google'
       : location.href + '?callback=google'
     window.location.href =
-      process.env.NEXT_PUBLIC_CMS +
+      NEXT_PUBLIC_CMS +
       `/auth/login/google?redirect=${encodeURIComponent(currentUrl)}`
   }
   return (

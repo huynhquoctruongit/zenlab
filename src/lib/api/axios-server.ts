@@ -1,5 +1,5 @@
 import axios from "axios";
-import { directus } from "../directus";
+import { NEXT_PUBLIC_CMS } from "@/services/helpers";
 export const axiosServer = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API,
   headers: {
@@ -10,7 +10,7 @@ export const axiosServer = axios.create({
 });
 
 export const axiosServerDirectus = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_CMS,
+  baseURL: NEXT_PUBLIC_CMS,
   headers: {
     "Content-Type": "application/json",
   },

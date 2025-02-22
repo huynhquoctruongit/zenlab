@@ -1,5 +1,4 @@
-export const CROSS_DOMAIN = process.env.NEXT_PUBLIC_ELEARNING_DOMAIN;
-export const CMS_DOMAIN = process.env.NEXT_PUBLIC_CMS;
+export const CMS_DOMAIN = "https://cms.zenlab.edu.vn";
 export const ENV_MODE = "PRODUCTION"
 
 const API: any = {

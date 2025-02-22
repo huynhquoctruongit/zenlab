@@ -14,21 +14,21 @@ const LayoutCommon = ({ children }: any) => {
 
   return (
     <Suspense fallback={<div></div>}>
-      {/* <SWRConfig
+      <SWRConfig
         value={{
           revalidateIfStale: false,
           revalidateOnFocus: false,
           fetcher: fetcherClient,
           errorRetryCount: 3
         }}
-      > */}
-      <div className='flex flex-col h-screen-mobile md:h-screen'>
-        <Header />
-        {/* <LoginByGoogle /> */}
-        <div className='flex-1 h-full relative overflow-auto'>{children}</div>
-        <Footer />
-      </div>
-      {/* </SWRConfig> */}
+      >
+        <div className='flex flex-col h-screen-mobile md:h-screen'>
+          <Header />
+          {/* <LoginByGoogle /> */}
+          <div className='flex-1 h-full relative overflow-auto'>{children}</div>
+          {/* <Footer /> */}
+        </div>
+      </SWRConfig>
     </Suspense>
   )
 }
