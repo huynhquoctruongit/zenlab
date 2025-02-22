@@ -3,13 +3,14 @@ import parse from 'html-react-parser'
 import { regexInput, findInput } from '../helper'
 import useAnswerList from '../helper/use-answer'
 
-const CreateInput = ({resultList, question, onInputChange }: any) => {
- 
+const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
+  console.log(answer, 'answer')
+
   const options = {
     replace: (domNode: any) => {
       if (domNode.type === 'tag' && domNode.name === 'input') {
         const index = domNode.attribs['data-index']
-        const match = resultList[question.id]
+        const match = resultList?.[question.id]
         return (
           <input
             type='text'
@@ -24,7 +25,11 @@ const CreateInput = ({resultList, question, onInputChange }: any) => {
   const parsedHtml = question.fill_blank.replace(
     regexInput,
     (_: any, index: any, value: any) => {
-      return `<input data-index="${index}" data-value="${value}" />`
+      const choised = answer[index]
+      const { correct }: any = choised
+      return `<input class={${
+        correct ? 'bg-green' : 'bg-red'
+      }} data-index="${index}" data-value="${value}" />`
     }
   )
 
@@ -40,7 +45,7 @@ const checkAnswer = (question: any, index: any, value: any) => {
   return correct
 }
 
-const FillBlank = ({ resultList, question }: any) => {
+const FillBlank = ({ resultList, question, answer }: any) => {
   const { answer_list, setAnswerList }: any = useAnswerList()
   const handleInputChange = (index: string, value: string) => {
     const newAnswer = {
@@ -60,7 +65,14 @@ const FillBlank = ({ resultList, question }: any) => {
     }
     setAnswerList(prevAnswerList)
   }
-  return <CreateInput resultList={resultList} question={question} onInputChange={handleInputChange} />
+  return (
+    <CreateInput
+      answer={answer}
+      resultList={resultList}
+      question={question}
+      onInputChange={handleInputChange}
+    />
+  )
 }
 
 export default FillBlank

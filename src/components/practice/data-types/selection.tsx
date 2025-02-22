@@ -3,7 +3,7 @@ import { ChevronDown } from 'lucide-react'
 import { useRef, useState } from 'react'
 import useAnswerList from '../helper/use-answer'
 
-const Selection = ({ question }: any) => {
+const Selection = ({ question, answer }: any) => {
   const [selected, setSelected]: any = useState('')
   const [isOpen, setOpen]: any = useState(false)
   const ref = useRef(null)

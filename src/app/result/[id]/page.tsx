@@ -1,30 +1,29 @@
 'use client'
 import { locationQuestion } from '@/components/practice/helper'
-import { questionList, content } from '../../components/practice/data'
+import { questionList, content, resultList } from '../../../components/practice/data'
 import FillBlank from '@/components/practice/data-types/fill_blank'
 import Selection from '@/components/practice/data-types/selection'
 import Multiple from '@/components/practice/data-types/checkbox'
-import useAnswerList from '@/components/practice/helper/use-answer'
 import Radio from '@/components/practice/data-types/radio'
 import PracticeFooter from '@/components/practice/footer'
-import { useRouter } from 'next/navigation'
 
-const Practice = () => {
+const Result = () => {
   const dataType = (question: any) => {
     if (question.type === 'fill_blank')
-      return <FillBlank key={question.id} question={question} />
+      return <FillBlank key={question.id} answer={resultList[question.id]} question={question} />
     if (question.type === 'selection')
-      return <Selection key={question.id} question={question} />
+      return <Selection key={question.id}  answer={resultList[question.id]} question={question} />
     if (question.type === 'radio')
-      return <Radio key={question.id} question={question} />
+      return <Radio key={question.id} answer={resultList[question.id]} question={question} />
     if (question.type === 'multiple')
-      return <Multiple key={question.id} question={question} />
+      return <Multiple key={question.id} answer={resultList[question.id]} question={question} />
   }
   const dataList = locationQuestion(questionList)
-  const router = useRouter()
   const onSubmit = () => {
-    router.push('/result/362')
+    // router.push('/result/362')
   }
+
+  
 
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1'>
@@ -55,4 +54,4 @@ const Practice = () => {
     </div>
   )
 }
-export default Practice
+export default Result

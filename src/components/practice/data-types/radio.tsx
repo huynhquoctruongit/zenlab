@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import useAnswerList from '../helper/use-answer'
 
-const Radio = ({ question }: any) => {
+const Radio = ({ question, answer }: any) => {
   const [selected, setSelected]: any = useState('')
   const { answer_list, setAnswerList }: any = useAnswerList()
   const onSelect = (item: any) => {

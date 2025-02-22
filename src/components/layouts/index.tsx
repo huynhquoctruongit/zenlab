@@ -7,7 +7,7 @@ import { LoginByGoogle } from '../auth/login'
 import { useAuth } from '@/hook/use-auth'
 
 const LayoutCommon = ({ children }: any) => {
-  const { isLogin, profile } = useAuth({ revalidateOnMount: true })
+  // const { isLogin, profile } = useAuth({ revalidateOnMount: true })
 
   const clientId =
     '202303269429-fr27lpl45abhbjdcl9s3h8sguhlejdpn.apps.googleusercontent.com'
@@ -22,10 +22,10 @@ const LayoutCommon = ({ children }: any) => {
           errorRetryCount: 3
         }}
       >
-        <div className='relative'>
+        <div className='flex flex-col h-screen-mobile md:h-screen'>
           <Header />
           {/* <LoginByGoogle /> */}
-          <div className='relative z-[1] w-full'>{children}</div>
+          <div className='flex-1 h-full relative overflow-auto'>{children}</div>
           {/* <Footer /> */}
         </div>
       </SWRConfig>
