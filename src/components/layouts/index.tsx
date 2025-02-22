@@ -1,4 +1,3 @@
-'use client'
 import { Header, Footer } from '@/components/share-layout/index'
 import { fetcherClient } from '@/lib/api/axios-client'
 import { Suspense } from 'react'
