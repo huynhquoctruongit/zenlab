@@ -24,7 +24,7 @@ const LayoutCommon = ({ children }: any) => {
       >
         <div className='flex flex-col h-screen-mobile md:h-screen'>
           <Header />
-          {/* <LoginByGoogle /> */}
+          <LoginByGoogle />
           <div className='flex-1 h-full relative overflow-auto'>{children}</div>
           {/* <Footer /> */}
         </div>

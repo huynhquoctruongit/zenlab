@@ -321,7 +321,7 @@ export const resultList: any = {
       value: 'hehe'
     },
     '2': {
-      correct: false,
+      correct: true,
       value: '0865701158'
     },
     '4': {

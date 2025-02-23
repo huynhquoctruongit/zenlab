@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { cn } from '@/services/helpers'
 import useAnswerList from '../helper/use-answer'
 
-const Checkbox = ({ question, answer }: any) => {
+export const Multiple = ({ question, answer }: any) => {
   const [selected, setSelected]: any = useState([])
   const { answer_list, setAnswerList }: any = useAnswerList()
 
@@ -33,23 +33,29 @@ const Checkbox = ({ question, answer }: any) => {
           >
             <div className='text-sm'>
               <div className='flex justify-between items-center'>
-                {answer && (
-                  <CheckboxUI
-                    choised={choised}
-                    answer={answer}
-                    isSelected={isSelected}
-                  />
-                )}
+                <CheckboxUI
+                  choised={choised}
+                  answer={answer}
+                  isSelected={isSelected}
+                />
               </div>
             </div>
             <p>{item.text}</p>
           </div>
         )
       })}
+      {answer && (
+        <div className='bg-slate-100 rounded-md p-4 border my-4 backdrop-blur-sm'>
+          <p className='underline'>Đáp án:</p>
+          {question.mutilple_choice.map((item: any, index: any) => {
+            if (!item.correct) return
+            return <p key={index}>- {item.text}</p>
+          })}
+        </div>
+      )}
     </div>
   )
 }
-export default Checkbox
 const CheckboxUI = ({ choised, answer, isSelected }: any) => {
   const { correct } = choised || {}
   return (

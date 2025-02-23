@@ -8,7 +8,7 @@ export function cn (...inputs: ClassValue[]) {
 }
 export function getHostname (input: any) {
   if (input.indexOf('zenlab') > -1) {
-    return '.zenlab-staging.vercel.app'
+    return '.e-learning.zenlab.edu.vn'
   } else {
     return 'localhost'
   }

@@ -1,10 +1,12 @@
 'use client'
 import { locationQuestion } from '@/components/practice/helper'
-import { questionList, content } from '../../components/practice/data'
-import FillBlank from '@/components/practice/data-types/fill_blank'
-import Selection from '@/components/practice/data-types/selection'
-import Multiple from '@/components/practice/data-types/checkbox'
-import Radio from '@/components/practice/data-types/radio'
+import { questionList, content } from '@/components/practice/data'
+import {
+  FillBlank,
+  Selection,
+  Multiple,
+  Radio
+} from '@/components/practice/data-types/index'
 import PracticeFooter from '@/components/practice/footer'
 import { useRouter } from 'next/navigation'
 

@@ -25,6 +25,7 @@ const AuthForm = () => {
     try {
       const res: any = await directus.refresh();
       const { access_token, expires } = res;
+      
       setAccessToken(access_token, expires);
       if (!access_token) return;
       await getProfile();
@@ -36,6 +37,8 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (callback === "google") {
+      console.log('asasaas');
+      
       loginByGoogle();
     }
   }, []);
