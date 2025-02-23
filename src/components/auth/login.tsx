@@ -45,7 +45,7 @@ export const LoginByGoogle = () => {
     //   : location.href + '?callback=google'
     window.location.href =
       NEXT_PUBLIC_CMS +
-      `/auth/login/google?redirect=${encodeURIComponent(currentUrl)}`
+      `/auth/login/google?redirect=https://e-learning.zenlab.edu.vn?callback=google`
   }
   return (
     <div
