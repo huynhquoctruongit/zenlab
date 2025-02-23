@@ -39,13 +39,11 @@ export const LoginByGoogle = () => {
 
   const clickLoginByGoogle = async () => {
     setLoading(true)
-    const currentUrl = 'https://e-learning.zenlab.edu.vn?callback=google'
-    // location.href.includes('?')
-    //   ? location.href + '&callback=google'
-    //   : location.href + '?callback=google'
+    const currentUrl = location.href.includes('?')
+      ? location.href + '&callback=google'
+      : location.href + '?callback=google'
     window.location.href =
-      NEXT_PUBLIC_CMS +
-      `/auth/login/google?redirect=https://e-learning.zenlab.edu.vn?callback=google`
+      NEXT_PUBLIC_CMS + `/auth/login/google?redirect=${currentUrl}`
   }
   return (
     <div
