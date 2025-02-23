@@ -6,6 +6,7 @@ import { useAuth } from '@/hook/use-auth'
 import { directus } from '@/lib/directus'
 import { setAccessToken } from '@/services/helpers'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { Button } from '../ui/button'
 
 export const LoginByGoogle = () => {
   const router = useRouter()
@@ -18,13 +19,11 @@ export const LoginByGoogle = () => {
     try {
       const res: any = await directus.refresh()
       const { access_token, expires } = res
-      console.log(res, 'res')
-
       setAccessToken(access_token, expires)
       if (!access_token) return
       await getProfile()
       if (window.location.pathname === '/') {
-        router.push('/home')
+        router.push('/')
       }
     } catch (error) {
       console.log(error, 'error')
@@ -50,16 +49,20 @@ export const LoginByGoogle = () => {
       onClick={clickLoginByGoogle}
       className='flex group duration-200 ease-in-out rounded-full justify-center'
     >
-      {loading && (
-        <div>
-          <LoaderCircle className='animate-spin w-4 h-4' />
-        </div>
-      )}
-      <img src='/images/google.webp' alt='' className='w-6 h-6' />
-      <p className='button duration-200 ease-in-out flex items-center gap-2'>
-        Đăng nhập với Googleasas
-      </p>
-      <img src='/images/google.webp' alt='' className='w-6 h-6 opacity-0' />
+      <Button className='ml-5 flex items-center justify-center gap-2'>
+        <p>Đăng nhập</p>
+        {(loading && (
+          <div>
+            <LoaderCircle className='animate-spin w-5 h-5' />
+          </div>
+        )) || (
+          <img
+            src='https://static.vecteezy.com/system/resources/previews/022/613/027/non_2x/google-icon-logo-symbol-free-png.png'
+            alt=''
+            className='w-5 h-5'
+          />
+        )}
+      </Button>
     </div>
   )
 }

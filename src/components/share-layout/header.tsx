@@ -1,14 +1,65 @@
-import { Button } from '../ui/button'
+import { useAuth } from '@/hook/use-auth'
+import { LoginByGoogle } from '../auth/login'
+import { UserRound } from 'lucide-react'
+import { fullName } from '@/lib/utils'
 import Menu from './menu'
+import Link from 'next/link'
 
 export const Header = () => {
+  const { profile, logout }: any = useAuth()
+
   return (
-    <div className='py-2 bg-white w-full sticky top-0 z-10 bg-white/50 backdrop-blur-sm'>
+    <div className='py-2 bg-white w-full sticky top-0 z-10 bg-white/50 backdrop-blur-sm transition-all'>
       <div className='max-w-[1400px] px-6 mx-auto flex justify-between items-center'>
-        <p className='font-bold text-2xl text-primary1'>ZenLab</p>
+        <Link href='/'>
+          <p className='font-bold text-2xl text-primary1'>ZenLab</p>
+        </Link>
         <div className='flex items-center gap-4'>
           <Menu />
-          <Button className='ml-5'>Đăng nhập</Button>
+          {profile?.id && <UserInfo profile={profile} logout={logout} />}
+          {!profile?.id && <LoginByGoogle />}
+        </div>
+      </div>
+    </div>
+  )
+}
+const menuList = [
+  {
+    name: 'Home',
+    href: '/'
+  },
+  {
+    name: 'About',
+    href: '/about'
+  },
+  {
+    name: 'Khoá học',
+    href: '/course'
+  }
+]
+export const UserInfo = ({ profile, logout }: any) => {
+  return (
+    <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer shadow-lg relative group'>
+      <UserRound />
+      <div className='absolute -bottom-full text-black right-1 w-full h-full group-hover:block hidden min-w-[300px]'>
+        <div className='bg-white rounded-md p-3 border shadow-md text-left w-full'>
+          <div className='flex items-center gap-2'>
+            <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer shadow-lg relative group'>
+              <UserRound />
+            </div>
+            <div className='truncate'>
+              <p className='text-sm'>{fullName(profile)}</p>
+              <p className='line-clamp-1 font-light text-xs'>
+                {profile?.email}
+              </p>
+            </div>
+          </div>
+          <div
+            onClick={() => logout()}
+            className='mt-4 text-center hover:bg-rose-400 bg-rose-200 p-2 rounded-md hover:text-white'
+          >
+            Logout
+          </div>
         </div>
       </div>
     </div>

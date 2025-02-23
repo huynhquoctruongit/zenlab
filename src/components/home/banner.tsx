@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button } from '../ui/button'
 
 const Banner = () => {
@@ -14,9 +15,7 @@ const Banner = () => {
               <span className='underline'>miễn phí</span>
             </p>
           </div>
-          <Button className='mt-10' size={'lg'}>
-            Tham gia ngay
-          </Button>
+          <Link href='/practice/reading/234'><Button className='mt-6' size={"lg"}>Tham gia ngay</Button></Link>
         </div>
         <div className='w-[40%]'>
           <img className='w-full' src='/images/flat-images/relaxed.png' />

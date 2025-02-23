@@ -16,6 +16,7 @@ html {
   font-family: var(--Be_Vietnam_Pro_Font);
 }
 body {
+  font-weight: 400;
   color: var(--foreground);
   background: var(--background);
 }

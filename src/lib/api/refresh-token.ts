@@ -37,8 +37,6 @@ const removeCookie = () => {
 
 export const refreshAccessToken = async () => {
   const res: any = await directus.refresh().catch((error: any) => {
-    console.log(res,'res');
-    
     removeCookie();
     directus.logout();
     return null;

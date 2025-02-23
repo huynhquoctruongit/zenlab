@@ -8,7 +8,6 @@ import { useAuth } from "@/hook/use-auth";
 import useAuthForm from "@/hook/use-form";
 import Modal from "../modal";
 
-
 let first_send = false;
 const AuthForm = () => {
   const params: any = useSearchParams();
@@ -30,15 +29,13 @@ const AuthForm = () => {
       if (!access_token) return;
       await getProfile();
       if (window.location.pathname === "/") {
-        router.push("/home");
+        router.push("/");
       }
     } catch (error) {}
   };
 
   useEffect(() => {
     if (callback === "google") {
-      console.log('asasaas');
-      
       loginByGoogle();
     }
   }, []);
