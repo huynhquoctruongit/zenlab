@@ -18,8 +18,8 @@ export const LoginByGoogle = () => {
     try {
       const res: any = await directus.refresh()
       const { access_token, expires } = res
-      console.log(res,'res');
-      
+      console.log(res, 'res')
+
       setAccessToken(access_token, expires)
       if (!access_token) return
       await getProfile()
@@ -27,8 +27,7 @@ export const LoginByGoogle = () => {
         router.push('/home')
       }
     } catch (error) {
-      console.log(error,'error');
-      
+      console.log(error, 'error')
     }
   }
 
@@ -45,7 +44,7 @@ export const LoginByGoogle = () => {
     //   ? location.href + '&callback=google'
     //   : location.href + '?callback=google'
     window.location.href =
-      process.env.NEXT_PUBLIC_CMS +
+      NEXT_PUBLIC_CMS +
       `/auth/login/google?redirect=${encodeURIComponent(currentUrl)}`
   }
   return (
