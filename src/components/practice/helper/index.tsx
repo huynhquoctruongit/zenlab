@@ -14,7 +14,7 @@ export const findInput = (text: any) => {
 
 export const locationQuestion = (questionList: any) => {
   let location = 0
-  return questionList.map((item: any) => {
+  return questionList?.map((item: any) => {
     const length =
       item.type === 'fill_blank'
         ? findInput(item.fill_blank).length

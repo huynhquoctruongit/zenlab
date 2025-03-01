@@ -1,24 +1,21 @@
-import { create } from 'zustand'
+'use client'
 import useSWR from 'swr'
 import { fetcherClient } from '@/lib/api/axios-client'
 import { useParams } from 'next/navigation'
 
-export const useAnswerList = create(set => ({
-  answer_list: [],
-  setAnswerList: (state: any) => set(() => ({ answer_list: state }))
-}))
-
-export const useAnswer = () => {
+const useDetail = () => {
   const params = useParams()
   const id = params.id
   const query = {
-    fields: ['*', 'quiz.*', 'quiz.part.*', 'quiz.part.question.*'],
+    fields: ['*', 'part.*', 'part.question.*'],
     filter: { id: { _eq: id } }
   }
-  const url = ['/items/answer', query]
+  const url = ['/items/quiz', query]
   const { data } = useSWR(url, fetcherClient)
 
   return {
     data: data?.data?.data?.[0]
   }
 }
+
+export default useDetail

@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/services/helpers'
-import useAnswerList from '../helper/use-answer'
+import { useAnswerList } from '../helper/use-answer'
 
 export const Multiple = ({ question, answer }: any) => {
   const [selected, setSelected]: any = useState([])
@@ -21,9 +21,11 @@ export const Multiple = ({ question, answer }: any) => {
 
   return (
     <div className='flex flex-col gap-3'>
-      {question.mutilple_choice.map((item: any, index: any) => {
-        const isSelected = selected?.find((elm: any) => elm?.text == item.text)
-        const choised = answer?.find((elm: any) => elm?.text == item.text)
+      {question.multiple_choice.map((item: any, index: any) => {
+        const isSelected = selected?.find(
+          (elm: any) => elm?.title == item.title
+        )
+        const choised = answer?.find((elm: any) => elm?.title == item.title)
 
         return (
           <div
@@ -40,16 +42,16 @@ export const Multiple = ({ question, answer }: any) => {
                 />
               </div>
             </div>
-            <p>{item.text}</p>
+            <p>{item.title}</p>
           </div>
         )
       })}
       {answer && (
         <div className='bg-slate-100 rounded-md p-4 border my-4 backdrop-blur-sm'>
           <p className='underline'>Đáp án:</p>
-          {question.mutilple_choice.map((item: any, index: any) => {
+          {question.multiple_choice.map((item: any, index: any) => {
             if (!item.correct) return
-            return <p key={index}>- {item.text}</p>
+            return <p key={index}>- {item.title}</p>
           })}
         </div>
       )}

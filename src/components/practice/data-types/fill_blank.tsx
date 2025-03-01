@@ -1,8 +1,9 @@
 import React from 'react'
 import parse from 'html-react-parser'
 import { regexInput, findInput } from '../helper'
-import useAnswerList from '../helper/use-answer'
+import {useAnswerList} from '../helper/use-answer'
 import { cn } from '@/services/helpers'
+
 
 const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
   const options = {
@@ -32,7 +33,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
     }
   }
 
-  const parsedHtml = question.fill_blank.replace(
+  const parsedHtml = question.gap_filling.replace(
     regexInput,
     (_: any, index: any, value: any) => {
       const choised = answer?.[index]
@@ -46,7 +47,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
   return <div>{parse(parsedHtml, options)}</div>
 }
 const checkAnswer = (question: any, index: any, value: any) => {
-  const inputs = findInput(question.fill_blank)
+  const inputs = findInput(question.gap_filling)
   let correct = false
   inputs.every(input => {
     if (input.position == index && input.text === value) correct = true
@@ -57,6 +58,7 @@ const checkAnswer = (question: any, index: any, value: any) => {
 
 export const FillBlank = ({ resultList, question, answer }: any) => {
   const { answer_list, setAnswerList }: any = useAnswerList()
+
   const handleInputChange = (index: string, value: string) => {
     const newAnswer = {
       correct: checkAnswer(question, index, value),
@@ -75,7 +77,7 @@ export const FillBlank = ({ resultList, question, answer }: any) => {
     }
     setAnswerList(prevAnswerList)
   }
-  const inputs = findInput(question.fill_blank)
+  const inputs = findInput(question.gap_filling)
   return (
     <>
       <CreateInput

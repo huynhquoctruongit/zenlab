@@ -279,27 +279,7 @@ export const questionList = [
   }
 ]
 
-export const content = `<h3>Week 1: Essay structure</h3>
-<table style="border-collapse: collapse; width: 92.6027%; border: 1px solid rgb(0, 0, 0);" border="1">
-<tbody>
-<tr>
-<td style="width: 100%; border-width: 1px; border-color: rgb(0, 0, 0);"><strong><u>Exercise 1</u></strong>: Write <span style="color: #ff0000;"><strong><u>ONE supporting idea</u></strong></span> for the following prompts.</td>
-</tr>
-</tbody>
-</table>
-<p dir="ltr"><span style="text-decoration: underline;"><strong>Topic 1:</strong></span> Sau khi tốt nghiệp cấp 3 th&igrave; n&ecirc;n đi l&agrave;m lu&ocirc;n hay đi học đại học? -&gt; N&ecirc;n học đại học.</p>
-<p dir="ltr"><em><strong>(Core idea)</strong></em> Một c&aacute;i lợi của việc đi học đại học đ&oacute; l&agrave; sinh vi&ecirc;n c&oacute; nhiều năm để nghi&ecirc;n cứu một lĩnh vực <em><strong>(Development) </strong></em>Impact</p>
-<p dir="ltr">=&gt; &hellip;&hellip;&hellip;&hellip;&hellip;..</p>
-<p dir="ltr"><span style="text-decoration: underline;"><strong>Topic 2: </strong></span>C&oacute; n&ecirc;n cấm trẻ em chơi video games kh&ocirc;ng? -&gt; Kh&ocirc;ng n&ecirc;n cấm</p>
-<p dir="ltr"><em><strong>(Core idea)</strong></em> Một c&aacute;i lợi của việc chơi games đ&oacute; l&agrave; ng&agrave;y nay trẻ em chơi game online c&oacute; cơ hội để l&agrave;m quen với bạn b&egrave; từ khắp nơi tr&ecirc;n thế giới ngay tại nh&agrave; m&igrave;nh.</p>
-<p dir="ltr"><em><strong>(Development) </strong></em>Viết tự do.</p>
-<p dir="ltr">=&gt; &hellip;&hellip;&hellip;&hellip;&hellip;..</p>
-<p><strong><u>Topic 1</u></strong>: Some people think that too much money has been spent looking after and repairing old buildings, so we should knock down old buildings and build modern ones instead. To what extent do you agree or disagree?</p>
-<p>=&gt; &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..</p>
-<p><strong><u>Topic 2</u></strong>: The best way to teach children to cooperate is through team sports at school. To what extent do you agree or disagree?</p>
-<p>=&gt; &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..</p>
-<p><strong><u>Topic 3</u></strong>: Some people believe teenagers should focus on all subjects equally, whereas other people think that they should concentrate on only those subjects that they find interesting. Discuss both views and give your opinion.</p>
-<p>=&gt; &hellip;&hellip;&hellip;&hellip;&hellip;&hellip;..</p>`
+export const content = ``
 
 export const resultList: any = {
   '1147': {

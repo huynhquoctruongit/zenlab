@@ -9,7 +9,7 @@ export const Header = () => {
   const { profile, logout }: any = useAuth()
 
   return (
-    <div className='py-2 bg-white w-full sticky top-0 z-10 bg-white/50 backdrop-blur-sm transition-all'>
+    <div className='py-2 bg-white w-full sticky top-0 z-50 bg-white/50 backdrop-blur-sm transition-all'>
       <div className='max-w-[1400px] px-6 mx-auto flex justify-between items-center'>
         <Link href='/'>
           <p className='font-bold text-2xl text-primary1'>ZenLab</p>
@@ -56,7 +56,7 @@ export const UserInfo = ({ profile, logout }: any) => {
           </div>
           <div
             onClick={() => logout()}
-            className='mt-4 text-center hover:bg-rose-400 bg-rose-200 p-2 rounded-md hover:text-white'
+            className='mt-4 text-center hover:bg-gray-300 bg-gray-200 p-2 rounded-md'
           >
             Logout
           </div>

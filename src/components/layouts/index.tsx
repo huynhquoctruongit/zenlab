@@ -19,11 +19,10 @@ const LayoutCommon = ({ children }: any) => {
           errorRetryCount: 3
         }}
       >
-        <div className='flex flex-col h-screen-mobile md:h-screen'>
+        <div className=''>
           <Header />
-          
-          <div className='flex-1 h-full relative overflow-auto'>{children}</div>
-          {/* <Footer /> */}
+          <div className='relative'>{children}</div>
+          <Footer />
         </div>
       </SWRConfig>
     </Suspense>

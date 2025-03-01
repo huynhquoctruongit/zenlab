@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Be_Vietnam_Pro } from 'next/font/google'
 import './globals.css'
+import 'react-h5-audio-player/lib/styles.css';
 import LayoutCommon from '@/components/layouts'
 
 const Be_Vietnam_Pro_Font: any = Be_Vietnam_Pro({

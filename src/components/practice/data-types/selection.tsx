@@ -1,7 +1,7 @@
 import useOnClickOutside from '@/hook/outside'
 import { ChevronDown } from 'lucide-react'
 import { useRef, useState } from 'react'
-import useAnswerList from '../helper/use-answer'
+import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
 
 export const Selection = ({ question, answer }: any) => {
@@ -17,7 +17,7 @@ export const Selection = ({ question, answer }: any) => {
     setSelected(elm)
     const answer = {
       answer: elm.option,
-      correct: elm.option == item.answer
+      correct: elm.option == item.correct
     }
     setAnswerList({ ...answer_list, [question.id]: answer })
   }
@@ -65,7 +65,7 @@ export const Selection = ({ question, answer }: any) => {
                 </div>
               )}
             </div>
-            <p>{item.text}</p>
+            <p>{item.title}</p>
           </div>
         )
       })}
@@ -75,7 +75,7 @@ export const Selection = ({ question, answer }: any) => {
           {question.selection.map((item: any, index: any) => {
             return (
               <p key={index}>
-                {item.answer} - {item.text}
+                {item.correct}
               </p>
             )
           })}
