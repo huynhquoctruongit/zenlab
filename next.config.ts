@@ -1,3 +1,6 @@
+// next.config.js
+/** @type {import('next').NextConfig} */
+
 import type { NextConfig } from "next";
 import NextBundleAnalyzer from "@next/bundle-analyzer";
 export const nextConfig: NextConfig = {
