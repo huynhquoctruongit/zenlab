@@ -10,26 +10,27 @@ export const nextConfig: NextConfig = {
 };
 
 module.exports = {
-  webpack: (config : any) => {
+  output: "standalone",
+  webpack: (config: any) => {
     config.module.rules.push({
       test: /\.worker\.js$/,
-      loader: 'worker-loader',
+      loader: "worker-loader",
       options: {
-        name: 'static/[hash].worker.js',
-        publicPath: '/_next/'
-      }
-    })
+        name: "static/[hash].worker.js",
+        publicPath: "/_next/",
+      },
+    });
 
     // Overcome Webpack referencing `window` in chunks
-    config.output.globalObject = `(typeof self !== 'undefined' ? self : this)`
+    config.output.globalObject = `(typeof self !== 'undefined' ? self : this)`;
 
-    return config
-  }
-}
+    return config;
+  },
+};
 const withBundleAnalyzer = NextBundleAnalyzer({
   enabled: !!process.env.ANALYZE == true,
 });
 const bundledConfig = withBundleAnalyzer({
-   ...nextConfig
+  ...nextConfig,
 });
-export default bundledConfig ;
+export default bundledConfig;
