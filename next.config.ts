@@ -1,12 +1,10 @@
 import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+import NextBundleAnalyzer from "@next/bundle-analyzer";
+export const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: false,
   output: "standalone",
 };
-
-export default nextConfig;
 
 module.exports = {
   webpack: (config : any) => {
@@ -25,3 +23,10 @@ module.exports = {
     return config
   }
 }
+const withBundleAnalyzer = NextBundleAnalyzer({
+  enabled: !!process.env.ANALYZE == true,
+});
+const bundledConfig = withBundleAnalyzer({
+   ...nextConfig
+});
+export default bundledConfig ;

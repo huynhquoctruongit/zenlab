@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@directus/sdk": "^18.0.3",
+    "@next/bundle-analyzer": "^15.2.0",
     "@radix-ui/react-slot": "^1.1.2",
     "@zeit/next-workers": "^1.0.0",
     "axios": "^1.7.9",
