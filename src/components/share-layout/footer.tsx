@@ -65,6 +65,7 @@ const footerMenus = {
 }
 
 export const Footer = () => {
+  
   return (
     <footer className="bg-gradient-to-b from-white via-[#e1e3f4] to-[#e1e3f4] backdrop-blur-md">
       <div className="max-w-[1440px] mx-auto px-6 py-12">

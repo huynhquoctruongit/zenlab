@@ -21,7 +21,7 @@ const LayoutCommon = ({ children }: any) => {
       >
         <div className=''>
           <Header />
-          <div className='relative'>{children}</div>
+          <div className='relative h-full min-h-screen'>{children}</div>
           <Footer />
         </div>
       </SWRConfig>
