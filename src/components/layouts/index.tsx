@@ -19,11 +19,9 @@ const LayoutCommon = ({ children }: any) => {
           errorRetryCount: 3
         }}
       >
-        <div className=''>
-          <Header />
-          <div className='relative h-full min-h-screen'>{children}</div>
-          <Footer />
-        </div>
+        <Header />
+        <div className='flex-1 h-[calc(100vh-56px)] relative overflow-auto'>{children}</div>
+        <Footer />
       </SWRConfig>
     </Suspense>
   )
