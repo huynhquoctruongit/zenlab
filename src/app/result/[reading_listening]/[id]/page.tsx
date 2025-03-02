@@ -35,6 +35,7 @@ const Practice = () => {
   const onSubmit = () => {
     router.push('/result/1')
   }
+  
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1'>
       <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
