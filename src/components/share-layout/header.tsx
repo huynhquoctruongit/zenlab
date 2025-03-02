@@ -9,10 +9,12 @@ export const Header = () => {
   const { profile, logout }: any = useAuth()
 
   return (
-    <div className='py-2 bg-white w-full sticky top-0 z-50 bg-white/50 backdrop-blur-sm transition-all'>
+    <div className='py-2 bg-white w-full sticky top-0 z-50 bg-white/50 backdrop-blur-sm transition-all h-[66px]'>
       <div className='max-w-[1400px] px-6 mx-auto flex justify-between items-center'>
         <Link href='/'>
-          <p className='font-bold text-2xl text-primary1'>ZenLab</p>
+          <p className='font-bold text-2xl text-primary1'>
+            <img src='/images/zenlab-logo.svg' alt='logo' className='w-[150px]' />
+          </p>
         </Link>
         <div className='flex items-center gap-4'>
           <Menu />

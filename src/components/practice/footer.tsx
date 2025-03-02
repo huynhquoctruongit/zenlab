@@ -11,7 +11,7 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
           setActivePart(index)
           setPart(index)
         }}
-        className={`gap-6 border border-gray-300 rounded-xl px-4 py-2 cursor-pointer ${
+        className={`gap-6 border border-gray-300 rounded-xl px-4 py-1 cursor-pointer ${
           activePart === index ? 'border-primary1 text-black' : ''
         }`}
       >
@@ -29,7 +29,7 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
   const [activePart, setActivePart] = useState(0)
 
   return (
-    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-4 px-12'>
+    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-12'>
       <div className='flex justify-between items-center'>
         <PartSelector
           data={data}

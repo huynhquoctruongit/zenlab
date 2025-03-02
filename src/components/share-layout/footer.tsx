@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation'
 const footerMenus = {
   about: {
     title: 'Về ZenLab',
+    image: '/images/zenlab-logo.svg',
     description:
       'Nền tảng học và luyện thi IELTS hoàn toàn miễn phí, cung cấp đầy đủ tài liệu, bài tập thực hành và đề thi thử, giúp bạn nâng cao kỹ năng nghe, nói, đọc, viết. Với lộ trình học thông minh và các công cụ hỗ trợ cá nhân hóa, bạn có thể dễ dàng đạt được mục tiêu điểm số mong muốn.'
   },
@@ -247,7 +248,11 @@ export const Footer = () => {
         <div className='grid grid-cols-1 md:grid-cols-12 gap-4'>
           <div className='md:col-span-5 mr-12'>
             <h3 className='text-xl font-semibold mb-4 text-primary1'>
-              {footerMenus.about.title}
+              <img
+                src={footerMenus.about.image}
+                alt='logo'
+                className='w-[250px] md:w-[550px] mx-auto md:mx-0 translate-x-0 md:-translate-x-5'
+              />
             </h3>
             <p className='text-[12px] font-light text-gray-600 leading-relaxed'>
               {footerMenus.about.description}

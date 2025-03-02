@@ -101,7 +101,7 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
   }
 
   return (
-    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-4 px-12'>
+    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-2 px-12'>
       <div className='flex justify-between items-center'>
         <PartSelector
           data={data}
