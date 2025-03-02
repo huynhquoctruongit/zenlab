@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 const Banner = () => {
   return (
-    <div className='w-full min-h-screen bg-white to-white relative overflow-hidden'>
+    <div className='w-full min-h-screen bg-gradient-to-b from-white to-[#f5f5f7] relative overflow-hidden'>
       <div className='absolute inset-0' />
 
       <motion.div

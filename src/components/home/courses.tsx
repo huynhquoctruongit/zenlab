@@ -109,7 +109,7 @@ const itemVariants = {
 const Courses = () => {
   return (
     <div className='relative'>
-      <div className='w-full bg-gradient-to-b from-white to-[#f5f5f7] py-16 md:py-24'>
+      <div className='w-full bg-gradient-to-b from-[#f5f5f7] to-white py-16 md:py-24'>
         <div className='md:max-w-[90%] mx-auto px-4 sm:px-6 lg:px-12'>
           {/* Courses Section */}
           <motion.div
