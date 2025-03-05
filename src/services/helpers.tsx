@@ -13,12 +13,18 @@ export function getHostname (input: any) {
     return 'localhost'
   }
 }
-export const enumType : any = {
+export const enumType: any = {
   speaking: 1,
   reading: 2,
   writing: 3,
   listening: 4
 }
+export const enumDataType: any = [
+  { id: '2', name: 'reading', icon: '📚' },
+  { id: '4', name: 'listening', icon: '🎧' },
+  { id: '3', name: 'writing', icon: '✍️' },
+  { id: '1', name: 'speaking', icon: '🎤' }
+]
 export const setAccessToken = (access_token: string, expires: number) => {
   const isLocal = window.location.hostname === 'localhost'
   setCookie('auth_token', access_token, {

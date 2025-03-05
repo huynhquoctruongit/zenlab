@@ -30,12 +30,14 @@ const Practice = () => {
   const { part }: any = usePractice()
 
   const questionList = data?.part[part]?.question
-  const content = data?.part[part]?.content
+  const quiz_data = data?.part[part]
   const dataList = locationQuestion(questionList)
 
   const { answer_list }: any = useAnswerList()
   const router = useRouter()
   const params = useParams()
+  console.log(params,'params');
+  
   const id = params.id
   const data_type: any = params.reading_listening
   const onSubmit = () => {
@@ -43,6 +45,7 @@ const Practice = () => {
       status: 'published',
       answers: answer_list,
       quiz: id,
+      class : data?.class,
       data_type: enumType[data_type]
     }).then(res => {
       const resultId = res.data.data.id
@@ -54,7 +57,8 @@ const Practice = () => {
       <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
         <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
           <div className='h-full w-full'>
-            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
+            <div dangerouslySetInnerHTML={{ __html: quiz_data?.content }}></div>
           </div>
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>

@@ -11,15 +11,15 @@ const menuList = [
     submenu: [
       {
         title: 'IELTS Reading',
-        url: '/courses/ielts-reading'
+        url: '/courses'
       },
       {
         title: 'IELTS Listening', 
-        url: '/courses/ielts-listening'
+        url: '/courses'
       },
       {
         title: 'IELTS Writing',
-        url: '/courses/ielts-writing' 
+        url: '/courses' 
       }
     ]
   },
@@ -64,7 +64,7 @@ const Menu = () => {
 
           {menu.submenu && (
             <div className="absolute left-0 z-10 w-48 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-              <div className="py-2 bg-white/80 backdrop-blur-md rounded-lg shadow-xl border border-gray-100/50">
+              <div className="py-2 bg-white rounded-lg shadow-xl border border-gray-100/50">
                 {menu.submenu.map((item, idx) => (
                   <a
                     key={idx}

@@ -237,9 +237,7 @@ const footerMenus = {
 
 export const Footer = () => {
   const pathname: any = usePathname()
-  console.log(pathname, 'pathname')
-
-  const pathNames = ['/practice', '/result']
+  const pathNames = ['/practice', '/result', '/courses']
   if (pathNames.some(path => pathname?.includes(path))) return null
 
   return (

@@ -71,10 +71,10 @@ export const constructCallBack = (handle: any) => {
 };
 
 export async function interceptorError(error: any) {
-  // const auth_token = getCookie("auth_token");
-  // if (!auth_token) {
-  //   return Promise.reject(error);
-  // }
+  const auth_token = getCookie("auth_token");
+  if (!auth_token) {
+    return Promise.reject(error);
+  }
 
   if (error?.response?.status == 401 || error?.response?.status === 403) {
     const originalRequest = error.config;

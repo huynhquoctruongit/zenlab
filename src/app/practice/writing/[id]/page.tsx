@@ -1,16 +1,33 @@
 'use client'
-import { locationQuestion } from '@/components/practice/helper'
-import { questionList, content } from '@/components/practice/data'
-import PracticeFooter from '@/components/practice/footer'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { enumType } from '@/services/helpers'
+import PracticeFooter from '@/components/practice/footer'
+import useDetail from '@/components/practice/helper/use-detail'
+import usePractice from '@/components/practice/helper/store'
+import AxiosClient from '@/lib/api/axios-client'
 
 const Practice = () => {
-  const [value, setValue] = useState('')
-  const dataList = locationQuestion(questionList)
   const router = useRouter()
+  const params = useParams()
+  const [value, setValue] = useState('')
+  const { data } = useDetail()
+  const { part }: any = usePractice()
+  const quiz_data = data?.part[part]
+  const data_type: any = "writing"
+  const id = params.id
+
   const onSubmit = () => {
-    router.push('/result/362')
+    AxiosClient.post('/items/answer', {
+      status: 'published',
+      answers: { value: value },
+      quiz: id,
+      class : data?.class,
+      data_type: enumType[data_type]
+    }).then(res => {
+      const resultId = res.data.data.id
+      router.push('/result/' + data_type + '/' + resultId)
+    })
   }
 
   return (
@@ -18,7 +35,8 @@ const Practice = () => {
       <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
         <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
           <div className='h-full w-full'>
-            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+            <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
+            <div dangerouslySetInnerHTML={{ __html: quiz_data?.content }}></div>
           </div>
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>
@@ -31,7 +49,7 @@ const Practice = () => {
           <p>Word count : {value.split(' ').length - 1}</p>
         </div>
       </div>
-      <PracticeFooter onSubmit={onSubmit} dataList={dataList} />
+      <PracticeFooter onSubmit={onSubmit} data={data} />
     </div>
   )
 }

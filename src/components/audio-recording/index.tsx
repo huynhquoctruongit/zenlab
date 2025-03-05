@@ -17,7 +17,8 @@ const AudioRecording = () => {
     status,
     setStatus,
     setRecordingState,
-    setAudio
+    setAudio,
+    setAudioBlob
   }: any = usePractice()
   const { data } = useDetail()
   const questionList = data?.part[part]?.question
@@ -74,6 +75,15 @@ const AudioRecording = () => {
         useEffect(() => {
           setStatus(status)
           setAudio(mediaBlobUrl)
+
+          // Get blob file when mediaBlobUrl changes
+          if (mediaBlobUrl) {
+            fetch(mediaBlobUrl)
+              .then(response => response.blob())
+              .then(blob => {
+                setAudioBlob(blob)
+              })
+          }
         }, [status, mediaBlobUrl])
 
         return (
@@ -90,6 +100,9 @@ const AudioRecording = () => {
             {renderRecordingButton(status)}
           </div>
         )
+      }}
+      mediaRecorderOptions={{
+        mimeType: 'audio/wav'
       }}
     />
   )
