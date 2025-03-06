@@ -1,9 +1,10 @@
+"use client"
 import React from 'react'
 import parse from 'html-react-parser'
 import { regexInput, findInput } from '../helper'
-import {useAnswerList} from '../helper/use-answer'
+import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
-
+import { motion } from 'framer-motion'
 
 const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
   const options = {
@@ -13,21 +14,28 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
         const choised = answer?.[index]
         const { correct }: any = choised || {}
         return (
-          <>
-            <span className='font-semibold border-y rounded-l-md p-1 border-l ml-2'>
+          <div className="inline-flex items-center gap-2 my-2">
+            <span className='font-medium text-sm bg-gray-100 px-3 py-2 rounded-lg text-gray-700'>
               {parseInt(question.location.start) + parseInt(index) - 1}
             </span>
-            <input
+            <motion.input
+              whileFocus={{ scale: 1.02 }}
               disabled={answer}
               defaultValue={choised?.value}
               type='text'
               onChange={e => onInputChange(index, e.target.value)}
-              className={cn('border rounded p-2 outline-none shadow-sm', {
-                'bg-green': correct == true,
-                'bg-red': correct == false
-              })}
+              className={cn(
+                'border rounded-lg px-4 py-2 outline-none transition-all duration-200',
+                'focus:border-primary1 focus:ring-2 focus:ring-primary1/20',
+                'disabled:bg-gray disabled:cursor-not-allowed',
+                {
+                  'border-green bg-green': correct === true,
+                  'border-red bg-red': correct === false,
+                  'border-gray-200 hover:border-primary1/30': !answer
+                }
+              )}
             />
-          </>
+          </div>
         )
       }
     }
@@ -44,19 +52,24 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
     }
   )
 
-  return <div>{parse(parsedHtml, options)}</div>
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+      {parse(parsedHtml, options)}
+    </div>
+  )
 }
+
 const checkAnswer = (question: any, index: any, value: any) => {
   const inputs = findInput(question.gap_filling)
   let correct = false
   inputs.every(input => {
     if (input.position == index && input.text === value) correct = true
   })
-
   return correct
 }
 
 export const FillBlank = ({ resultList, question, answer }: any) => {
+  const isResult = location.pathname.includes('result')
   const { answer_list, setAnswerList }: any = useAnswerList()
 
   const handleInputChange = (index: string, value: string) => {
@@ -77,29 +90,44 @@ export const FillBlank = ({ resultList, question, answer }: any) => {
     }
     setAnswerList(prevAnswerList)
   }
+
   const inputs = findInput(question.gap_filling)
+
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-4 max-w-4xl mx-auto"
+    >
       <CreateInput
         answer={answer}
         resultList={resultList}
         question={question}
         onInputChange={handleInputChange}
       />
-      {answer && (
-        <div className='bg-slate-100 rounded-md p-4 border my-4 backdrop-blur-sm'>
-          <p className='underline'>Đáp án:</p>
-          {inputs.map((item: any, index: any) => {
-            return (
-              <p key={index}>
-                {parseInt(question.location.start) + parseInt(index)}:{' '}
-                {item.text}
-              </p>
-            )
-          })}
-        </div>
+      
+      {isResult && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'
+        >
+          <h3 className='text-lg font-semibold text-gray-800 mb-4'>Đáp án:</h3>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            {inputs.map((item: any, index: any) => (
+              <div 
+                key={index}
+                className='flex items-center gap-3 bg-white p-4 rounded-lg border border-gray-100'
+              >
+                <span className='font-medium text-primary1'>
+                  {parseInt(question.location.start) + parseInt(index)}:
+                </span>
+                <span className='text-gray-700'>{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       )}
-    </>
+    </motion.div>
   )
 }
-

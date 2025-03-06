@@ -36,7 +36,6 @@ const Practice = () => {
   const { answer_list }: any = useAnswerList()
   const router = useRouter()
   const params = useParams()
-  console.log(params,'params');
   
   const id = params.id
   const data_type: any = params.reading_listening

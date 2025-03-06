@@ -1,10 +1,13 @@
+"use client"
 import useOnClickOutside from '@/hook/outside'
 import { ChevronDown } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
+import { motion } from 'framer-motion'
 
 export const Selection = ({ question, answer }: any) => {
+  const isResult = location.pathname.includes('result')
   const [selected, setSelected]: any = useState('')
   const [isOpen, setOpen]: any = useState(false)
   const ref = useRef(null)
@@ -13,6 +16,7 @@ export const Selection = ({ question, answer }: any) => {
   useOnClickOutside(ref, () => {
     setOpen(false)
   })
+
   const onSelect = (elm: any, item: any) => {
     setSelected(elm)
     const answer = {
@@ -21,34 +25,53 @@ export const Selection = ({ question, answer }: any) => {
     }
     setAnswerList({ ...answer_list, [question.id]: answer })
   }
+
   return (
-    <div>
-      {question.selection.map((item: any, index: any) => {
-        return (
-          <div key={index + 'question'} className='flex items-center gap-2'>
-            <div
-              className={cn(
-                'relative bg-white min-w-[100px] border rounded-md p-2 text-sm',
-                { 'bg-green': answer?.correct == true },
-                { 'bg-red': answer?.correct == false }
-              )}
-            >
+    <div className='w-full max-w-4xl mx-auto'>
+      <div className='grid gap-6'>
+        {question.selection.map((item: any, index: any) => (
+          <motion.div
+            whileTap={{ scale: 0.98 }}
+            key={item.title}
+            className={cn(
+              'p-4 rounded-xl cursor-pointer transition-all duration-200',
+              'border hover:border-primary1/30 hover:bg-primary1/5',
+              'shadow-sm hover:shadow-md'
+            )}
+          >
+            <p className='text-lg font-medium mb-4 text-gray-800'>
+              {item.title}
+            </p>
+            <div className='relative'>
               <div
-                className='flex justify-between items-center'
+                className={cn(
+                  'w-full cursor-pointer rounded-lg border border-gray-200 px-4 py-3 text-left transition-colors',
+                  {
+                    'bg-green border-green': answer?.correct === true,
+                    'bg-red border-red': answer?.correct === false,
+                    'hover:bg-gray': !answer
+                  }
+                )}
                 onClick={() => {
-                  if (!answer) setOpen(true)
+                  if (!isResult) setOpen(true)
                 }}
               >
-                <p className='whitespace-nowrap mr-2 cursor-pointer'>
-                  {selected.option}
-                  {answer && answer?.answer}
-                </p>
-                <ChevronDown />
+                <div className='flex items-center justify-between'>
+                  <span className='block truncate text-sm'>
+                    {selected.option || answer?.answer || 'Select an option'}
+                  </span>
+                  <ChevronDown
+                    className={cn('h-4 w-4 transition-transform', {
+                      'rotate-180': isOpen
+                    })}
+                  />
+                </div>
               </div>
+
               {isOpen && (
                 <div
                   ref={ref}
-                  className='bg-white absolute z-10 border left-0 top-12 p-1 rounded-md shadow-md flex flex-col gap-2'
+                  className='absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white py-1 shadow-lg'
                 >
                   {question.selection_option.map((elm: any, index: any) => (
                     <div
@@ -57,7 +80,7 @@ export const Selection = ({ question, answer }: any) => {
                         onSelect(elm, item)
                         setOpen(false)
                       }}
-                      className='cursor-pointer whitespace-nowrap hover:bg-gray-100 p-2 rounded-md'
+                      className='px-4 py-2 text-sm hover:bg-gray-50 cursor-pointer transition-colors'
                     >
                       {elm.option}
                     </div>
@@ -65,20 +88,21 @@ export const Selection = ({ question, answer }: any) => {
                 </div>
               )}
             </div>
-            <p>{item.title}</p>
+          </motion.div>
+        ))}
+      </div>
+
+      {isResult && (
+        <div className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'>
+          <h3 className='text-lg font-semibold text-gray-800 mb-4'>Đáp án:</h3>
+          <div className='space-y-2'>
+            {question.selection.map((item: any, index: any) => (
+              <div key={index} className='flex items-center gap-2'>
+                <div className='h-2 w-2 rounded-full bg-blue-500'></div>
+                <p className='text-gray-700'>{item.correct}</p>
+              </div>
+            ))}
           </div>
-        )
-      })}
-      {answer && (
-        <div className='bg-slate-100 rounded-md p-4 border my-4 backdrop-blur-sm'>
-          <p className='underline'>Đáp án:</p>
-          {question.selection.map((item: any, index: any) => {
-            return (
-              <p key={index}>
-                {item.correct}
-              </p>
-            )
-          })}
         </div>
       )}
     </div>

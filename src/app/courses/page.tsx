@@ -57,8 +57,9 @@ const CoursesPage = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
             {filteredCourses().map((course: any, index: number) => (
               <div
+                onClick={() => router.push(`/courses/${course.id}`)}
                 key={index}
-                className='bg-white rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 hover:border-primary1/30 group'
+                className='bg-white cursor-pointer rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 hover:border-primary1/30 group'
               >
                 <div className='relative'>
                   <div className='py-10 flex items-center justify-center'>
@@ -115,10 +116,7 @@ const CoursesPage = () => {
                           : 'Sắp khai giảng'}
                       </span>
                     </div>
-                    <button
-                      className='flex items-center text-primary1 font-medium hover:gap-2 transition-all group-hover:translate-x-1'
-                      onClick={() => router.push(`/courses/${course.id}`)}
-                    >
+                    <button className='flex items-center text-primary1 font-medium hover:gap-2 transition-all group-hover:translate-x-1'>
                       Chi tiết
                       <ArrowRight size={16} className='ml-1' />
                     </button>

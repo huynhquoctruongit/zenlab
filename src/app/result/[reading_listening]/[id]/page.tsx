@@ -19,13 +19,13 @@ const Practice = () => {
 
   const dataType = (question: any) => {
     if (question.type === 'gap_filling')
-      return <FillBlank key={question.id} question={question} answer={resultList[question.id]} />
+      return <FillBlank key={question.id} question={question} answer={resultList?.[question.id]} />
     if (question.type === 'selection')
-      return <Selection key={question.id} question={question} answer={resultList[question.id]} />
+      return <Selection key={question.id} question={question} answer={resultList?.[question.id]} />
     if (question.type === 'radio')
-      return <Radio key={question.id} question={question} answer={resultList[question.id]} />
+      return <Radio key={question.id} question={question} answer={resultList?.[question.id]} />
     if (question.type === 'checkbox')
-      return <Multiple key={question.id} question={question} answer={resultList[question.id]} />
+      return <Multiple key={question.id} question={question} answer={resultList?.[question.id]} />
   }
 
   const questionList = data?.quiz?.part[part]?.question
@@ -46,7 +46,6 @@ const Practice = () => {
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>
           {dataList?.map((question: any) => {
-            console.log(question, 'question')
             const { location, title, id } = question
             const index =
               location.start === location.end
