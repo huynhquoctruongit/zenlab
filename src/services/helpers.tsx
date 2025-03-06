@@ -19,6 +19,12 @@ export const enumType: any = {
   writing: 3,
   listening: 4
 }
+export const enumTypeTitle: any = {
+  1 : 'speaking',
+  2 : 'reading',
+  3 : 'writing',
+  4 : 'listening'
+}
 export const enumDataType: any = [
   { id: '2', name: 'reading', icon: '📚' },
   { id: '4', name: 'listening', icon: '🎧' },

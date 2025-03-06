@@ -17,10 +17,11 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Loading } from '@/components/ui/loading'
+import { enumTypeTitle } from '@/services/helpers'
 
 const CoursePage = () => {
-  const params = useParams()
   const router = useRouter()
+  const params = useParams()
   const id = params.id
   const [selectedQuiz, setSelectedQuiz] = useState<any>(null)
 
@@ -30,6 +31,11 @@ const CoursePage = () => {
 
   const { data } = useSWR([`/items/class/${id}`, query], fetcherClient)
   const course = data?.data?.data
+
+  const data_type: any = selectedQuiz?.data_type
+  const data_type_enum = enumTypeTitle[data_type]
+  console.log(data_type_enum,'data_type_enum');
+  
 
   if (!course) {
     return (
@@ -82,9 +88,12 @@ const CoursePage = () => {
                   <p className='text-gray-600 text-sm mb-2 line-clamp-2'>
                     {quiz.description}
                   </p>
-                  <div className='flex items-center text-gray-500 text-sm'>
-                    <Clock size={14} className='mr-1' />
-                    <span>{quiz.duration} minutes</span>
+                  <div className='flex justify-between items-center text-gray-500 text-sm'>
+                    <p className='uppercase text-primary1 font-bold'>{enumTypeTitle[quiz.data_type]}</p>
+                    <div className='flex justify-between items-center text-gray-500 text-sm'>
+                      <Clock size={14} className='mr-1' />
+                      <span>{quiz.duration || 10} minutes</span>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -115,7 +124,7 @@ const CoursePage = () => {
                   <FileText size={40} className='text-primary1 mr-4' />
                   <h1 className='text-3xl font-bold'>{selectedQuiz.title}</h1>
                 </div>
-
+                <p className='uppercase text-primary1 font-bold mb-4'>{enumTypeTitle[selectedQuiz.data_type]}</p>
                 <p className='text-gray-600 mb-8'>{selectedQuiz.description}</p>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8'>
@@ -128,7 +137,14 @@ const CoursePage = () => {
                     <span>{totalQuestions || 0} Questions</span>
                   </div>
                 </div>
-                <Button className='w-full mb-4 py-6 flex justify-center items-center'>
+                <Button
+                  onClick={() =>
+                    router.push(
+                      `/practice/${data_type_enum}/${selectedQuiz.id}`
+                    )
+                  }
+                  className='w-full mb-4 py-6 flex justify-center items-center'
+                >
                   Start Quiz
                   <CircleChevronRight size={20} />
                 </Button>
