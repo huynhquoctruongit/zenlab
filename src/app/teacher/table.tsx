@@ -22,18 +22,22 @@ import { fetcherClient } from '@/lib/api/axios-client'
 import useSWR from 'swr'
 import { enumDataType } from '@/services/helpers'
 
-const Completed = () => {
+const Completed = ({ courses } : any) => {
   const [activeSkill, setActiveSkill] = useState('2') // reading, listening, writing, speaking
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
+  const students = courses[0].students
+
+  console.log(courses,'courses');
+  
 
   const query = {
     fields: ['*', 'quiz.*', 'class.*'],
-    filter: {
-      user_created: {
-        _eq: '$CURRENT_USER'
-      }
-    },
+    // filter: {
+    //   user_created: {
+    //     _eq: '$CURRENT_USER'
+    //   }
+    // },
     limit: -1 // Get all items to process duplicates
   }
 
@@ -129,30 +133,6 @@ const Completed = () => {
                   {quiz.score}
                 </span>
               </div>
-              <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
-                <span className='text-gray-600'>Thời gian:</span>
-                <span className='font-semibold text-gray-900'>
-                  {new Date(quiz.date_created).toLocaleString()}
-                </span>
-              </div>
-              <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
-                <span className='text-gray-600'>Số lần nộp:</span>
-                <span className='font-semibold text-gray-900'>
-                  {submissionCounts[quiz.quiz.id]}
-                </span>
-              </div>
-              <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
-                <span className='text-gray-600'>Trạng thái:</span>
-                <span
-                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                    quiz.passed
-                      ? 'bg-green-50 text-green-600 border border-green-200'
-                      : 'bg-red-50 text-red-600 border border-red-200'
-                  }`}
-                >
-                  {quiz.passed ? 'Đạt' : 'Không đạt'}
-                </span>
-              </div>
             </div>
           </div>
         ))}
@@ -199,23 +179,9 @@ const Completed = () => {
           <TableHeader className='bg-gray-50/80'>
             <TableRow>
               <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Tên bài
+                Học sinh
               </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Lớp học
-              </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Điểm số
-              </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Thời gian làm bài
-              </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Số lần nộp
-              </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
-                Trạng thái
-              </TableHead>
+             
             </TableRow>
           </TableHeader>
           <TableBody>

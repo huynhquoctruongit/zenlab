@@ -14,7 +14,7 @@ export const LoginByGoogle = () => {
   const callback = params.get('callback')
 
   const [loading, setLoading] = useState(false)
-  const { getProfile, isLogin, profile } = useAuth()
+  const { getProfile } = useAuth()
   const loginByGoogle = async () => {
     try {
       const res: any = await directus.refresh()

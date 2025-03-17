@@ -12,7 +12,7 @@ export function useAuth (options?: any) {
     data: profile,
     error,
     mutate
-  } = useSWR('/users/me', {
+  } = useSWR('/users/me?fields=*,role.*', {
     ...configSWR,
     revalidateOnFocus: true,
     revalidateOnMount: false,

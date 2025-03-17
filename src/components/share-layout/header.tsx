@@ -1,3 +1,4 @@
+'use client'
 import { useAuth } from '@/hook/use-auth'
 import { LoginByGoogle } from '../auth/login'
 import { UserRound } from 'lucide-react'
@@ -13,7 +14,11 @@ export const Header = () => {
       <div className='max-w-[1400px] px-6 mx-auto flex justify-between items-center'>
         <Link href='/'>
           <p className='font-bold text-2xl text-primary1'>
-            <img src='/images/zenlab-logo.svg' alt='logo' className='w-[150px]' />
+            <img
+              src='/images/zenlab-logo.svg'
+              alt='logo'
+              className='w-[150px]'
+            />
           </p>
         </Link>
         <div className='flex items-center gap-4'>
@@ -25,20 +30,7 @@ export const Header = () => {
     </div>
   )
 }
-const menuList = [
-  {
-    name: 'Home',
-    href: '/'
-  },
-  {
-    name: 'About',
-    href: '/about'
-  },
-  {
-    name: 'Khoá học',
-    href: '/course'
-  }
-]
+
 export const UserInfo = ({ profile, logout }: any) => {
   return (
     <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer shadow-lg relative group'>

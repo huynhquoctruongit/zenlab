@@ -23,7 +23,7 @@ const listCourses = [
       'Khóa học giúp bạn cải thiện kỹ năng đọc hiểu qua việc luyện tập với các bài đọc đa dạng, nắm bắt ý chính, chi tiết và mở rộng vốn từ vựng.',
     color: 'linear-gradient(135deg, #0029ff 0%, #47b7f7 100%)',
     icon: <BookOpen className='w-8 h-8' />,
-    href: '/practice/reading/1'
+    href: '/courses'
   },
   {
     title: 'Listening',
@@ -31,7 +31,7 @@ const listCourses = [
       'Phát triển kỹ năng nghe qua các bài hội thoại, thông báo và bài giảng, giúp bạn nghe hiểu chi tiết và nắm bắt thông tin chính xác hơn.',
     color: 'linear-gradient(135deg, #002ea6 0%, #0047ff 100%)',
     icon: <Headphones className='w-8 h-8' />,
-    href: '/practice/listening/1'
+    href: '/courses'
   },
   {
     title: 'Writing',
@@ -39,7 +39,7 @@ const listCourses = [
       'Học cách viết rõ ràng, mạch lạc và có tổ chức thông qua việc luyện tập viết câu, đoạn văn và bài luận, diễn đạt ý tưởng một cách logic và hiệu quả.',
     color: 'linear-gradient(135deg, #007e26 0%, #00d741 100%)',
     icon: <PenTool className='w-8 h-8' />,
-    href: '/practice/writing/1'
+    href: '/courses'
   },
   {
     title: 'Speaking',
@@ -47,7 +47,7 @@ const listCourses = [
       'Tập trung vào việc phát âm đúng, luyện ngữ điệu và thực hành đối thoại để nâng cao sự tự tin khi giao tiếp lưu loát trong các tình huống hàng ngày.',
     color: 'linear-gradient(135deg, #ffd324 0%, #ff9f00 100%)',
     icon: <Mic2 className='w-8 h-8' />,
-    href: '/practice/speaking/1'
+    href: '/courses'
   }
 ]
 
@@ -229,13 +229,15 @@ const Courses = () => {
               Đăng ký ngay hôm nay để nhận được lộ trình học tập cá nhân hóa và
               bắt đầu hành trình chinh phục IELTS của bạn.
             </p>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className='bg-white text-blue-600 px-6 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300'
-            >
-              Bắt đầu ngay
-            </motion.button>
+            <Link href='/courses'>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className='bg-white text-blue-600 px-6 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300'
+              >
+                Bắt đầu ngay
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </div>
