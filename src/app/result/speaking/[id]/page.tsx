@@ -76,7 +76,6 @@ const SpeakingResult = () => {
                     </div>
                   ))}
                 </motion.div>
-
                 <motion.div 
                   initial={{ x: 20 }}
                   animate={{ x: 0 }}

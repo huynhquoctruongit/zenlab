@@ -17,10 +17,12 @@ import {
   PaginationPrevious
 } from '@/components/ui/pagination'
 import { fetcherClient } from '@/lib/api/axios-client'
+import { enumDataType, enumTypeTitle } from '@/services/helpers'
+import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
-import { enumDataType } from '@/services/helpers'
 
 const InCompleted = ({ courses }: { courses: any }) => {
+  const router = useRouter()
   const [activeSkill, setActiveSkill] = useState('2')
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
@@ -44,14 +46,21 @@ const InCompleted = ({ courses }: { courses: any }) => {
   // Get all quizzes from courses
   const allQuizzes = courses.reduce((acc: any[], course: any) => {
     if (course.quiz && Array.isArray(course.quiz)) {
-      return [...acc, ...course.quiz.map((quiz: any) => ({...quiz, className: course.title}))]
+      return [
+        ...acc,
+        ...course.quiz.map((quiz: any) => ({
+          ...quiz,
+          className: course.title
+        }))
+      ]
     }
     return acc
   }, [])
 
   // Filter incomplete quizzes
-  const incompleteQuizzes = allQuizzes.filter((quiz: any) => 
-    !completedQuizIds.includes(quiz.id) && quiz.data_type == activeSkill
+  const incompleteQuizzes = allQuizzes.filter(
+    (quiz: any) =>
+      !completedQuizIds.includes(quiz.id) && quiz.data_type == activeSkill
   )
 
   // Count quizzes by skill type
@@ -112,19 +121,26 @@ const InCompleted = ({ courses }: { courses: any }) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedQuizzes.map((quiz: any) => (
-              <TableRow
-                key={quiz.id}
-                className='hover:bg-gray-50/80 transition-all duration-300 cursor-pointer group'
-              >
-                <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
-                  {quiz.title}
-                </TableCell>
-                <TableCell className='py-5 px-6 font-medium'>
-                  {quiz.className}
-                </TableCell>
-              </TableRow>
-            ))}
+            {paginatedQuizzes.map((quiz: any) => {
+              const { data_type, id } = quiz
+              const link = `/practice/${enumTypeTitle[data_type]}/${id}`
+              return (
+                <TableRow
+                  onClick={() => {
+                    router.push(link)
+                  }}
+                  key={quiz.id}
+                  className='hover:bg-gray-50/80 transition-all duration-300 cursor-pointer group'
+                >
+                  <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
+                    {quiz.title}
+                  </TableCell>
+                  <TableCell className='py-5 px-6 font-medium'>
+                    {quiz.className}
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
 

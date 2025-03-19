@@ -1,9 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -12,7 +11,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -20,9 +18,11 @@ import {
 } from '@/components/ui/pagination'
 import { fetcherClient } from '@/lib/api/axios-client'
 import useSWR from 'swr'
-import { enumDataType } from '@/services/helpers'
+import { enumDataType, enumTypeTitle } from '@/services/helpers'
+import { useRouter } from 'next/navigation'
 
 const Completed = () => {
+  const router = useRouter()
   const [activeSkill, setActiveSkill] = useState('2') // reading, listening, writing, speaking
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
@@ -84,6 +84,8 @@ const Completed = () => {
     setPage(newPage)
   }
 
+  console.log(paginatedQuizzes, 'paginatedQuizzes')
+
   return (
     <div className=''>
       <div className='flex flex-wrap gap-2 mb-8 bg-gray-50/100 p-2 rounded-2xl'>
@@ -120,37 +122,37 @@ const Completed = () => {
             className='bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:border-primary1/30 hover:shadow-lg transition-all duration-300'
           >
             <h3 className='font-semibold text-lg mb-4 text-gray-800'>
-              {quiz.quiz.title}
+              {quiz?.quiz?.title}
             </h3>
             <div className='space-y-3 text-sm'>
               <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
                 <span className='text-gray-600'>Điểm số:</span>
                 <span className='font-semibold text-gray-900'>
-                  {quiz.score}
+                  {quiz?.score}
                 </span>
               </div>
               <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
                 <span className='text-gray-600'>Thời gian:</span>
                 <span className='font-semibold text-gray-900'>
-                  {new Date(quiz.date_created).toLocaleString()}
+                  {new Date(quiz?.date_created).toLocaleString()}
                 </span>
               </div>
               <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
                 <span className='text-gray-600'>Số lần nộp:</span>
                 <span className='font-semibold text-gray-900'>
-                  {submissionCounts[quiz.quiz.id]}
+                  {submissionCounts[quiz?.quiz.id]}
                 </span>
               </div>
               <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
                 <span className='text-gray-600'>Trạng thái:</span>
                 <span
                   className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                    quiz.passed
+                    quiz?.passed
                       ? 'bg-green-50 text-green-600 border border-green-200'
                       : 'bg-red-50 text-red-600 border border-red-200'
                   }`}
                 >
-                  {quiz.passed ? 'Đạt' : 'Không đạt'}
+                  {quiz?.passed ? 'Đạt' : 'Không đạt'}
                 </span>
               </div>
             </div>
@@ -219,37 +221,44 @@ const Completed = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedQuizzes.map((quiz: any) => (
-              <TableRow
-                key={quiz.id}
-                className='hover:bg-gray-50/80 transition-all duration-300 cursor-pointer group'
-              >
-                <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
-                  {quiz.quiz.title}
-                </TableCell>
-                <TableCell className='py-5 px-6'>
-                  {quiz.class.title || '-'}
-                </TableCell>
-                <TableCell className='py-5 px-6'>{quiz.score}</TableCell>
-                <TableCell className='py-5 px-6'>
-                  {new Date(quiz.date_created).toLocaleString()}
-                </TableCell>
-                <TableCell className='py-5 px-6'>
-                  {submissionCounts[quiz.quiz.id]}
-                </TableCell>
-                <TableCell className='py-5 px-6'>
-                  <span
-                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                      quiz.passed
-                        ? 'bg-green-50 text-green-600 border border-green-200 hover:bg-green-100'
-                        : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
-                    }`}
-                  >
-                    {quiz.passed ? 'Đạt' : 'Không đạt'}
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
+            {paginatedQuizzes.map((quiz: any) => {
+              const { data_type, id } = quiz?.quiz
+              const link = `/practice/${enumTypeTitle[data_type]}/${id}`
+              return (
+                <TableRow
+                  key={quiz.id}
+                  className='hover:bg-gray-50/80 transition-all duration-300 cursor-pointer group'
+                  onClick={() => {
+                    router.push(link)
+                  }}
+                >
+                  <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
+                    {quiz?.quiz?.title}
+                  </TableCell>
+                  <TableCell className='py-5 px-6'>
+                    {quiz?.class?.title || '-'}
+                  </TableCell>
+                  <TableCell className='py-5 px-6'>{quiz?.score}</TableCell>
+                  <TableCell className='py-5 px-6'>
+                    {new Date(quiz?.date_created).toLocaleString()}
+                  </TableCell>
+                  <TableCell className='py-5 px-6'>
+                    {submissionCounts[quiz?.quiz.id]}
+                  </TableCell>
+                  <TableCell className='py-5 px-6'>
+                    <span
+                      className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                        quiz.passed
+                          ? 'bg-green-50 text-green-600 border border-green-200 hover:bg-green-100'
+                          : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
+                      }`}
+                    >
+                      {quiz.passed ? 'Đạt' : 'Không đạt'}
+                    </span>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
           </TableBody>
         </Table>
 
