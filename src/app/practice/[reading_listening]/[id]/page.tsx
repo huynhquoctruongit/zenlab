@@ -62,14 +62,15 @@ const Practice = () => {
         </div>
         <div className='p-4 flex flex-col gap-3 bg-white rounded-md overflow-y-auto'>
           {dataList?.map((question: any) => {
-            const { location, title, id } = question
+            const { location, title, id, introductory } = question
             const index =
               location.start === location.end
                 ? location.start
                 : `${location.start} - ${location.end}`
             return (
               <div key={id}>
-                <div className='py-2 mb-2 mt-3 text-primary1'>
+                <div className='mt-2' dangerouslySetInnerHTML={{ __html: introductory }}></div>
+                <div className='py-2 mb-2 text-primary1'>
                   {index}. {title}
                 </div>
                 {dataType(question)}

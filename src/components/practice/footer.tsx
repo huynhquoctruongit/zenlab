@@ -3,7 +3,7 @@ import { Button } from '../ui/button'
 import usePractice from '@/components/practice/helper/store'
 
 const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
-  <div>
+  <div className='flex gap-3 items-center justify-center'>
     {data?.part?.map((item: any, index: number) => (
       <div
         key={`part-${index}`}
