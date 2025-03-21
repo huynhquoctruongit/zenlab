@@ -19,9 +19,9 @@ const LayoutCommon = ({ children }: any) => {
           errorRetryCount: 3
         }}
       >
-        {/* <Header /> */}
+        <Header />
         <div className='flex-1 min-h-[calc(100vh-66px)] relative'>{children}</div>
-        {/* <Footer /> */}
+        <Footer />
       </SWRConfig>
     </Suspense>
   )
