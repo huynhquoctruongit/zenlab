@@ -72,3 +72,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+table, th, td {
+  border: 1px solid #000;
+  padding: 15px;
+  border-radius: 20px;
+}

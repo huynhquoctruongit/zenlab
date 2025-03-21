@@ -1,12 +1,12 @@
-export const regexInput = /\$\[(\d+)\]\[([^\]]+)\]/g
+export const regexInput = /@\[([^\]]+)]\[(\d+)]/g
 export const findInput = (text: any) => {
   const regex = regexInput
   const result = []
   let match
   while ((match = regex.exec(text)) !== null) {
     result.push({
-      position: parseInt(match[1], 10),
-      text: match[2]
+      position: parseInt(match[2], 10),
+      text: match[1]
     })
   }
   return result

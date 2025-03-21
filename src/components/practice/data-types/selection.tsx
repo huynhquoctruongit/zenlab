@@ -29,7 +29,7 @@ export const Selection = ({ question, answer }: any) => {
   return (
     <div className='w-full max-w-4xl mx-auto'>
       <div className='grid gap-6'>
-        {question.selection.map((item: any, index: any) => (
+        {question?.selection?.map((item: any, index: any) => (
           <motion.div
             whileTap={{ scale: 0.98 }}
             key={item.title}
@@ -96,7 +96,7 @@ export const Selection = ({ question, answer }: any) => {
         <div className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'>
           <h3 className='text-lg font-semibold text-gray-800 mb-4'>Đáp án:</h3>
           <div className='space-y-2'>
-            {question.selection.map((item: any, index: any) => (
+            {question?.selection?.map((item: any, index: any) => (
               <div key={index} className='flex items-center gap-2'>
                 <div className='h-2 w-2 rounded-full bg-blue-500'></div>
                 <p className='text-gray-700'>{item.correct}</p>

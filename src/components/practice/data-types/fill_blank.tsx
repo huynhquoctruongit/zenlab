@@ -13,6 +13,8 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
         const index: any = domNode.attribs['data-index']
         const choised = answer?.[index]
         const { correct }: any = choised || {}
+        console.log(index,'index');
+        
         return (
           <div className="inline-flex items-center gap-2 my-2">
             <span className='font-medium text-sm bg-gray-100 px-3 py-2 rounded-lg text-gray-700'>
@@ -43,7 +45,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
 
   const parsedHtml = question.gap_filling.replace(
     regexInput,
-    (_: any, index: any, value: any) => {
+    (_: any, value: any, index: any) => {
       const choised = answer?.[index]
       const { correct }: any = choised || {}
       return `<input class="${
@@ -53,7 +55,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange }: any) => {
   )
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200 overflow-auto">
       {parse(parsedHtml, options)}
     </div>
   )
