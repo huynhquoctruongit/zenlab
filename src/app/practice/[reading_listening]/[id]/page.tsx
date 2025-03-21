@@ -69,10 +69,10 @@ const Practice = () => {
                 : `${location.start} - ${location.end}`
             return (
               <div key={id}>
-                <div className='mt-2' dangerouslySetInnerHTML={{ __html: introductory }}></div>
                 <div className='py-2 mb-2 text-primary1'>
-                  {index}. {title}
+                  <span className='text-xl'>{index}</span>. {title}
                 </div>
+                <div className='mb-2 text-sm' dangerouslySetInnerHTML={{ __html: introductory }}></div>
                 {dataType(question)}
               </div>
             )
