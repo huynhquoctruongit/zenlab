@@ -1,15 +1,15 @@
-"use client"
+'use client'
 import { Check } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/services/helpers'
 import { useAnswerList } from '../helper/use-answer'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export const Multiple = ({ question, answer }: any) => {
+export const Multiple = ({ question, answerResult }: any) => {
   const [selected, setSelected]: any = useState([])
   const { answer_list, setAnswerList }: any = useAnswerList()
   const isResult = location.pathname.includes('result')
-
+  
   const onSelect = (item: any) => {
     let newSelected = [...selected]
     if (newSelected?.includes(item)) {
@@ -21,12 +21,14 @@ export const Multiple = ({ question, answer }: any) => {
     setSelected(newSelected)
     setAnswerList({ ...answer_list, [question.id]: newSelected })
   }
+  const answer = answer_list?.[question.id] || answerResult
+  const selectDefault =  answer || selected
 
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
         {question.multiple_choice.map((item: any, index: any) => {
-          const isSelected = selected?.find(
+          const isSelected = selectDefault?.find(
             (elm: any) => elm?.title == item.title
           )
           const choised = answer?.find((elm: any) => elm?.title == item.title)
@@ -87,7 +89,7 @@ export const Multiple = ({ question, answer }: any) => {
 
 const CheckboxUI = ({ choised, isSelected, isResult }: any) => {
   const { correct } = choised || {}
-  
+
   return (
     <div>
       {isResult ? (

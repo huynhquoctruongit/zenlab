@@ -20,7 +20,7 @@ const AudioRecording = () => {
     setAudio,
     setAudioBlob
   }: any = usePractice()
-  const { data } = useDetail()
+  const { data } = useDetail("")
   const questionList = data?.part[part]?.question
   const isSubmit = question === questionList?.length - 1
 

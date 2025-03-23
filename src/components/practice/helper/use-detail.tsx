@@ -3,9 +3,9 @@ import useSWR from 'swr'
 import { fetcherClient } from '@/lib/api/axios-client'
 import { useParams } from 'next/navigation'
 
-const useDetail = () => {
+const useDetail = (quizId: string) => {
   const params = useParams()
-  const id = params.id
+  const id = quizId ? quizId : params.id
   const query = {
     fields: ['*', 'part.*', 'part.question.*'],
     filter: { id: { _eq: id } }

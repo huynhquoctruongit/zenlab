@@ -14,7 +14,7 @@ const Practice = () => {
   const params = useParams()
   const router = useRouter()
   const { part, question, status, audio, audioBlob }: any = usePractice()
-  const { data } = useDetail()
+  const { data } = useDetail("")
   const questionData = data?.part[part]?.question?.[question]
 
   const handleSubmit = async () => {

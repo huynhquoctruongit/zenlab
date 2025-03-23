@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import useOnClickOutside from '@/hook/outside'
 import { ChevronDown } from 'lucide-react'
 import { useRef, useState } from 'react'
@@ -6,7 +6,7 @@ import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
 import { motion } from 'framer-motion'
 
-export const Selection = ({ question, answer }: any) => {
+export const Selection = ({ question, answerResult }: any) => {
   const isResult = location.pathname.includes('result')
   const [selected, setSelected]: any = useState('')
   const [isOpen, setOpen]: any = useState(false)
@@ -25,6 +25,11 @@ export const Selection = ({ question, answer }: any) => {
     }
     setAnswerList({ ...answer_list, [question.id]: answer })
   }
+
+  const answer = answer_list?.[question.id] || answerResult
+  const selectDefault = answer || selected
+
+  console.log(selectDefault, 'selectDefault')
 
   return (
     <div className='w-full max-w-4xl mx-auto'>
@@ -47,9 +52,11 @@ export const Selection = ({ question, answer }: any) => {
                 className={cn(
                   'w-full cursor-pointer rounded-lg border border-gray-200 px-4 py-3 text-left transition-colors',
                   {
-                    'bg-green border-green': answer?.correct === true,
-                    'bg-red border-red': answer?.correct === false,
-                    'hover:bg-gray': !answer
+                    'bg-green border-green':
+                      selectDefault?.correct === true && isResult,
+                    'bg-red border-red':
+                      selectDefault?.correct === false && isResult,
+                    'hover:bg-gray': !selectDefault
                   }
                 )}
                 onClick={() => {
@@ -58,7 +65,11 @@ export const Selection = ({ question, answer }: any) => {
               >
                 <div className='flex items-center justify-between'>
                   <span className='block truncate text-sm'>
-                    {selected.option || answer?.answer || 'Select an option'}
+                    {!selected && !isResult && 'Select an option'}
+                    {!isResult
+                      ? selected.option || selectDefault?.selectDefault
+                      : ''}
+                    {isResult ? answer?.answer : ''}
                   </span>
                   <ChevronDown
                     className={cn('h-4 w-4 transition-transform', {

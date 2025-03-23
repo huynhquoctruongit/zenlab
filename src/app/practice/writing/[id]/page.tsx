@@ -11,7 +11,7 @@ const Practice = () => {
   const router = useRouter()
   const params = useParams()
   const [value, setValue] = useState('')
-  const { data } = useDetail()
+  const { data } = useDetail("")
   const { part }: any = usePractice()
   const quiz_data = data?.part[part]
   const data_type: any = "writing"

@@ -1,7 +1,8 @@
+'use client'
 import { useState } from 'react'
 import { Button } from '../ui/button'
 import usePractice from '@/components/practice/helper/store'
-
+import { useAnswerList } from '@/components/practice/helper/use-answer'
 const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
   <div className='flex gap-3 items-center justify-center'>
     {data?.part?.map((item: any, index: number) => (
@@ -28,6 +29,8 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
   const { setPart }: any = usePractice()
   const [activePart, setActivePart] = useState(0)
 
+  const { answer_list }: any = useAnswerList()
+  
   return (
     <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-12'>
       <div className='flex justify-between items-center'>

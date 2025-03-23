@@ -1,13 +1,16 @@
-"use client"
+'use client'
 import { useState } from 'react'
 import { cn } from '@/services/helpers'
 import { useAnswerList } from '../helper/use-answer'
 import { motion } from 'framer-motion'
 
-export const Radio = ({ question, answer }: any) => {
+export const Radio = ({ question, answerResult }: any) => {
   const isResult = location.pathname.includes('result')
   const [selected, setSelected]: any = useState('')
   const { answer_list, setAnswerList }: any = useAnswerList()
+
+  const answer = answer_list?.[question.id] || answerResult
+  const selectDefault = answer || selected
 
   const onSelect = (item: any) => {
     if (isResult) return
@@ -24,7 +27,7 @@ export const Radio = ({ question, answer }: any) => {
       {question.radio.map((item: any, index: any) => {
         const choised: any = answer?.answer === item.title
         const isSelected = selected.title === item.title
-        
+
         return (
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -36,8 +39,14 @@ export const Radio = ({ question, answer }: any) => {
               'border hover:border-primary1/30 hover:bg-primary1/5',
               'shadow-sm hover:shadow-md',
               isSelected && 'border-primary1 bg-primary1/10',
-              answer && choised && answer.correct && 'border-green-500 bg-green-50',
-              answer && choised && !answer.correct && 'border-red-500 bg-red-50'
+              selectDefault &&
+                choised &&
+                selectDefault.correct &&
+                'border-green-500 bg-green-50',
+              selectDefault &&
+                choised &&
+                !selectDefault.correct &&
+                'border-red-500 bg-red-50'
             )}
           >
             <div className='flex items-center gap-3'>
@@ -45,11 +54,13 @@ export const Radio = ({ question, answer }: any) => {
                 {isSelected && (
                   <div className='absolute inset-0 bg-primary1 rounded-full'></div>
                 )}
-                {answer && choised && (
-                  <div className={cn(
-                    'absolute inset-0 flex items-center justify-center rounded-full',
-                    answer.correct ? 'bg-green' : 'bg-red'
-                  )}></div>
+                {selectDefault && choised && isResult && (
+                  <div
+                    className={cn(
+                      'absolute inset-0 flex items-center justify-center rounded-full',
+                      selectDefault.correct ? 'bg-green' : 'bg-red'
+                    )}
+                  ></div>
                 )}
               </div>
               <p className='text-gray-700 font-medium'>{item.title}</p>
@@ -59,12 +70,14 @@ export const Radio = ({ question, answer }: any) => {
       })}
 
       {isResult && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className='col-span-full mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'
         >
-          <h3 className='text-lg font-semibold text-gray-800 mb-3'>Đáp án đúng:</h3>
+          <h3 className='text-lg font-semibold text-gray-800 mb-3'>
+            Đáp án đúng:
+          </h3>
           {question.radio.map((item: any, index: any) => {
             if (!item.correct) return null
             return (

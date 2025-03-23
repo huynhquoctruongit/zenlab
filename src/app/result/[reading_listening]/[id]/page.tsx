@@ -10,31 +10,38 @@ import PracticeFooter from '@/components/practice/footer'
 import { useRouter } from 'next/navigation'
 import { useAnswer } from '@/components/practice/helper/use-answer'
 import usePractice from '@/components/practice/helper/store'
+import useDetail from '@/components/practice/helper/use-detail'
+import { useEffect } from 'react'
 
 const Practice = () => {
   const { data } = useAnswer()
-  const { part }: any = usePractice()
+  const { part, setPart }: any = usePractice()
   const router = useRouter()
   const resultList = data?.answers
 
   const dataType = (question: any) => {
     if (question.type === 'gap_filling')
-      return <FillBlank key={question.id} question={question} answer={resultList?.[question.id]} />
+      return <FillBlank key={question.id} question={question} answerResult={resultList?.[question.id]} />
     if (question.type === 'selection')
-      return <Selection key={question.id} question={question} answer={resultList?.[question.id]} />
+      return <Selection key={question.id} question={question} answerResult={resultList?.[question.id]} />
     if (question.type === 'radio')
-      return <Radio key={question.id} question={question} answer={resultList?.[question.id]} />
+      return <Radio key={question.id} question={question} answerResult={resultList?.[question.id]} />
     if (question.type === 'checkbox')
-      return <Multiple key={question.id} question={question} answer={resultList?.[question.id]} />
+      return <Multiple key={question.id} question={question} answerResult={resultList?.[question.id]} />
   }
 
   const questionList = data?.quiz?.part[part]?.question
   const content = data?.quiz?.part[part]?.content
+  const quizId = data?.quiz?.id
   const dataList = locationQuestion(questionList)
-  
+  const { data : dataDetail } = useDetail(quizId)
+
   const onSubmit = () => {
     router.push('/result/1')
   }
+  useEffect(() => {
+    setPart(0)
+  }, [])
   
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1'>
@@ -62,7 +69,7 @@ const Practice = () => {
           })}
         </div>
       </div>
-      <PracticeFooter onSubmit={onSubmit} data={data} />
+      <PracticeFooter onSubmit={onSubmit} data={dataDetail} />
     </div>
   )
 }
