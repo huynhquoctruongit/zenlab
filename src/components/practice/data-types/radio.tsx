@@ -5,7 +5,7 @@ import { useAnswerList } from '../helper/use-answer'
 import { motion } from 'framer-motion'
 
 export const Radio = ({ question, answerResult }: any) => {
-  const isResult = location.pathname.includes('result')
+  const isResult = location?.pathname?.includes('result')
   const [selected, setSelected]: any = useState('')
   const { answer_list, setAnswerList }: any = useAnswerList()
 

@@ -23,7 +23,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange, isResult }: 
               disabled={isResult}
               defaultValue={choised?.value}
               type='text'
-              onChange={e => onInputChange(index, e.target.value)}
+              onChange={e => onInputChange(index, e.target.value?.trim())}
               className={cn(
                 'border rounded-lg px-4 py-2 outline-none transition-all duration-200',
                 'focus:border-primary1 focus:ring-2 focus:ring-primary1/20',
@@ -52,9 +52,9 @@ const CreateInput = ({ answer, resultList, question, onInputChange, isResult }: 
     }
   )
   return parsedHtml ? (
-    <span className='bg-white rounded-xl p-6 shadow-sm border border-gray-200 overflow-auto'>
+    <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200 overflow-auto'>
       {parse(parsedHtml || '', options)}
-    </span>
+    </div>
   ) : null
 }
 
@@ -62,13 +62,20 @@ const checkAnswer = (question: any, index: any, value: any) => {
   const inputs = findInput(question.gap_filling)
   let correct = false
   inputs.every(input => {
-    if (input.position == index && input.text === value) correct = true
+    if (input.position == index) {
+      const possibleAnswers = input.text.split('|')
+      if (possibleAnswers.some(answer => answer.trim().toLowerCase() === value.toLowerCase())) {
+        correct = true;
+        return false;
+      }
+    }
+    return true;
   })
   return correct
 }
 
 export const FillBlank = ({ resultList, question, answerResult }: any) => {
-  const isResult = location.pathname.includes('result')
+  const isResult = location?.pathname?.includes('result')
   const { answer_list, setAnswerList }: any = useAnswerList()
 
   const answer = answer_list?.[question.id] || answerResult
@@ -99,7 +106,7 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className='space-y-4 max-w-4xl mx-auto'
+      className='mx-auto'
     >
       <CreateInput
         isResult={isResult}

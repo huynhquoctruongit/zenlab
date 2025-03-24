@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export const Multiple = ({ question, answerResult }: any) => {
   const [selected, setSelected]: any = useState([])
   const { answer_list, setAnswerList }: any = useAnswerList()
-  const isResult = location.pathname.includes('result')
+  const isResult = location?.pathname?.includes('result')
   
   const onSelect = (item: any) => {
     let newSelected = [...selected]

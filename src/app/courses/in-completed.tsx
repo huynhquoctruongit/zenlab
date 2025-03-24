@@ -112,10 +112,10 @@ const InCompleted = ({ courses }: { courses: any }) => {
         <Table className='border border-gray-100 rounded-2xl overflow-hidden shadow-md bg-white'>
           <TableHeader className='bg-gray-50/80'>
             <TableRow>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+              <TableHead className='font-semibold text-primary1 py-5 px-6'>
                 Tên bài
               </TableHead>
-              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+              <TableHead className='font-semibold text-primary1 py-5 px-6'>
                 Tên khóa học
               </TableHead>
             </TableRow>

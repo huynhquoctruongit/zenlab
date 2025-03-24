@@ -7,7 +7,7 @@ import { cn } from '@/services/helpers'
 import { motion } from 'framer-motion'
 
 export const Selection = ({ question, answerResult }: any) => {
-  const isResult = location.pathname.includes('result')
+  const isResult = location?.pathname?.includes('result')
   const [selected, setSelected]: any = useState('')
   const [isOpen, setOpen]: any = useState(false)
   const ref = useRef(null)
@@ -29,10 +29,8 @@ export const Selection = ({ question, answerResult }: any) => {
   const answer = answer_list?.[question.id] || answerResult
   const selectDefault = answer || selected
 
-  console.log(selectDefault, 'selectDefault')
-
   return (
-    <div className='w-full max-w-4xl mx-auto'>
+    <div className='w-full mx-auto'>
       <div className='grid gap-6'>
         {question?.selection?.map((item: any, index: any) => (
           <motion.div

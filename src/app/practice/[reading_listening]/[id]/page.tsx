@@ -26,7 +26,7 @@ const Practice = () => {
       return <Multiple key={question.id} question={question} />
   }
 
-  const { data } = useDetail("")
+  const { data } = useDetail('')
   const { part }: any = usePractice()
 
   const questionList = data?.part[part]?.question
@@ -51,9 +51,12 @@ const Practice = () => {
       router.push('/result/' + data_type + '/' + resultId)
     })
   }
+  
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
-      <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
+      <div className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden' style={{
+        gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
+      }}>
         <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
           <div className='h-full w-full'>
             <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
@@ -75,9 +78,11 @@ const Practice = () => {
                 : `${location.start} - ${location.end}`
             return (
               <div key={id}>
-                <div className='py-2 mb-2 text-primary1'>
-                  <span className='text-xl'>{index}</span>. {title}
-                </div>
+                {title?.trim() && (
+                  <div className='py-2 mb-2 text-primary1'>
+                    <span className='text-xl'>{index}</span>. {title}
+                  </div>
+                )}
                 <div
                   className='mb-2 text-sm'
                   dangerouslySetInnerHTML={{ __html: introductory }}

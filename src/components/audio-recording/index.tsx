@@ -52,12 +52,12 @@ const AudioRecording = () => {
 
   const renderRecordingButton = (status: string) => {
     return status === 'recording' ? (
-      <div className='flex items-center justify-center gap-2'>
-        <CirclePause size={120} />
+      <div className='flex items-center justify-center gap-2 cursor-pointer'>
+        <CirclePause color="red" size={120} />
       </div>
     ) : (
-      <div className='flex items-center justify-center gap-2'>
-        <Mic size={120} />
+      <div className='flex items-center justify-center gap-2 cursor-pointer'>
+        <Mic color="green" size={120} />
       </div>
     )
   }
@@ -101,9 +101,9 @@ const AudioRecording = () => {
           </div>
         )
       }}
-      mediaRecorderOptions={{
-        mimeType: 'audio/wav'
-      }}
+      // mediaRecorderOptions={{
+      //   mimeType: 'audio/wav'
+      // }}
     />
   )
 }

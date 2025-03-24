@@ -7,7 +7,7 @@ import {
   Radio
 } from '@/components/practice/data-types/index'
 import PracticeFooter from '@/components/practice/footer'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useAnswer } from '@/components/practice/helper/use-answer'
 import usePractice from '@/components/practice/helper/store'
 import useDetail from '@/components/practice/helper/use-detail'
@@ -35,6 +35,8 @@ const Practice = () => {
   const quizId = data?.quiz?.id
   const dataList = locationQuestion(questionList)
   const { data : dataDetail } = useDetail(quizId)
+  const params = useParams()
+  const data_type: any = params.reading_listening
 
   const onSubmit = () => {
     router.push('/result/1')
@@ -45,7 +47,9 @@ const Practice = () => {
   
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
-      <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
+      <div className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden' style={{
+        gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
+      }}>
         <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
           <div className='h-full w-full'>
             <div dangerouslySetInnerHTML={{ __html: content }}></div>

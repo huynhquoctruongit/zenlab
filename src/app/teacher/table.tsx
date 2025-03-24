@@ -28,9 +28,6 @@ const Completed = ({ courses } : any) => {
   const itemsPerPage = 10
   const students = courses[0].students
 
-  console.log(courses,'courses');
-  
-
   const query = {
     fields: ['*', 'quiz.*', 'class.*'],
     // filter: {

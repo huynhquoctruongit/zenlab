@@ -73,8 +73,11 @@ body {
   }
 }
 
-.practice-screen table, th, td {
-  border: 1px solid #000;
+.practice-screen table, .practice-screen th, .practice-screen td {
+  border: 1px solid #d5d5d5;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
   padding: 15px;
-  border-radius: 20px;
 }

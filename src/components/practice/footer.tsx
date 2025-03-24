@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { Button } from '../ui/button'
 import usePractice from '@/components/practice/helper/store'
-import { useAnswerList } from '@/components/practice/helper/use-answer'
 const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
   <div className='flex gap-3 items-center justify-center'>
     {data?.part?.map((item: any, index: number) => (
@@ -13,12 +12,12 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
           setPart(index)
         }}
         className={`gap-6 border border-gray-300 rounded-xl px-4 py-1 cursor-pointer ${
-          activePart === index ? 'border-primary1 text-black' : ''
+          activePart === index ? 'border-primary1 bg-[#e5f0f9] text-black' : ''
         }`}
       >
         <p className='uppercase text-primary1'>{item.title}</p>
         <p className='text-gray-500 text-xs'>
-          Questions: 0/{item?.question?.length}
+          Questions: {item?.question?.length}
         </p>
       </div>
     ))}
@@ -28,8 +27,7 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
 const PracticeFooter = ({ data, onSubmit }: any) => {
   const { setPart }: any = usePractice()
   const [activePart, setActivePart] = useState(0)
-
-  const { answer_list }: any = useAnswerList()
+  const isResult = location?.pathname?.includes('result')
   
   return (
     <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-12'>
@@ -40,7 +38,7 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
           setActivePart={setActivePart}
           setPart={setPart}
         />
-        <Button onClick={onSubmit}>Submit</Button>
+       {!isResult && <Button onClick={onSubmit}>Submit</Button>}
       </div>
     </div>
   )

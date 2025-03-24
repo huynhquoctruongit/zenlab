@@ -62,7 +62,7 @@ export const questionList = [
   {
     id: 1417,
     quiz_id: 0,
-    type: 'fill_blank',
+    type: 'gap_filling',
     question_type: '',
     title: 'Write NO MORE THAN 3 WORDS FOR EACH ANSWER',
     status: 'published',
@@ -76,7 +76,7 @@ export const questionList = [
     locate: null,
     explain: null,
     description: null,
-    fill_blank:
+    gap_filling:
       "<ol>\n<li>The woman's name is $[1][Julienne Bailey]</li>\n<li>The woman's mobile number is $[2][0865701158]</li>\n<li>The man's address is $[3][113 Evenlode Road] Fenton.</li>\n<li>The woman arrived on $[4][3rd | the third of] April.</li>\n</ol>\n<p><strong id=\"docs-internal-guid-2a3adc27-7fff-e829-e7e7-6bb4c79df3cc\"></strong></p>",
     single_choice_radio: null,
     selection: null,

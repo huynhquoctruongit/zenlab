@@ -33,7 +33,7 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
       >
         <p className='uppercase text-primary1'>{item.title}</p>
         <p className='text-gray-500 text-xs'>
-          Questions: 0/{item?.question?.length}
+          Questions: {item?.question?.length}
         </p>
       </div>
     ))}
@@ -49,6 +49,7 @@ const Timer = ({ time }: { time: number }) => (
 )
 
 const ActionButton = ({
+  isDisabled,
   isPaused,
   isLastQuestion,
   onSubmit,
@@ -58,9 +59,16 @@ const ActionButton = ({
   isLastQuestion: boolean
   onSubmit: () => void
   onNextQuestion: () => void
+  isDisabled: boolean
 }) => (
-  <div className={`${isPaused ? 'opacity-1' : 'opacity-50'}`}>
-    {isLastQuestion ? (
+  <div
+    className={`${isPaused ? 'opacity-1' : 'opacity-50'} ${
+      isDisabled ? 'opacity-50' : ''
+    }`}
+  >
+    {isDisabled ? (
+      <div className='py-4'>Không có question nào!</div>
+    ) : isLastQuestion ? (
       <Button onClick={onSubmit}>Submit</Button>
     ) : (
       <Button onClick={onNextQuestion}>Next question</Button>
@@ -111,6 +119,7 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
         />
         <Timer time={time} />
         <ActionButton
+          isDisabled={!questionList || questionList?.length === 0}
           isPaused={isPaused}
           isLastQuestion={isLastQuestion}
           onSubmit={onSubmit}
