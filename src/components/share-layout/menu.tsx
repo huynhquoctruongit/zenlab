@@ -12,31 +12,12 @@ let menuList = [
     icon: 'courses',
     submenu: [
       {
-        title: 'IELTS Reading',
+        title: 'Khoá đang học',
         url: '/courses'
       },
       {
-        title: 'IELTS Listening',
+        title: 'Khoá đã học',
         url: '/courses'
-      },
-      {
-        title: 'IELTS Writing',
-        url: '/courses'
-      }
-    ]
-  },
-  {
-    title: 'Về Zenlab',
-    url: '/about',
-    icon: 'about',
-    submenu: [
-      {
-        title: 'Giới thiệu',
-        url: '/about/intro'
-      },
-      {
-        title: 'Liên hệ',
-        url: '/about/contact'
       }
     ]
   }
@@ -51,21 +32,6 @@ let menuListTeacher = [
     title: 'Quản lý khóa học',
     url: '/teacher',
     icon: 'teacher'
-  },
-  {
-    title: 'Về Zenlab',
-    url: '/about',
-    icon: 'about',
-    submenu: [
-      {
-        title: 'Giới thiệu',
-        url: '/about/intro'
-      },
-      {
-        title: 'Liên hệ',
-        url: '/about/contact'
-      }
-    ]
   }
 ]
 

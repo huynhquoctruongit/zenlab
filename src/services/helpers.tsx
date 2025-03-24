@@ -20,16 +20,16 @@ export const enumType: any = {
   listening: 4
 }
 export const enumTypeTitle: any = {
-  1 : 'speaking',
-  2 : 'reading',
-  3 : 'writing',
-  4 : 'listening'
+  1: 'speaking',
+  2: 'reading',
+  3: 'writing',
+  4: 'listening'
 }
 export const enumDataType: any = [
-  { id: '2', name: 'reading', icon: '📚' },
-  { id: '4', name: 'listening', icon: '🎧' },
   { id: '3', name: 'writing', icon: '✍️' },
-  { id: '1', name: 'speaking', icon: '🎤' }
+  { id: '1', name: 'speaking', icon: '🎤' },
+  { id: '2', name: 'reading', icon: '📚' },
+  { id: '4', name: 'listening', icon: '🎧' }
 ]
 export const setAccessToken = (access_token: string, expires: number) => {
   const isLocal = window.location.hostname === 'localhost'

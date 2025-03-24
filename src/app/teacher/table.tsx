@@ -23,7 +23,7 @@ import useSWR from 'swr'
 import { enumDataType } from '@/services/helpers'
 
 const Completed = ({ courses } : any) => {
-  const [activeSkill, setActiveSkill] = useState('2') // reading, listening, writing, speaking
+  const [activeSkill, setActiveSkill] = useState('3') // reading, listening, writing, speaking
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
   const students = courses[0].students
@@ -45,8 +45,6 @@ const Completed = ({ courses } : any) => {
   const { data, error, mutate } = useSWR(url, fetcherClient)
 
   const completedQuizzes = data?.data?.data || []
-
-  // Group by quiz id and get latest submission
   const quizGroups = completedQuizzes.reduce((acc: any, curr: any) => {
     const quizId = curr.quiz.id
     if (
@@ -58,19 +56,16 @@ const Completed = ({ courses } : any) => {
     return acc
   }, {})
 
-  // Count submissions per quiz
   const submissionCounts = completedQuizzes.reduce((acc: any, curr: any) => {
     const quizId = curr.quiz.id
     acc[quizId] = (acc[quizId] || 0) + 1
     return acc
   }, {})
 
-  // Convert back to array and filter by skill
   const processedQuizzes = Object.values(quizGroups).filter(
     (quiz: any) => quiz.quiz.data_type == activeSkill
   )
 
-  // Count quizzes by skill type
   const quizzesBySkill: any = Object.values(quizGroups).reduce(
     (acc: any, quiz: any) => {
       acc[quiz.quiz.data_type] = (acc[quiz.quiz.data_type] || 0) + 1

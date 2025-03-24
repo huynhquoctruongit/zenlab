@@ -23,7 +23,7 @@ import { useRouter } from 'next/navigation'
 
 const Completed = () => {
   const router = useRouter()
-  const [activeSkill, setActiveSkill] = useState('2') // reading, listening, writing, speaking
+  const [activeSkill, setActiveSkill] = useState('3') // reading, listening, writing, speaking
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
 
@@ -34,15 +34,14 @@ const Completed = () => {
         _eq: '$CURRENT_USER'
       }
     },
-    limit: -1 // Get all items to process duplicates
+    limit: -1 
   }
 
   const url = ['/items/answer', query]
-  const { data, error, mutate } = useSWR(url, fetcherClient)
+  const { data} = useSWR(url, fetcherClient)
 
   const completedQuizzes = data?.data?.data || []
 
-  // Group by quiz id and get latest submission
   const quizGroups = completedQuizzes.reduce((acc: any, curr: any) => {
     const quizId = curr.quiz.id
     if (
@@ -54,19 +53,16 @@ const Completed = () => {
     return acc
   }, {})
 
-  // Count submissions per quiz
   const submissionCounts = completedQuizzes.reduce((acc: any, curr: any) => {
     const quizId = curr.quiz.id
     acc[quizId] = (acc[quizId] || 0) + 1
     return acc
   }, {})
 
-  // Convert back to array and filter by skill
   const processedQuizzes = Object.values(quizGroups).filter(
     (quiz: any) => quiz.quiz.data_type == activeSkill
   )
 
-  // Count quizzes by skill type
   const quizzesBySkill: any = Object.values(quizGroups).reduce(
     (acc: any, quiz: any) => {
       acc[quiz.quiz.data_type] = (acc[quiz.quiz.data_type] || 0) + 1
@@ -83,8 +79,6 @@ const Completed = () => {
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
   }
-
-  console.log(paginatedQuizzes, 'paginatedQuizzes')
 
   return (
     <div className=''>

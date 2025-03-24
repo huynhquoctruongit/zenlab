@@ -9,7 +9,6 @@ import {
   Trophy,
   Clock,
   Target,
-  Star,
   BookCheck,
   GraduationCap
 } from 'lucide-react'
@@ -21,7 +20,7 @@ const listCourses = [
     title: 'Reading',
     description:
       'Khóa học giúp bạn cải thiện kỹ năng đọc hiểu qua việc luyện tập với các bài đọc đa dạng, nắm bắt ý chính, chi tiết và mở rộng vốn từ vựng.',
-    color: 'linear-gradient(135deg, #0029ff 0%, #47b7f7 100%)',
+    color: 'linear-gradient(135deg, #052794 0%, #1445B8 35%, #2D69E3 65%, #4A8BFF 100%)',
     icon: <BookOpen className='w-8 h-8' />,
     href: '/courses'
   },
@@ -29,7 +28,7 @@ const listCourses = [
     title: 'Listening',
     description:
       'Phát triển kỹ năng nghe qua các bài hội thoại, thông báo và bài giảng, giúp bạn nghe hiểu chi tiết và nắm bắt thông tin chính xác hơn.',
-    color: 'linear-gradient(135deg, #002ea6 0%, #0047ff 100%)',
+    color: 'linear-gradient(135deg, #2682E5 0%, #3B95F0 35%, #54ACFF 65%, #75C3FF 100%)',
     icon: <Headphones className='w-8 h-8' />,
     href: '/courses'
   },
@@ -37,7 +36,7 @@ const listCourses = [
     title: 'Writing',
     description:
       'Học cách viết rõ ràng, mạch lạc và có tổ chức thông qua việc luyện tập viết câu, đoạn văn và bài luận, diễn đạt ý tưởng một cách logic và hiệu quả.',
-    color: 'linear-gradient(135deg, #007e26 0%, #00d741 100%)',
+    color: 'linear-gradient(135deg, #879CF3 0%, #9BAFF6 35%, #B4C5FA 65%, #D0DDFF 100%)',
     icon: <PenTool className='w-8 h-8' />,
     href: '/courses'
   },
@@ -45,7 +44,7 @@ const listCourses = [
     title: 'Speaking',
     description:
       'Tập trung vào việc phát âm đúng, luyện ngữ điệu và thực hành đối thoại để nâng cao sự tự tin khi giao tiếp lưu loát trong các tình huống hàng ngày.',
-    color: 'linear-gradient(135deg, #ffd324 0%, #ff9f00 100%)',
+    color: 'linear-gradient(135deg, #D4A6F2 0%, #E0BBF5 35%, #ECCDF8 65%, #FFE3FF 100%)',
     icon: <Mic2 className='w-8 h-8' />,
     href: '/courses'
   }
@@ -75,12 +74,6 @@ const features = [
 ]
 
 const stats = [
-  { number: '10K+', label: 'Học viên', icon: <Users2 className='w-5 h-5' /> },
-  {
-    number: '95%',
-    label: 'Tỷ lệ đạt mục tiêu',
-    icon: <Star className='w-5 h-5' />
-  },
   { number: '500+', label: 'Bài học', icon: <BookCheck className='w-5 h-5' /> },
   {
     number: '50+',
@@ -160,21 +153,23 @@ const Courses = () => {
             initial='hidden'
             whileInView='visible'
             viewport={{ once: true }}
-            className='grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mb-24'
+            className='grid grid-cols-2 sm:grid-cols-2 gap-4 md:gap-6 mb-24'
           >
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className='bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow'
+                className='bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer'
               >
-                <div className='flex items-center justify-center mb-2'>
-                  <div className='bg-blue-50 p-2 rounded-lg'>{stat.icon}</div>
-                </div>
-                <h3 className='text-2xl font-bold text-gray-900 mb-0.5'>
-                  {stat.number}
-                </h3>
-                <p className='text-sm text-gray-600'>{stat.label}</p>
+                <Link href='/courses'>
+                  <div className='flex items-center justify-center mb-2'>
+                    <div className='bg-blue-50 p-2 rounded-lg'>{stat.icon}</div>
+                  </div>
+                  <h3 className='text-2xl font-bold text-gray-900 mb-0.5'>
+                    {stat.number}
+                  </h3>
+                  <p className='text-sm text-gray-600'>{stat.label}</p>
+                </Link>
               </motion.div>
             ))}
           </motion.div>

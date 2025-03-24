@@ -1,7 +1,7 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import AxiosClient, { fetcherClient } from '@/lib/api/axios-client'
+import { fetcherClient } from '@/lib/api/axios-client'
 import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 import Completed from './completed'
@@ -15,7 +15,6 @@ import {
   Clock,
   ArrowRight
 } from 'lucide-react'
-import { CourseIcon } from '../../../public/icons/icon'
 import Welcome from './wellcome'
 
 const CoursesPage = () => {
@@ -150,17 +149,7 @@ const CoursesPage = () => {
                 <BookOpen size={18} className='flex-none' />
                 <span className='text-sm lg:flex hidden'>Tất cả khoá học</span>
               </button>
-              <button
-                className={`py-3 px-4 mb-2 rounded-lg text-left flex items-center lg:justify-start justify-center gap-2 ${
-                  activeTab === 'completed'
-                    ? 'bg-gray-200 text-black'
-                    : 'bg-white text-black'
-                }`}
-                onClick={() => setActiveTab('completed')}
-              >
-                <CheckCircle size={18} className='flex-none' />
-                <span className='text-sm lg:flex hidden'>Bài đã làm</span>
-              </button>
+
               <button
                 className={`py-3 px-4 mb-2 rounded-lg text-left flex items-center lg:justify-start justify-center gap-2 ${
                   activeTab === 'incomplete'
@@ -171,6 +160,17 @@ const CoursesPage = () => {
               >
                 <XCircle size={18} className='flex-none' />
                 <span className='text-sm lg:flex hidden'>Chưa làm</span>
+              </button>
+              <button
+                className={`py-3 px-4 mb-2 rounded-lg text-left flex items-center lg:justify-start justify-center gap-2 ${
+                  activeTab === 'completed'
+                    ? 'bg-gray-200 text-black'
+                    : 'bg-white text-black'
+                }`}
+                onClick={() => setActiveTab('completed')}
+              >
+                <CheckCircle size={18} className='flex-none' />
+                <span className='text-sm lg:flex hidden'>Bài đã làm</span>
               </button>
             </div>
           </div>

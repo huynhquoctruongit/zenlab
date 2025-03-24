@@ -27,7 +27,7 @@ const WritingResult = () => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className='absolute inset-0 flex flex-col'
+      className='absolute inset-0 flex flex-col practice-screen'
     >
       <div className='flex-1 overflow-hidden'>
         <div className='mx-auto p-2 sm:p-4 lg:p-8 h-full'>

@@ -45,7 +45,7 @@ const Practice = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="absolute top-0 left-0 w-full h-full flex flex-col flex-1"
+      className="absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen"
     >
       <div className="mx-10 pt-6 flex flex-col gap-8 h-full">
         {/* Header Section */}

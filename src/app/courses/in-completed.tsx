@@ -23,7 +23,7 @@ import useSWR from 'swr'
 
 const InCompleted = ({ courses }: { courses: any }) => {
   const router = useRouter()
-  const [activeSkill, setActiveSkill] = useState('2')
+  const [activeSkill, setActiveSkill] = useState('3')
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
 
