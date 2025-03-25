@@ -40,6 +40,7 @@ const Practice = () => {
 
     router.push(`/result/speaking/${result.data.data.id}`)
   }
+console.log(questionData,'questionData?.content');
 
   return (
     <motion.div
@@ -87,6 +88,7 @@ const Practice = () => {
             <p className='text-lg text-gray-700 leading-relaxed'>
               {questionData?.title}
             </p>
+            {questionData?.introductory && <div className='mt-4 pt-4 border-t border-gray-200' dangerouslySetInnerHTML={{ __html : questionData?.introductory}}></div>}
           </motion.div>
 
           {/* Arrow Icon */}
