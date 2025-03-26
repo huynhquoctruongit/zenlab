@@ -82,9 +82,9 @@ const Practice = () => {
             <div dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
         </div>
-        <div className='p-4 flex flex-col gap-4 bg-white rounded-md overflow-y-auto'>
+        <div className='p-4 flex flex-col gap-8 bg-white rounded-md overflow-y-auto'>
           {dataList?.map((question: any) => {
-            const { location, title, id } = question
+            const { location, title, id, introductory } = question
             const index =
               location.start === location.end
                 ? location.start
@@ -92,10 +92,14 @@ const Practice = () => {
             return (
               <div key={id}>
                 {title?.trim() && (
-                  <div className='py-2 mb-2 text-primary1 font-bold'>
+                  <div className='py-2 mb-2 font-bold'>
                     <span className='text-xl'>{index}</span>. {title}
                   </div>
                 )}
+                <div
+                  className='mb-4 text-sm'
+                  dangerouslySetInnerHTML={{ __html: introductory }}
+                ></div>
                 {dataType(question)}
               </div>
             )

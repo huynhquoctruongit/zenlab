@@ -1,7 +1,10 @@
-'use client'
+'use client';
 import { useState } from 'react'
 import { Button } from '../ui/button'
+import { usePathname } from 'next/navigation';
 import usePractice from '@/components/practice/helper/store'
+
+
 const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
   <div className='flex gap-3 items-center justify-center'>
     {data?.part?.map((item: any, index: number) => (
@@ -27,7 +30,8 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
 const PracticeFooter = ({ data, onSubmit }: any) => {
   const { setPart }: any = usePractice()
   const [activePart, setActivePart] = useState(0)
-  const isResult = location?.pathname?.includes('result')
+  const pathname = usePathname();
+  const isResult = pathname?.includes('result')
   
   return (
     <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-12'>
