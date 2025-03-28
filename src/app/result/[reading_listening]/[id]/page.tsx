@@ -8,16 +8,27 @@ import {
   Radio
 } from '@/components/practice/data-types/index'
 import PracticeFooter from '@/components/practice/footer'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams, useRouter, usePathname } from 'next/navigation'
 import { useAnswer } from '@/components/practice/helper/use-answer'
 import usePractice from '@/components/practice/helper/store'
 import useDetail from '@/components/practice/helper/use-detail'
+import { cleanLocation } from '@/services/helpers'
 
 const Practice = () => {
   const { data } = useAnswer()
   const { part, setPart }: any = usePractice()
-  const router = useRouter()
+  const router : any = useRouter()
   const resultList = data?.answers
+
+  const questionList = data?.quiz?.part[part]?.question
+  const content = data?.quiz?.part[part]?.content
+  const quizId = data?.quiz?.id
+  const dataList = locationQuestion(questionList)
+  const { data: dataDetail } = useDetail(quizId)
+  const params = useParams()
+  const pathname = usePathname()
+  
+  const data_type: any = params.reading_listening
 
   const dataType = (question: any) => {
     if (question.type === 'gap_filling')
@@ -26,6 +37,7 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
+          dataList={dataList}
         />
       )
     if (question.type === 'selection')
@@ -34,6 +46,7 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
+          dataList={dataList}
         />
       )
     if (question.type === 'radio')
@@ -42,6 +55,7 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
+          dataList={dataList}
         />
       )
     if (question.type === 'checkbox')
@@ -50,20 +64,13 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
+          dataList={dataList}
         />
       )
   }
 
-  const questionList = data?.quiz?.part[part]?.question
-  const content = data?.quiz?.part[part]?.content
-  const quizId = data?.quiz?.id
-  const dataList = locationQuestion(questionList)
-  const { data: dataDetail } = useDetail(quizId)
-  const params = useParams()
-  const data_type: any = params.reading_listening
-
   const onSubmit = () => {
-    router.push('/result/1')
+    // router.push('/result/1')
   }
   useEffect(() => {
     setPart(0)
@@ -77,12 +84,16 @@ const Practice = () => {
           gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
         }}
       >
-        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
+        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
           <div className='h-full w-full'>
-            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: cleanLocation(content)
+              }}
+            ></div>
           </div>
         </div>
-        <div className='p-4 flex flex-col gap-8 bg-white rounded-md overflow-y-auto'>
+        <div className='p-4 flex flex-col gap-6 bg-white rounded-md overflow-y-auto'>
           {dataList?.map((question: any) => {
             const { location, title, id, introductory } = question
             const index =
@@ -92,7 +103,7 @@ const Practice = () => {
             return (
               <div key={id}>
                 {title?.trim() && (
-                  <div className='py-2 mb-2 font-bold'>
+                  <div className='py-2 mb-2 text-sm font-medium'>
                     <span className='text-xl'>{index}</span>. {title}
                   </div>
                 )}
@@ -101,18 +112,6 @@ const Practice = () => {
                   dangerouslySetInnerHTML={{ __html: introductory }}
                 ></div>
                 {dataType(question)}
-                {question.explanation && (
-                  <div className='mt-4'>
-                    <p className='font-bold text-primary1'>Explanation*</p>
-                    <div className='text-sm border border-gray-300 rounded-md p-2 my-2'>
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: question.explanation
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                )}
               </div>
             )
           })}

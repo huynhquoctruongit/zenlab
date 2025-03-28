@@ -8,7 +8,7 @@ import {
 } from '@/components/practice/data-types/index'
 import { useRouter, useParams } from 'next/navigation'
 import { useAnswerList } from '@/components/practice/helper/use-answer'
-import { enumType } from '@/services/helpers'
+import { cleanLocation, enumType } from '@/services/helpers'
 import Listening from './listening'
 import PracticeFooter from '@/components/practice/footer'
 import AxiosClient from '@/lib/api/axios-client'
@@ -51,25 +51,30 @@ const Practice = () => {
       router.push('/result/' + data_type + '/' + resultId)
     })
   }
-  
+
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
-      <div className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden' style={{
-        gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
-      }}>
-        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
+      <div
+        className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'
+        style={{
+          gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
+        }}
+      >
+        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
           <div className='h-full w-full'>
             <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
             {data_type === 'listening' ? (
               <Listening audio={quiz_data?.file} />
             ) : (
               <div
-                dangerouslySetInnerHTML={{ __html: quiz_data?.content }}
+                dangerouslySetInnerHTML={{
+                  __html: cleanLocation(quiz_data?.content)
+                }}
               ></div>
             )}
           </div>
         </div>
-        <div className='p-4 flex flex-col gap-8 bg-white rounded-md overflow-y-auto'>
+        <div className='p-4 flex flex-col gap-6 bg-white rounded-md overflow-y-auto'>
           {dataList?.map((question: any) => {
             const { location, title, id, introductory } = question
             const index =
@@ -79,7 +84,7 @@ const Practice = () => {
             return (
               <div key={id}>
                 {title?.trim() && (
-                  <div className='py-2 mb-2 font-bold'>
+                  <div className='py-2 mb-2 font-medium'>
                     <span className='text-xl'>{index}</span>. {title}
                   </div>
                 )}

@@ -5,8 +5,16 @@ import { regexInput, findInput } from '../helper'
 import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
 import { motion } from 'framer-motion'
+import { Goal } from 'lucide-react'
+import Link from 'next/link'
 
-const CreateInput = ({ answer, resultList, question, onInputChange, isResult }: any) => {
+const CreateInput = ({
+  answer,
+  resultList,
+  question,
+  onInputChange,
+  isResult
+}: any) => {
   const options = {
     replace: (domNode: any) => {
       if (domNode.type === 'tag' && domNode.name === 'input') {
@@ -52,7 +60,7 @@ const CreateInput = ({ answer, resultList, question, onInputChange, isResult }: 
     }
   )
   return parsedHtml ? (
-    <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200 overflow-auto'>
+    <div className='bg-white rounded-xl p-6 shadow-sm border border-gray-200 overflow-auto text-gray-700 font-normal text-[13px]'>
       {parse(parsedHtml || '', options)}
     </div>
   ) : null
@@ -64,17 +72,26 @@ const checkAnswer = (question: any, index: any, value: any) => {
   inputs.every(input => {
     if (input.position == index) {
       const possibleAnswers = input.text.split('|')
-      if (possibleAnswers.some(answer => answer.trim().toLowerCase() === value.toLowerCase())) {
-        correct = true;
-        return false;
+      if (
+        possibleAnswers.some(
+          answer => answer.trim().toLowerCase() === value.toLowerCase()
+        )
+      ) {
+        correct = true
+        return false
       }
     }
-    return true;
+    return true
   })
   return correct
 }
 
-export const FillBlank = ({ resultList, question, answerResult }: any) => {
+export const FillBlank = ({
+  resultList,
+  question,
+  answerResult,
+  dataList
+}: any) => {
   const isResult = location?.pathname?.includes('result')
   const { answer_list, setAnswerList }: any = useAnswerList()
 
@@ -102,6 +119,23 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
 
   const inputs = findInput(question.gap_filling)
 
+  const onLocation = (ref: any) => {
+    const activeLocations = document.querySelectorAll('.active-location')
+    activeLocations.forEach(element => {
+      element.classList.remove('active-location')
+    })
+
+    setTimeout(() => {
+      let targetElement = document.getElementById(`location-ref-${ref}`)
+      if (targetElement) {
+        targetElement.classList.add('active-location')
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }
+    }, 100)
+  }
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -120,21 +154,53 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'
+          className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
         >
-          <h3 className='text-lg font-semibold text-gray-800 mb-4'>Đáp án:</h3>
+          <h3 className='text-sm font-medium text-gray-800 mb-2'>Đáp án:</h3>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {inputs.map((item: any, index: any) => (
               <div
                 key={index}
-                className='flex items-center gap-3 bg-white p-4 rounded-lg border border-gray-100'
+                className='flex items-center gap-3 bg-white p-4 rounded-lg border border-gray-100 overflow-x-auto'
               >
-                <span className='font-medium text-primary1'>
-                  {parseInt(question.location.start) + parseInt(index)}:
-                </span>
-                <span className='text-gray-700'>{item.text}</span>
+                <div className='flex items-center justify-between gap-3 w-full'>
+                  <div className='flex items-center w-full'>
+                    <span className='font-medium text-primary1'>
+                      {parseInt(question.location.start) + parseInt(index)}:
+                    </span>
+                    <span className='text-gray-700 text-[13px]'>
+                      {item.text}
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      onClick={() =>
+                        onLocation(
+                          parseInt(question.location.start) + parseInt(index)
+                        )
+                      }
+                      className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'
+                    >
+                      <Goal />
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
+            <div className='flex items-start gap-4'>
+              {question.explanation && (
+                <div className='mt-4 w-full'>
+                  <p className='font-bold text-primary1'>Explanation*</p>
+                  <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: question.explanation
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </motion.div>
       )}

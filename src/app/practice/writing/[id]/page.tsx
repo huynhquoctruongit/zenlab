@@ -33,7 +33,7 @@ const Practice = () => {
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
       <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
-        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md'>
+        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
           <div className='h-full w-full'>
             <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
             <div dangerouslySetInnerHTML={{ __html: quiz_data?.content }}></div>

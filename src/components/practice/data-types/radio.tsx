@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { cn } from '@/services/helpers'
 import { useAnswerList } from '../helper/use-answer'
 import { motion } from 'framer-motion'
+import { Goal } from 'lucide-react'
+import Link from 'next/link'
 
-export const Radio = ({ question, answerResult }: any) => {
+export const Radio = ({ question, answerResult, dataList }: any) => {
   const isResult = location?.pathname?.includes('result')
   const [selected, setSelected]: any = useState('')
   const { answer_list, setAnswerList }: any = useAnswerList()
@@ -21,7 +23,23 @@ export const Radio = ({ question, answerResult }: any) => {
     setAnswerList({ ...answer_list, [question.id]: answerParams })
     setSelected(item)
   }
+  const onLocation = (ref: any) => {
+    const activeLocations = document.querySelectorAll('.active-location')
+    activeLocations.forEach(element => {
+      element.classList.remove('active-location')
+    })
 
+    setTimeout(() => {
+      let targetElement = document.getElementById(`location-ref-${ref}`)
+      if (targetElement) {
+        targetElement.classList.add('active-location')
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }
+    }, 100)
+  }
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
       {question.radio.map((item: any, index: any) => {
@@ -63,7 +81,9 @@ export const Radio = ({ question, answerResult }: any) => {
                   ></div>
                 )}
               </div>
-              <p className='text-gray-700 font-medium'>{item.title}</p>
+              <p className='text-gray-700 font-normal text-[13px]'>
+                {item.title}
+              </p>
             </div>
           </motion.div>
         )
@@ -73,7 +93,7 @@ export const Radio = ({ question, answerResult }: any) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className='col-span-full mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'
+          className='col-span-full mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
         >
           <h3 className='text-lg font-semibold text-gray-800 mb-3'>
             Đáp án đúng:
@@ -86,6 +106,28 @@ export const Radio = ({ question, answerResult }: any) => {
               </div>
             )
           })}
+          <div className='flex items-start gap-4'>
+            {question.explanation && (
+              <div className='mt-4 w-full'>
+                <p className='font-bold text-primary1'>Explanation*</p>
+                <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: question.explanation
+                    }}
+                  ></div>
+                </div>
+              </div>
+            )}
+            <div className='mt-4 w-full'>
+              <p className='font-bold text-primary1'>Location*</p>
+              <div onClick={() => onLocation(question.location.start)}>
+                <div className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'>
+                  <Goal />
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
       )}
     </div>

@@ -47,3 +47,7 @@ export const setAccessToken = (access_token: string, expires: number) => {
       Secure: true
     })
 }
+
+export function cleanLocation(text: string) {
+  return text?.replace(/@\[(.*?)\]\[(\d+)\]/g, '<span class="location" id="location-ref-$2">$1</span>');
+}

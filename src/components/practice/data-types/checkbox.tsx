@@ -1,16 +1,18 @@
 'use client'
-import { Check } from 'lucide-react'
+import { Check, Goal } from 'lucide-react'
 import { useState } from 'react'
 import { cn } from '@/services/helpers'
 import { useAnswerList } from '../helper/use-answer'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
-export const Multiple = ({ question, answerResult }: any) => {
+export const Multiple = ({ question, answerResult, dataList }: any) => {
   const [selected, setSelected]: any = useState([])
   const { answer_list, setAnswerList }: any = useAnswerList()
   const isResult = location?.pathname?.includes('result')
-  
+
   const onSelect = (item: any) => {
+    if (isResult) return
     let newSelected = [...selected]
     if (newSelected?.includes(item)) {
       newSelected = newSelected.filter((i: any) => i !== item)
@@ -22,8 +24,25 @@ export const Multiple = ({ question, answerResult }: any) => {
     setAnswerList({ ...answer_list, [question.id]: newSelected })
   }
   const answer = answer_list?.[question.id] || answerResult
-  const selectDefault =  answer || selected
+  const selectDefault = answer || selected
 
+  const onLocation = (ref: any) => {
+    const activeLocations = document.querySelectorAll('.active-location')
+    activeLocations.forEach(element => {
+      element.classList.remove('active-location')
+    })
+
+    setTimeout(() => {
+      let targetElement = document.getElementById(`location-ref-${ref}`)
+      if (targetElement) {
+        targetElement.classList.add('active-location')
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        })
+      }
+    }, 100)
+  }
   return (
     <div className='flex flex-col gap-4'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
@@ -42,7 +61,7 @@ export const Multiple = ({ question, answerResult }: any) => {
               className={cn(
                 'p-4 rounded-xl cursor-pointer transition-all duration-200 flex items-center gap-3',
                 'border hover:border-primary1/30 hover:bg-primary1/5',
-                isSelected && 'border-primary1 bg-primary1/10',
+                isSelected && !isResult && 'border-primary1 bg-primary1/10',
                 'shadow-sm hover:shadow-md'
               )}
             >
@@ -51,7 +70,9 @@ export const Multiple = ({ question, answerResult }: any) => {
                 isSelected={isSelected}
                 isResult={isResult}
               />
-              <p className='text-gray-700 font-medium'>{item.title}</p>
+              <p className='text-gray-700 font-normal text-[13px]'>
+                {item.title}
+              </p>
             </motion.div>
           )
         })}
@@ -63,22 +84,48 @@ export const Multiple = ({ question, answerResult }: any) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border border-blue-100'
+            className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
           >
-            <h3 className='text-lg font-bold text-gray-800 mb-4'>Đáp án:</h3>
+            <h3 className='text-sm font-medium text-gray-800 mb-2'>Đáp án:</h3>
             <div className='space-y-2'>
               {question.multiple_choice.map((item: any, index: any) => {
                 if (!item.correct) return null
                 return (
                   <div
                     key={index}
-                    className='flex items-center gap-2 text-gray-700'
+                    className='flex items-center text-sm gap-2 text-gray-700'
                   >
                     <div className='w-2 h-2 rounded-full bg-primary1'></div>
                     <p>{item.title}</p>
                   </div>
                 )
               })}
+              <div className='flex items-start gap-4'>
+                {question.explanation && (
+                  <div className='mt-4 w-full'>
+                    <p className='font-bold text-primary1'>Explanation*</p>
+                    <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: question.explanation
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
+                <div className='mt-4 w-full'>
+                  <p className='font-bold text-primary1'>Location*</p>
+                  <div
+                    onClick={() =>
+                      onLocation(question.location.start)
+                    }
+                  >
+                    <div className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'>
+                      <Goal />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -93,21 +140,21 @@ const CheckboxUI = ({ choised, isSelected, isResult }: any) => {
   return (
     <div>
       {isResult ? (
-        <div className='relative w-6 h-6 rounded-lg overflow-hidden'>
+        <div className='relative w-6 h-6 rounded-lg overflow-hidden border border-gray-300'>
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             className={cn(
               'absolute inset-0 flex items-center justify-center',
               { 'bg-green': correct == true },
-              { 'bg-red': correct == false }
+              { 'bg-red': correct == undefined && isSelected?.title }
             )}
           >
             <Check color='white' size={16} />
           </motion.div>
         </div>
       ) : (
-        <div className='relative w-6 h-6 rounded-lg border-2 border-gray-300 overflow-hidden'>
+        <div className='relative w-6 h-6 rounded-lg border border-gray-300 overflow-hidden'>
           <AnimatePresence>
             {isSelected && (
               <motion.div
