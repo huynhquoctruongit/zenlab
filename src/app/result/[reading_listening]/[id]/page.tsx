@@ -101,6 +101,18 @@ const Practice = () => {
                   dangerouslySetInnerHTML={{ __html: introductory }}
                 ></div>
                 {dataType(question)}
+                {question.explanation && (
+                  <div className='mt-4'>
+                    <p className='font-bold text-primary1'>Explanation*</p>
+                    <div className='text-sm border border-gray-300 rounded-md p-2 my-2'>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: question.explanation
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                )}
               </div>
             )
           })}
