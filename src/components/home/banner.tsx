@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 const Banner = () => {
   return (
-    <div className='w-full min-h-screen bg-gradient-to-b from-white to-[#f5f5f7] relative overflow-hidden'>
+    <div className='w-full bg-gradient-to-b from-white to-[#f5f5f7] relative overflow-hidden'>
       <div className='absolute inset-0' />
 
       <motion.div
@@ -19,7 +19,7 @@ const Banner = () => {
         }}
       />
 
-      <div className='max-w-[1400px] mx-auto px-8 py-24 flex flex-col lg:flex-row items-center justify-between relative z-10'>
+      <div className='max-w-[1400px] mx-auto px-8 py-12 flex flex-col lg:flex-row items-center justify-between relative z-10'>
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -28,17 +28,15 @@ const Banner = () => {
         >
           <div className='inline-block mb-4 px-4 py-2 bg-blue-100 rounded-full'>
             <span className='text-blue-600 font-medium'>
-              🚀 Học IELTS miễn phí
+              Luyện tập IELTS 🚀
             </span>
           </div>
 
           <div className='md:leading-[70px]'>
             <p className='md:text-[4rem] text-[2rem] font-bold text-primary1'>
-              Nền tảng <span className='text-[#1b588a]'>Học</span>
-            </p>
-            <p className='md:text-[4rem] text-[2rem] font-bold text-primary1'>
-              và <span className='text-[#1b588a]'>Luyện thi IELTS</span>{' '}
-              <span className='underline'>miễn phí</span>
+              Nền tảng
+              <span className='text-[#1b588a]'> làm bài tập về nhà </span>
+              của <span className='underline'>ZENLAB</span>
             </p>
           </div>
 
@@ -54,37 +52,9 @@ const Banner = () => {
                 className=' text-white px-8 py-6 rounded-2xl text-lg font-medium transition-all duration-300 shadow-xl hover:shadow-blue-500/25 hover:scale-105'
                 size='lg'
               >
-                Bắt đầu miễn phí ✨
+                Vào làm bài tập ✨
               </Button>
             </Link>
-          </div>
-
-          <div className='mt-8 flex items-center gap-4 justify-center lg:justify-start'>
-            <div className='flex -space-x-2'>
-              <img
-                src='https://randomuser.me/api/portraits/women/17.jpg'
-                alt='Student avatar'
-                className='w-8 h-8 rounded-full border-2 border-white'
-              />
-              <img
-                src='https://cdnphoto.dantri.com.vn/VI_KREb9ciN0Mni30y-GLF7xNIE=/thumb_w/1155/2022/01/31/bon-nguoi-viet-tao-dau-an-quoc-te-nam-quadocx-1643601656657.jpeg'
-                alt='Student avatar'
-                className='w-8 h-8 rounded-full border-2 border-white'
-              />
-              <img
-                src='https://cdn2.tuoitre.vn/2022/3/19/box1-1647685451176131010573.jpg'
-                alt='Student avatar'
-                className='w-8 h-8 rounded-full border-2 border-white'
-              />
-              <img
-                src='https://cdnphoto.dantri.com.vn/vCte0jUr9J_PfJF_nndGYet_FIc=/2024/03/22/1-1711043504435.jpg'
-                alt='Student avatar'
-                className='w-8 h-8 rounded-full border-2 border-white'
-              />
-            </div>
-            <p className='text-sm text-gray-600 relative z-10'>
-              <span className='font-semibold'>1000+</span> học viên đã tham gia
-            </p>
           </div>
         </motion.div>
 

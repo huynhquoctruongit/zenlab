@@ -73,15 +73,6 @@ const features = [
   }
 ]
 
-const stats = [
-  { number: '500+', label: 'Bài học', icon: <BookCheck className='w-5 h-5' /> },
-  {
-    number: '50+',
-    label: 'Giảng viên',
-    icon: <GraduationCap className='w-5 h-5' />
-  }
-]
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -113,7 +104,7 @@ const Courses = () => {
             className='mb-24'
           >
             <h2 className='text-3xl md:text-4xl font-bold text-gray-900 text-left mb-3'>
-              Khóa học IELTS
+              Luyện tập các kỹ năng IELTS
             </h2>
             <p className='text-gray-600 text-left mb-12'>
               Khám phá các khóa học được thiết kế chuyên biệt cho từng kỹ năng,
@@ -143,67 +134,6 @@ const Courses = () => {
                       </div>
                     </div>
                   </Link>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-          {/* Stats Section */}
-          <motion.div
-            variants={containerVariants}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true }}
-            className='grid grid-cols-2 sm:grid-cols-2 gap-4 md:gap-6 mb-24'
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className='bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow cursor-pointer'
-              >
-                <Link href='/courses'>
-                  <div className='flex items-center justify-center mb-2'>
-                    <div className='bg-blue-50 p-2 rounded-lg'>{stat.icon}</div>
-                  </div>
-                  <h3 className='text-2xl font-bold text-gray-900 mb-0.5'>
-                    {stat.number}
-                  </h3>
-                  <p className='text-sm text-gray-600'>{stat.label}</p>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Features Section */}
-          <motion.div
-            variants={containerVariants}
-            initial='hidden'
-            whileInView='visible'
-            viewport={{ once: true }}
-            className='text-center mb-24'
-          >
-            <h2 className='text-3xl md:text-4xl font-bold text-gray-900 mb-3'>
-              Tại sao chọn ZenLab?
-            </h2>
-            <p className='text-gray-600 max-w-2xl mx-auto mb-12'>
-              Chúng tôi cung cấp giải pháp học IELTS toàn diện, giúp bạn đạt
-              được mục tiêu điểm số mong muốn một cách nhanh chóng và hiệu quả.
-            </p>
-
-            <div className='grid lg:grid-cols-2 xl:grid-cols-4 gap-6'>
-              {features.map((feature, index) => (
-                <motion.div
-                  variants={itemVariants}
-                  key={index}
-                  className='bg-white lg:min-h-[500px] flex flex-col justify-center rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300'
-                >
-                  <div className='flex justify-center mb-4'>{feature.icon}</div>
-                  <h3 className='text-2xl font-semibold mb-2'>
-                    {feature.title}
-                  </h3>
-                  <p className='text-gray-600 text-sm leading-relaxed'>
-                    {feature.description}
-                  </p>
                 </motion.div>
               ))}
             </div>
