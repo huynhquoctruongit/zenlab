@@ -86,7 +86,7 @@ const Courses = () => {
             <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {listCourses.map((course, index) => (
                 <motion.div variants={itemVariants} key={index}>
-                  <Link href={course.href}>
+                  <Link href={isLogin ? course.href : '/login'}>
                     <div
                       style={{ background: course.color }}
                       className='h-[280px] rounded-[35px] p-6 relative group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
