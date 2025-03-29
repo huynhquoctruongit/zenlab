@@ -111,15 +111,13 @@ const Chart = () => {
 
     fetchData()
   }, [])
-  console.log(chartData,'chartData');
-
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-2xl font-bold">Biểu đồ làm bài tập theo <span className="text-primary1">Tuần</span> hiện tại</CardTitle>
         <CardDescription>
           <div className="text-black">
-          <p className="text-xs mt-2 font-light">Mỗi tuần sẽ có :</p>
+          <p className="text-xs mt-2 font-light">Mỗi tuần sẽ có:</p>
             <div className="text-xs font-bold">
             <span> 2 bài Reading</span>,
             <span> 2 bài Listening</span>,
