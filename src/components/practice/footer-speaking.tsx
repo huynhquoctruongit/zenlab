@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { countDown } from '@/lib/utils'
+import { Send } from 'lucide-react'
 import usePractice from '@/components/practice/helper/store'
 
 const INITIAL_TIME = 180
@@ -69,7 +70,7 @@ const ActionButton = ({
     {isDisabled ? (
       <div className='py-4'>Không có question nào!</div>
     ) : isLastQuestion ? (
-      <Button onClick={onSubmit}>Submit</Button>
+      <Button className='px-10 flex items-center gap-2 justify-between' onClick={onSubmit}>Submit <Send /></Button>
     ) : (
       <Button onClick={onNextQuestion}>Next question</Button>
     )}

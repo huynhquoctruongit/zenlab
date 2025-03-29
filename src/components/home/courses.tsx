@@ -1,26 +1,17 @@
 'use client'
-import {
-  ArrowRight,
-  BookOpen,
-  Headphones,
-  PenTool,
-  Mic2,
-  Users2,
-  Trophy,
-  Clock,
-  Target,
-  BookCheck,
-  GraduationCap
-} from 'lucide-react'
+import { ArrowRight, BookOpen, Headphones, PenTool, Mic2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Chart from '../chart'
+import { useAuth } from '@/hook/use-auth'
 
 const listCourses = [
   {
     title: 'Reading',
     description:
       'Khóa học giúp bạn cải thiện kỹ năng đọc hiểu qua việc luyện tập với các bài đọc đa dạng, nắm bắt ý chính, chi tiết và mở rộng vốn từ vựng.',
-    color: 'linear-gradient(135deg, #052794 0%, #1445B8 35%, #2D69E3 65%, #4A8BFF 100%)',
+    color:
+      'linear-gradient(135deg, #052794 0%, #1445B8 35%, #2D69E3 65%, #4A8BFF 100%)',
     icon: <BookOpen className='w-8 h-8' />,
     href: '/courses'
   },
@@ -28,7 +19,8 @@ const listCourses = [
     title: 'Listening',
     description:
       'Phát triển kỹ năng nghe qua các bài hội thoại, thông báo và bài giảng, giúp bạn nghe hiểu chi tiết và nắm bắt thông tin chính xác hơn.',
-    color: 'linear-gradient(135deg, #2682E5 0%, #3B95F0 35%, #54ACFF 65%, #75C3FF 100%)',
+    color:
+      'linear-gradient(135deg, #2682E5 0%, #3B95F0 35%, #54ACFF 65%, #75C3FF 100%)',
     icon: <Headphones className='w-8 h-8' />,
     href: '/courses'
   },
@@ -36,7 +28,8 @@ const listCourses = [
     title: 'Writing',
     description:
       'Học cách viết rõ ràng, mạch lạc và có tổ chức thông qua việc luyện tập viết câu, đoạn văn và bài luận, diễn đạt ý tưởng một cách logic và hiệu quả.',
-    color: 'linear-gradient(135deg, #879CF3 0%, #9BAFF6 35%, #B4C5FA 65%, #D0DDFF 100%)',
+    color:
+      'linear-gradient(135deg, #879CF3 0%, #9BAFF6 35%, #B4C5FA 65%, #D0DDFF 100%)',
     icon: <PenTool className='w-8 h-8' />,
     href: '/courses'
   },
@@ -44,32 +37,10 @@ const listCourses = [
     title: 'Speaking',
     description:
       'Tập trung vào việc phát âm đúng, luyện ngữ điệu và thực hành đối thoại để nâng cao sự tự tin khi giao tiếp lưu loát trong các tình huống hàng ngày.',
-    color: 'linear-gradient(135deg, #D4A6F2 0%, #E0BBF5 35%, #ECCDF8 65%, #FFE3FF 100%)',
+    color:
+      'linear-gradient(135deg, #D4A6F2 0%, #E0BBF5 35%, #ECCDF8 65%, #FFE3FF 100%)',
     icon: <Mic2 className='w-8 h-8' />,
     href: '/courses'
-  }
-]
-
-const features = [
-  {
-    icon: <Users2 className='w-20 h-20 text-blue-600' />,
-    title: 'Giảng viên chất lượng',
-    description: 'Đội ngũ giảng viên giàu kinh nghiệm, có chứng chỉ IELTS 8.0+'
-  },
-  {
-    icon: <Trophy className='w-20 h-20 text-yellow-500' />,
-    title: 'Phương pháp hiệu quả',
-    description: 'Lộ trình học tập được thiết kế khoa học, phù hợp mọi trình độ'
-  },
-  {
-    icon: <Clock className='w-20 h-20 text-green-500' />,
-    title: 'Linh hoạt thời gian',
-    description: 'Học mọi lúc mọi nơi, không bị giới hạn về thời gian'
-  },
-  {
-    icon: <Target className='w-20 h-20 text-red-500' />,
-    title: 'Mục tiêu rõ ràng',
-    description: 'Cam kết đầu ra và lộ trình cụ thể cho từng band điểm'
   }
 ]
 
@@ -91,6 +62,7 @@ const itemVariants = {
 }
 
 const Courses = () => {
+  const { isLogin } = useAuth()
   return (
     <div className='relative'>
       <div className='w-full bg-gradient-to-b from-[#f5f5f7] to-white py-16 md:py-24'>
@@ -140,30 +112,16 @@ const Courses = () => {
           </motion.div>
 
           {/* CTA Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className='bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl px-6 py-12 md:p-12 text-center'
-          >
-            <h2 className='text-2xl md:text-3xl font-bold text-white mb-3'>
-              Sẵn sàng bắt đầu hành trình IELTS của bạn?
-            </h2>
-            <p className='text-white/90 mb-8 max-w-2xl mx-auto'>
-              Đăng ký ngay hôm nay để nhận được lộ trình học tập cá nhân hóa và
-              bắt đầu hành trình chinh phục IELTS của bạn.
-            </p>
-            <Link href='/courses'>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className='bg-white text-blue-600 px-6 py-2.5 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300'
-              >
-                Bắt đầu ngay
-              </motion.button>
-            </Link>
-          </motion.div>
+          {isLogin && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Chart />
+            </motion.div>
+          )}
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import Welcome from './wellcome'
+import { Loading } from '@/components/ui/loading'
 
 const CoursesPage = () => {
   const [activeTab, setActiveTab] = useState('all') // 'all', 'completed', 'incomplete'
@@ -35,6 +36,13 @@ const CoursesPage = () => {
   const { data } = useSWR(url, fetcherClient)
   const courses = data?.data?.data || []
 
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
   const filteredCourses = () => {
     switch (activeTab) {
       case 'completed':

@@ -36,13 +36,13 @@ let menuListTeacher = [
 ]
 
 const Menu = () => {
-  const { profile }: any = useAuth()
+  const { profile, isLogin }: any = useAuth()
   const isTeacher = profile?.role?.name === 'Teacher'
   menuList = isTeacher ? menuListTeacher : menuList
 
   return (
     <nav className='md:flex items-center justify-center hidden'>
-      {menuList.map((menu, index) => (
+      {isLogin && menuList.map((menu, index) => (
         <div key={index} className='relative group'>
           <a
             href={menu.url}

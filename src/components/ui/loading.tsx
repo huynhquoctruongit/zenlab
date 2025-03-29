@@ -4,7 +4,7 @@ export const Loading: any = () => {
       <img
         src='/images/logo/logo.png'
         alt='logo'
-        className='w-20 animate-[fadeInOut_2s_ease-in-out_infinite] motion-safe:animate-[swing_1s_ease-in-out_infinite]'
+        className='w-20 animate-[bounce_1s_ease-in-out_infinite]'
       />
     </div>
   )

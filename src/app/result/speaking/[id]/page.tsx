@@ -6,6 +6,7 @@ import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 import { CMS_DOMAIN } from '@/lib/constant'
 import { motion } from 'framer-motion'
+import { Loading } from '@/components/ui/loading'
 
 const SpeakingResult = () => {
   const { data } = useAnswer()
@@ -19,7 +20,13 @@ const SpeakingResult = () => {
   const handleSubmitGrade = () => {
     console.log('Score:', score, 'Feedback:', feedback)
   }
-
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
   return (
     <motion.div 
       initial={{ opacity: 0 }}

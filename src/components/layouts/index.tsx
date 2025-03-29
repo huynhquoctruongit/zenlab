@@ -8,7 +8,6 @@ import { useAuth } from '@/hook/use-auth'
 
 const LayoutCommon = ({ children }: any) => {
   const { isLogin, profile } = useAuth({ revalidateOnMount: true })
-
   return (
     <Suspense fallback={<div></div>}>
       <SWRConfig
@@ -20,7 +19,9 @@ const LayoutCommon = ({ children }: any) => {
         }}
       >
         <Header />
-        <div className='flex-1 min-h-[calc(100vh-66px)] relative'>{children}</div>
+        <div className='flex-1 min-h-[calc(100vh-66px)] relative'>
+          {children}
+        </div>
         <Footer />
       </SWRConfig>
     </Suspense>

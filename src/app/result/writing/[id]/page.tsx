@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { ChevronDown, ChevronUp } from 'lucide-react'
+import { Loading } from '@/components/ui/loading'
 
 const WritingResult = () => {
   const { data } = useAnswer()
@@ -22,7 +23,13 @@ const WritingResult = () => {
   const toggleContent = () => {
     setShowFullContent(!showFullContent)
   }
-
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
   return (
     <motion.div 
       initial={{ opacity: 0 }}

@@ -13,21 +13,23 @@ import { useAnswer } from '@/components/practice/helper/use-answer'
 import usePractice from '@/components/practice/helper/store'
 import useDetail from '@/components/practice/helper/use-detail'
 import { cleanLocation } from '@/services/helpers'
+import Listening from './listening'
+import { Loading } from '@/components/ui/loading'
 
 const Practice = () => {
   const { data } = useAnswer()
   const { part, setPart }: any = usePractice()
-  const router : any = useRouter()
+  const router: any = useRouter()
   const resultList = data?.answers
 
   const questionList = data?.quiz?.part[part]?.question
-  const content = data?.quiz?.part[part]?.content
+  const quizDetail = data?.quiz?.part[part]
   const quizId = data?.quiz?.id
   const dataList = locationQuestion(questionList)
   const { data: dataDetail } = useDetail(quizId)
   const params = useParams()
   const pathname = usePathname()
-  
+
   const data_type: any = params.reading_listening
 
   const dataType = (question: any) => {
@@ -72,19 +74,30 @@ const Practice = () => {
     setPart(0)
   }, [])
 
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
+  
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
       <div
         className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'
         style={{
-          gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
+          gridTemplateColumns: '50% 50%'
         }}
       >
-        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
+        <div className='px-4 pb-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
           <div className='h-full w-full'>
+            {data_type === 'listening' && (
+              <Listening audio={quizDetail?.file} />
+            )}
             <div
               dangerouslySetInnerHTML={{
-                __html: cleanLocation(content)
+                __html: cleanLocation(quizDetail?.content)
               }}
             ></div>
           </div>

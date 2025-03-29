@@ -9,6 +9,7 @@ import AxiosClient from '@/lib/api/axios-client'
 import { enumType } from '@/services/helpers'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { Loading } from '@/components/ui/loading'
 
 const Practice = () => {
   const params = useParams()
@@ -40,7 +41,13 @@ const Practice = () => {
 
     router.push(`/result/speaking/${result.data.data.id}`)
   }
-console.log(questionData,'questionData?.content');
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
 
   return (
     <motion.div

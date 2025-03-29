@@ -6,6 +6,7 @@ import PracticeFooter from '@/components/practice/footer'
 import useDetail from '@/components/practice/helper/use-detail'
 import usePractice from '@/components/practice/helper/store'
 import AxiosClient from '@/lib/api/axios-client'
+import { Loading } from '@/components/ui/loading'
 
 const Practice = () => {
   const router = useRouter()
@@ -29,7 +30,13 @@ const Practice = () => {
       router.push('/result/' + data_type + '/' + resultId)
     })
   }
-
+  if (!data) {
+    return (
+      <div className='m-auto flex justify-center items-center w-full h-screen'>
+        <Loading />
+      </div>
+    )
+  }
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
       <div className='grid grid-cols-2 gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'>
