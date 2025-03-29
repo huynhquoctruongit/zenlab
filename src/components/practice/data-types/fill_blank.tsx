@@ -6,11 +6,9 @@ import { useAnswerList } from '../helper/use-answer'
 import { cn } from '@/services/helpers'
 import { motion } from 'framer-motion'
 import { Goal } from 'lucide-react'
-import Link from 'next/link'
 
 const CreateInput = ({
   answer,
-  resultList,
   question,
   onInputChange,
   isResult
@@ -90,7 +88,6 @@ export const FillBlank = ({
   resultList,
   question,
   answerResult,
-  dataList
 }: any) => {
   const isResult = location?.pathname?.includes('result')
   const { answer_list, setAnswerList }: any = useAnswerList()
@@ -189,7 +186,7 @@ export const FillBlank = ({
             ))}
             <div className='flex items-start gap-4'>
               {question.explanation && (
-                <div className='mt-4 w-full'>
+                <div className='mt-2 w-full'>
                   <p className='font-bold text-primary1'>Explanation*</p>
                   <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                     <div

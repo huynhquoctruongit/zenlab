@@ -37,7 +37,6 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
-          dataList={dataList}
         />
       )
     if (question.type === 'selection')
@@ -46,7 +45,6 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
-          dataList={dataList}
         />
       )
     if (question.type === 'radio')
@@ -55,7 +53,6 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
-          dataList={dataList}
         />
       )
     if (question.type === 'checkbox')
@@ -64,7 +61,6 @@ const Practice = () => {
           key={question.id}
           question={question}
           answerResult={resultList?.[question.id]}
-          dataList={dataList}
         />
       )
   }

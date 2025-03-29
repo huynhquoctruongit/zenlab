@@ -4,9 +4,8 @@ import { cn } from '@/services/helpers'
 import { useAnswerList } from '../helper/use-answer'
 import { motion } from 'framer-motion'
 import { Goal } from 'lucide-react'
-import Link from 'next/link'
 
-export const Radio = ({ question, answerResult, dataList }: any) => {
+export const Radio = ({ question, answerResult }: any) => {
   const isResult = location?.pathname?.includes('result')
   const [selected, setSelected]: any = useState('')
   const { answer_list, setAnswerList }: any = useAnswerList()
@@ -108,7 +107,7 @@ export const Radio = ({ question, answerResult, dataList }: any) => {
           })}
           <div className='flex items-start gap-4'>
             {question.explanation && (
-              <div className='mt-4 w-full'>
+              <div className='mt-2 w-full'>
                 <p className='font-bold text-primary1'>Explanation*</p>
                 <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                   <div
@@ -119,7 +118,7 @@ export const Radio = ({ question, answerResult, dataList }: any) => {
                 </div>
               </div>
             )}
-            <div className='mt-4 w-full'>
+            <div className='mt-2 w-full'>
               <p className='font-bold text-primary1'>Location*</p>
               <div onClick={() => onLocation(question.location.start)}>
                 <div className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'>

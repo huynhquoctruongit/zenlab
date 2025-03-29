@@ -84,7 +84,10 @@ body {
   padding: 15px;
 }
 .active-location {
-  background-color: powderblue;
+  background-color: #afdbff;
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-weight: 500;
 }
 strong {
   font-weight: 500;
