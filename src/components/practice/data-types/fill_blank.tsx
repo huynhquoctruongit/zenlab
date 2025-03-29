@@ -7,12 +7,7 @@ import { cn } from '@/services/helpers'
 import { motion } from 'framer-motion'
 import { Goal } from 'lucide-react'
 
-const CreateInput = ({
-  answer,
-  question,
-  onInputChange,
-  isResult
-}: any) => {
+const CreateInput = ({ answer, question, onInputChange, isResult }: any) => {
   const options = {
     replace: (domNode: any) => {
       if (domNode.type === 'tag' && domNode.name === 'input') {
@@ -84,11 +79,7 @@ const checkAnswer = (question: any, index: any, value: any) => {
   return correct
 }
 
-export const FillBlank = ({
-  resultList,
-  question,
-  answerResult,
-}: any) => {
+export const FillBlank = ({ resultList, question, answerResult }: any) => {
   const isResult = location?.pathname?.includes('result')
   const { answer_list, setAnswerList }: any = useAnswerList()
 
@@ -153,21 +144,27 @@ export const FillBlank = ({
           animate={{ opacity: 1 }}
           className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
         >
-          <h3 className='text-sm font-medium text-gray-800 mb-2'>Đáp án:</h3>
+          <h3 className='text-sm font-semibold text-primary1 mb-2'>ĐÁP ÁN</h3>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {inputs.map((item: any, index: any) => (
               <div
                 key={index}
-                className='flex items-center gap-3 bg-white p-4 rounded-lg border border-gray-100 overflow-x-auto'
+                className='flex items-center gap-3 bg-white p-2 rounded-lg border border-gray-100 overflow-x-auto'
               >
                 <div className='flex items-center justify-between gap-3 w-full'>
                   <div className='flex items-center w-full'>
-                    <span className='font-medium text-primary1'>
+                    <span className='font-medium text-primary1 flex items-center'>
                       {parseInt(question.location.start) + parseInt(index)}:
                     </span>
-                    <span className='text-gray-700 text-[13px]'>
-                      {item.text}
-                    </span>
+                    <span
+                      className='text-gray-700 text-[13px] ml-2'
+                      dangerouslySetInnerHTML={{
+                        __html: item.text?.replace(
+                          /\|/g,
+                          '<span class="text-primary1 mx-2">|</span>'
+                        )
+                      }}
+                    ></span>
                   </div>
                   <div>
                     <div
@@ -184,10 +181,10 @@ export const FillBlank = ({
                 </div>
               </div>
             ))}
-            <div className='flex items-start gap-4'>
-              {question.explanation && (
+            {question.explanation && (
+              <div className='flex items-start gap-4'>
                 <div className='mt-2 w-full'>
-                  <p className='font-bold text-primary1'>Explanation*</p>
+                  <p className='font-bold text-sm text-primary1'>Explanation*</p>
                   <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                     <div
                       dangerouslySetInnerHTML={{
@@ -196,8 +193,8 @@ export const FillBlank = ({
                     ></div>
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </motion.div>
       )}

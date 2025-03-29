@@ -85,7 +85,7 @@ export const Multiple = ({ question, answerResult }: any) => {
             exit={{ opacity: 0, y: -20 }}
             className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
           >
-            <h3 className='text-sm font-medium text-gray-800 mb-2'>Đáp án:</h3>
+            <h3 className='text-sm font-semibold text-primary1 mb-2'>ĐÁP ÁN</h3>
             <div className='space-y-2'>
               {question.multiple_choice.map((item: any, index: any) => {
                 if (!item.correct) return null
@@ -102,7 +102,7 @@ export const Multiple = ({ question, answerResult }: any) => {
               <div className='flex items-start gap-4'>
                 {question.explanation && (
                   <div className='mt-2 w-full'>
-                    <p className='font-bold text-primary1'>Explanation*</p>
+                    <p className='font-bold text-sm text-primary1'>Explanation*</p>
                     <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                       <div
                         dangerouslySetInnerHTML={{
@@ -113,7 +113,7 @@ export const Multiple = ({ question, answerResult }: any) => {
                   </div>
                 )}
                 <div className='mt-2 w-full'>
-                  <p className='font-bold text-primary1'>Location*</p>
+                  <p className='font-bold text-sm text-primary1'>Location*</p>
                   <div
                     onClick={() =>
                       onLocation(question.location.start)

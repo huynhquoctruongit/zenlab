@@ -94,9 +94,7 @@ export const Radio = ({ question, answerResult }: any) => {
           animate={{ opacity: 1, y: 0 }}
           className='col-span-full mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
         >
-          <h3 className='text-lg font-semibold text-gray-800 mb-3'>
-            Đáp án đúng:
-          </h3>
+          <h3 className='text-sm font-semibold text-primary1 mb-2'>ĐÁP ÁN</h3>
           {question.radio.map((item: any, index: any) => {
             if (!item.correct) return null
             return (
@@ -108,7 +106,7 @@ export const Radio = ({ question, answerResult }: any) => {
           <div className='flex items-start gap-4'>
             {question.explanation && (
               <div className='mt-2 w-full'>
-                <p className='font-bold text-primary1'>Explanation*</p>
+                <p className='font-bold text-sm text-primary1'>Explanation*</p>
                 <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                   <div
                     dangerouslySetInnerHTML={{
@@ -119,7 +117,7 @@ export const Radio = ({ question, answerResult }: any) => {
               </div>
             )}
             <div className='mt-2 w-full'>
-              <p className='font-bold text-primary1'>Location*</p>
+              <p className='font-bold text-sm text-primary1'>Location*</p>
               <div onClick={() => onLocation(question.location.start)}>
                 <div className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'>
                   <Goal />
