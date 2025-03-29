@@ -62,6 +62,8 @@ const Completed = () => {
   const processedQuizzes = Object.values(quizGroups).filter(
     (quiz: any) => quiz.quiz.data_type == activeSkill
   )
+  console.log(processedQuizzes,'processedQuizzes');
+  
 
   const quizzesBySkill: any = Object.values(quizGroups).reduce(
     (acc: any, quiz: any) => {
@@ -216,8 +218,8 @@ const Completed = () => {
           </TableHeader>
           <TableBody>
             {paginatedQuizzes.map((quiz: any) => {
-              const { data_type, id } = quiz?.quiz
-              const link = `/practice/${enumTypeTitle[data_type]}/${id}`
+              const { data_type } = quiz?.quiz
+              const link = `/result/${enumTypeTitle[data_type]}/${quiz.id}`
               return (
                 <TableRow
                   key={quiz.id}
