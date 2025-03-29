@@ -46,22 +46,24 @@ const CoursePage = () => {
     (sum: any, part: any) => sum + (part.question ? part.question.length : 0),
     0
   )
+
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-        {/* Left Column - Quiz List */}
-        <div className='md:col-span-1'>
+        <div className='md:col-span-1 h-[calc(100vh-130px)] overflow-y-auto'>
           <div className='bg-white rounded-lg shadow p-6'>
-            <ChevronLeft
-              onClick={() => router.push('/courses')}
-              color='black'
-              size={40}
-              className='mb-6 cursor-pointer'
-            ></ChevronLeft>
-            <h2 className='text-2xl font-bold mb-6 flex items-center'>
-              <FileText className='mr-2 text-primary1' />
-              Quiz List
-            </h2>
+            <div className='flex items-center justify-between sticky top-0 bg-white z-10 border-b border-gray-200 mb-2 py-2'>
+              <ChevronLeft
+                onClick={() => router.push('/courses')}
+                color='black'
+                size={30}
+                className='cursor-pointer'
+              ></ChevronLeft>
+              <h2 className='text-md font-bold flex items-center'>
+                <FileText className='mr-2 text-primary1' />
+                Quiz list of <span className='text-primary1 ml-1 line-clamp-1'> {course.title}</span>
+              </h2>
+            </div>
             <div className='space-y-4'>
               {course.quiz?.map((quiz: any, index: number) => (
                 <motion.div
@@ -76,18 +78,20 @@ const CoursePage = () => {
                   }`}
                 >
                   <div className='flex justify-between items-center'>
-                    <h3 className='font-semibold text-lg mb-2'>{quiz.title}</h3>
+                    <h3 className='font-semibold text-sm mb-2'>{quiz.title}</h3>
                     <ChevronRight
                       className={`transition-transform ${
                         selectedQuiz?.id === quiz.id ? 'rotate-90' : ''
                       }`}
                     />
                   </div>
-                  <p className='text-gray-600 text-sm mb-2 line-clamp-2'>
+                  <p className='text-gray-600 text-xs mb-2 line-clamp-2'>
                     {quiz.description}
                   </p>
                   <div className='flex justify-between items-center text-gray-500 text-sm'>
-                    <p className='uppercase text-primary1 font-bold'>{enumTypeTitle[quiz.data_type]}</p>
+                    <p className='uppercase text-primary1 font-bold'>
+                      {enumTypeTitle[quiz.data_type]}
+                    </p>
                     <div className='flex justify-between items-center text-gray-500 text-sm'>
                       <Clock size={14} className='mr-1' />
                       <span>{quiz.duration || 10} minutes</span>
@@ -120,10 +124,12 @@ const CoursePage = () => {
 
                 <div className='flex items-center mb-6'>
                   <FileText size={40} className='text-primary1 mr-4' />
-                  <h1 className='text-3xl font-bold'>{selectedQuiz.title}</h1>
+                  <h1 className='text-lg font-bold'>{selectedQuiz.title}</h1>
                 </div>
-                <p className='uppercase text-primary1 font-bold mb-4'>{enumTypeTitle[selectedQuiz.data_type]}</p>
-                <p className='text-gray-600 mb-8'>{selectedQuiz.description}</p>
+                <p className='uppercase text-primary1 font-bold mb-4'>
+                  {enumTypeTitle[selectedQuiz.data_type]}
+                </p>
+                <p className='text-gray-600 mb-8 text-xs'>{selectedQuiz.description}</p>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8'>
                   <div className='flex items-center bg-gray-50 p-4 rounded-lg'>
@@ -154,7 +160,7 @@ const CoursePage = () => {
                         selectedQuiz.content ||
                         'Complete all questions within the time limit.'
                     }}
-                    className='prose max-w-none'
+                    className='prose max-w-none text-sm'
                   ></div>
                 </div>
               </motion.div>
