@@ -49,5 +49,7 @@ export const setAccessToken = (access_token: string, expires: number) => {
 }
 
 export function cleanLocation(text: string) {
-  return text?.replace(/@\[(.*?)\]\[(\d+)\]/g, '<span class="location" id="location-ref-$2">$1</span>');
+  console.log(text,'text');
+  return text?.replace(/@\[([^[\]]+)\]\[(\d+(?:-\d+)?)\]/g, '<span class="location" id="location-ref-$2">$1</span>');
 }
+// /{\[([^[\]]+)\]\[(\d+(?:-\d+)?)\]}/g
