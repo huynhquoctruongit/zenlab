@@ -49,7 +49,7 @@ const CoursesPage = () => {
             </div>
           </div>
           <div className='bg-gray-100 w-[85%] lg:w-[80%] p-4 md:p-8 overflow-auto flex flex-col gap-4'>
-            <span className='text-sm font-bold flex lg:hidden'>{classItem.title}</span>
+            <span className='text-sm font-bold flex lg:hidden'>{classItem?.title}</span>
             {classList?.length > 0 && <Table classItem={classItem} />}
           </div>
         </div>

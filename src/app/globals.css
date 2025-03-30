@@ -76,6 +76,9 @@ ul,ol {
   margin-left: 14px;
   list-style-type: disc;
 }
+.pagination ul, ol{
+  list-style-type: none !important;
+}
 
 .practice-screen table,
 .practice-screen th,
