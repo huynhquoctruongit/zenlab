@@ -12,7 +12,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -20,52 +19,56 @@ import {
 } from '@/components/ui/pagination'
 import { fetcherClient } from '@/lib/api/axios-client'
 import useSWR from 'swr'
-import { enumDataType } from '@/services/helpers'
+import { enumDataType, enumTypeTitle } from '@/services/helpers'
+import { fullName } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
-const Completed = ({ courses } : any) => {
+const Completed = ({ classItem }: any) => {
+  const router = useRouter()
   const [activeSkill, setActiveSkill] = useState('3') // reading, listening, writing, speaking
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
-  const students = courses[0].students
 
   const query = {
-    fields: ['*', 'quiz.*', 'class.*'],
-    // filter: {
-    //   user_created: {
-    //     _eq: '$CURRENT_USER'
-    //   }
-    // },
-    limit: -1 // Get all items to process duplicates
+    fields: ['*', 'quiz.*', 'class.*', 'user_created.*', 'review.*'],
+    limit: -1,
+    filter: {
+      class: {
+        _eq: classItem.id
+      }
+    }
   }
 
   const url = ['/items/answer', query]
   const { data, error, mutate } = useSWR(url, fetcherClient)
 
   const completedQuizzes = data?.data?.data || []
+
+  // Group quizzes by student and quiz ID
   const quizGroups = completedQuizzes.reduce((acc: any, curr: any) => {
-    const quizId = curr.quiz.id
-    if (
-      !acc[quizId] ||
-      new Date(curr.date_created) > new Date(acc[quizId].date_created)
-    ) {
-      acc[quizId] = curr
+    const quizId = curr?.quiz?.id
+    const studentId = curr?.user_created?.id
+    const key = `${studentId}-${quizId}`
+
+    if (!acc[key] || new Date(curr.date_created) > new Date(acc[key].date_created)) {
+      acc[key] = curr
     }
     return acc
   }, {})
 
   const submissionCounts = completedQuizzes.reduce((acc: any, curr: any) => {
-    const quizId = curr.quiz.id
+    const quizId = curr?.quiz?.id
     acc[quizId] = (acc[quizId] || 0) + 1
     return acc
   }, {})
 
   const processedQuizzes = Object.values(quizGroups).filter(
-    (quiz: any) => quiz.quiz.data_type == activeSkill
+    (quiz: any) => quiz?.quiz?.data_type == activeSkill
   )
 
   const quizzesBySkill: any = Object.values(quizGroups).reduce(
     (acc: any, quiz: any) => {
-      acc[quiz.quiz.data_type] = (acc[quiz.quiz.data_type] || 0) + 1
+      acc[quiz?.quiz?.data_type] = (acc[quiz?.quiz?.data_type] || 0) + 1
       return acc
     },
     {}
@@ -107,22 +110,22 @@ const Completed = ({ courses } : any) => {
         ))}
       </div>
       <div className='md:hidden space-y-4'>
-        <h2 className='text-2xl font-bold text-center mb-8 text-gray-800'>
+        <h2 className='md:text-2xl font-bold md:text-center mb-4 md:mb-8 text-gray-800'>
           Danh sách bài đã làm
         </h2>
         {paginatedQuizzes.map((quiz: any) => (
           <div
             key={quiz.id}
-            className='bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:border-primary1/30 hover:shadow-lg transition-all duration-300'
+            className='bg-white rounded-2xl shadow-md p-4 md:p-6 border border-gray-100 hover:border-primary1/30 hover:shadow-lg transition-all duration-300'
           >
-            <h3 className='font-semibold text-lg mb-4 text-gray-800'>
+            <h3 className='font-semibold text-lg md:mb-4 mb-2 text-gray-800'>
               {quiz.quiz.title}
             </h3>
             <div className='space-y-3 text-sm'>
               <div className='flex justify-between items-center p-2 rounded-lg bg-gray-50'>
-                <span className='text-gray-600'>Điểm số:</span>
+                <span className='text-gray-600'>Ngày nộp:</span>
                 <span className='font-semibold text-gray-900'>
-                  {quiz.score}
+                  {new Date(quiz.date_created).toLocaleString()}
                 </span>
               </div>
             </div>
@@ -173,37 +176,54 @@ const Completed = ({ courses } : any) => {
               <TableHead className='font-semibold text-gray-700 py-5 px-6'>
                 Học sinh
               </TableHead>
-             
+              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+                Quiz
+              </TableHead>
+              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+                Ngày nộp
+              </TableHead>
+              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+                Lần nộp
+              </TableHead>
+              <TableHead className='font-semibold text-gray-700 py-5 px-6'>
+                Trạng thái
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedQuizzes.map((quiz: any) => (
               <TableRow
-                key={quiz.id}
+                onClick={() =>
+                  router.push(
+                    `/result/${enumTypeTitle[quiz?.data_type]}/${quiz?.id}`
+                  )
+                }
+                key={quiz?.id}
                 className='hover:bg-gray-50/80 transition-all duration-300 cursor-pointer group'
               >
                 <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
-                  {quiz.quiz.title}
+                  {fullName(quiz?.user_created) || '-'}
                 </TableCell>
-                <TableCell className='py-5 px-6'>
-                  {quiz.class.title || '-'}
+                <TableCell className='py-5 px-6 group-hover:text-primary1'>
+                  {quiz?.quiz?.title || '-'}
                 </TableCell>
-                <TableCell className='py-5 px-6'>{quiz.score}</TableCell>
-                <TableCell className='py-5 px-6'>
-                  {new Date(quiz.date_created).toLocaleString()}
+                <TableCell className='py-5 px-6 group-hover:text-primary1'>
+                  {new Date(quiz?.date_created).toLocaleString()}
                 </TableCell>
-                <TableCell className='py-5 px-6'>
-                  {submissionCounts[quiz.quiz.id]}
+                <TableCell className='py-5 px-6 group-hover:text-primary1'>
+                  {submissionCounts[quiz?.quiz?.id]}
                 </TableCell>
-                <TableCell className='py-5 px-6'>
+                <TableCell className='py-5 px-6 group-hover:text-primary1'>
                   <span
                     className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
-                      quiz.passed
+                      quiz?.passed
                         ? 'bg-green-50 text-green-600 border border-green-200 hover:bg-green-100'
                         : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
                     }`}
                   >
-                    {quiz.passed ? 'Đạt' : 'Không đạt'}
+                    {quiz?.review_status === 'reviewed'
+                      ? 'Đã review'
+                      : 'Đã nộp'}
                   </span>
                 </TableCell>
               </TableRow>

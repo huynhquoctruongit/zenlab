@@ -116,7 +116,7 @@ const InCompleted = ({ courses }: { courses: any }) => {
                 Tên bài
               </TableHead>
               <TableHead className='font-semibold text-primary1 py-5 px-6'>
-                Tên khóa học
+               Lớp học
               </TableHead>
             </TableRow>
           </TableHeader>

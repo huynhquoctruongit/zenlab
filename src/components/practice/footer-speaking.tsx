@@ -42,8 +42,8 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
 )
 
 const Timer = ({ time }: { time: number }) => (
-  <div className='absolute left-[46%]'>
-    <div className='bg-red rounded-full px-12 py-2 text-white font-bold'>
+  <div className='md:absolute top-0 mt-1.5 left-[46%]'>
+    <div className='md:bg-red rounded-full px-12 py-2 md:text-white text-black font-bold'>
       {countDown(time)}
     </div>
   </div>
@@ -70,7 +70,12 @@ const ActionButton = ({
     {isDisabled ? (
       <div className='py-4'>Không có question nào!</div>
     ) : isLastQuestion ? (
-      <Button className='px-10 flex items-center gap-2 justify-between' onClick={onSubmit}>Submit <Send /></Button>
+      <Button
+        className='px-10 flex items-center gap-2 justify-between'
+        onClick={onSubmit}
+      >
+        Submit <Send />
+      </Button>
     ) : (
       <Button onClick={onNextQuestion}>Next question</Button>
     )}
@@ -110,15 +115,20 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
   }
 
   return (
-    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-2 px-12'>
-      <div className='flex justify-between items-center'>
+    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-2 md:px-12'>
+      <div className='md:hidden flex justify-center items-center'>
+        <Timer time={time} />
+      </div>
+      <div className='flex justify-between items-center px-4'>
         <PartSelector
           data={data}
           activePart={activePart}
           setActivePart={setActivePart}
           setPart={setPart}
         />
-        <Timer time={time} />
+        <div className='md:flex hidden'>
+          <Timer time={time} />
+        </div>
         <ActionButton
           isDisabled={!questionList || questionList?.length === 0}
           isPaused={isPaused}

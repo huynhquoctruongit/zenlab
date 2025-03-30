@@ -5,9 +5,13 @@ import { UserRound } from 'lucide-react'
 import { fullName } from '@/lib/utils'
 import Menu from './menu'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 export const Header = () => {
   const { profile, logout }: any = useAuth()
+  const pathname: any = usePathname()
+  const pathNames = ['/login']
+  const isHidden = pathNames.some(path => pathname?.includes(path))
 
   return (
     <div className='py-2 bg-white w-full sticky top-0 z-50 bg-white/50 backdrop-blur-sm transition-all h-[66px]'>
@@ -24,7 +28,7 @@ export const Header = () => {
         <div className='flex items-center gap-4'>
           <Menu />
           {profile?.id && <UserInfo profile={profile} logout={logout} />}
-          {!profile?.id && <LoginByGoogle />}
+          {!profile?.id && !isHidden && <LoginByGoogle />}
         </div>
       </div>
     </div>
@@ -32,13 +36,18 @@ export const Header = () => {
 }
 
 export const UserInfo = ({ profile, logout }: any) => {
+  const router = useRouter()
+  const onLogout = () => {
+    logout()
+    router.push('/')
+  }
   return (
-    <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer shadow-lg relative group'>
+    <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer relative group'>
       <UserRound />
-      <div className='absolute -bottom-full text-black right-1 w-full h-full group-hover:block hidden min-w-[300px]'>
-        <div className='bg-white rounded-md p-3 border shadow-md text-left w-full'>
+      <div className='absolute -bottom-full pt-2 text-black right-1 w-full h-full group-hover:block hidden min-w-[300px]'>
+        <div className='bg-white rounded-md p-3 border text-left w-full'>
           <div className='flex items-center gap-2'>
-            <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer shadow-lg relative group'>
+            <div className='bg-primary1 p-2 rounded-full text-white cursor-pointer relative group'>
               <UserRound />
             </div>
             <div className='truncate'>
@@ -49,10 +58,10 @@ export const UserInfo = ({ profile, logout }: any) => {
             </div>
           </div>
           <div
-            onClick={() => logout()}
-            className='mt-4 text-center hover:bg-gray-300 bg-gray-200 p-2 rounded-md'
+            onClick={() => onLogout()}
+            className='mt-4 text-center hover:bg-primary1 hover:text-white bg-gray-200 p-2 rounded-full'
           >
-            Logout
+            Đăng xuất
           </div>
         </div>
       </div>

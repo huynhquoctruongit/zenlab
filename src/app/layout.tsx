@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from 'next/font/google'
 import './globals.css'
 import 'react-h5-audio-player/lib/styles.css';
 import LayoutCommon from '@/components/layouts'
+import { Toaster } from "@/components/ui/toaster"
 
 const Be_Vietnam_Pro_Font: any = Be_Vietnam_Pro({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout ({
     <html lang='en'>
       <body className={`${Be_Vietnam_Pro_Font.className}`}>
         <LayoutCommon>{children}</LayoutCommon>
+        <Toaster />
       </body>
     </html>
   )

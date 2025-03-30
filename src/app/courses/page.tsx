@@ -182,7 +182,7 @@ const CoursesPage = () => {
               </button>
             </div>
           </div>
-          <div className='bg-gray-100 w-[85%] lg:w-[80%] p-8 overflow-auto flex flex-col gap-4'>
+          <div className='bg-gray-100 w-[85%] lg:w-[80%] p-4 md:p-8 overflow-auto flex flex-col gap-4'>
             {renderContent()}
             {activeTab === 'all' && <Welcome />}
           </div>

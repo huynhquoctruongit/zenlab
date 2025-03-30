@@ -146,7 +146,7 @@ const CheckboxUI = ({ choised, isSelected, isResult }: any) => {
             className={cn(
               'absolute inset-0 flex items-center justify-center',
               { 'bg-green': correct == true },
-              { 'bg-red': correct == undefined && isSelected?.title }
+              { 'bg-red': correct == undefined }
             )}
           >
             <Check color='white' size={16} />

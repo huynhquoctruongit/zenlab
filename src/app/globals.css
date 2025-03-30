@@ -110,6 +110,9 @@ body {
   font-size: 12px !important;
   font-weight: 500 !important;
 }
+.panel-resize{
+  overflow-y: auto !important;
+}
 strong {
   font-weight: 500;
 }

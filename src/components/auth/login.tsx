@@ -22,7 +22,7 @@ export const LoginByGoogle = () => {
       setAccessToken(access_token, expires)
       if (!access_token) return
       await getProfile()
-      if (window.location.pathname === '/') {
+      if (window.location.pathname === '/' || window.location.pathname === '/login') {
         router.push('/')
       }
     } catch (error) {

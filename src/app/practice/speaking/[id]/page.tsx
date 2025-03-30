@@ -55,14 +55,16 @@ const Practice = () => {
       animate={{ opacity: 1 }}
       className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'
     >
-      <div className='mx-10 pt-6 flex flex-col gap-8 h-full'>
+      <div className='lg:mx-10 pt-6 flex flex-col gap-4 md:gap-8 h-full'>
         {/* Header Section */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className='text-center'
         >
-          <h1 className='text-4xl font-bold text-black'>Speaking Practice</h1>
+          <h1 className='text-xl md:text-2xl font-bold text-black'>
+            Speaking Practice
+          </h1>
           <p className='mt-2 text-gray-600'>
             Question {question + 1} of {data?.part[part]?.question?.length}
           </p>
@@ -75,12 +77,9 @@ const Practice = () => {
             initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className='bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg border border-white/20 h-full'
+            className='bg-white rounded-2xl shadow-xl p-4 md:p-8 backdrop-blur-lg border border-white/20 h-full'
           >
-            <div className='flex items-center gap-4 mb-6'>
-              <span className='text-5xl font-bold text-black'>
-                Q{question + 1}
-              </span>
+            <div className='flex items-center gap-4'>
               {status === 'recording' && (
                 <motion.div
                   initial={{ scale: 0 }}
@@ -89,13 +88,18 @@ const Practice = () => {
                 />
               )}
             </div>
-            <h2 className='text-2xl font-semibold text-gray-800 mb-4'>
-              Question
+            <h2 className='text-md md:text-lg font-semibold text-gray-800 mb-2 md:mb-4'>
+              Question {question + 1}
             </h2>
-            <p className='text-lg text-gray-700 leading-relaxed'>
+            <p className='text-sm md:text-md text-gray-700 leading-relaxed'>
               {questionData?.title}
             </p>
-            {questionData?.introductory && <div className='mt-4 pt-4 border-t border-gray-200' dangerouslySetInnerHTML={{ __html : questionData?.introductory}}></div>}
+            {questionData?.introductory && (
+              <div
+                className='mt-4 pt-4 border-t border-gray-200 text-[12px] md:text-md overflow-x-auto w-full'
+                dangerouslySetInnerHTML={{ __html: questionData?.introductory }}
+              ></div>
+            )}
           </motion.div>
 
           {/* Arrow Icon */}
@@ -113,7 +117,7 @@ const Practice = () => {
             initial={{ x: 30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className='bg-white rounded-2xl shadow-xl p-8 backdrop-blur-lg border border-white/20'
+            className='bg-white rounded-2xl shadow-xl p-4 md:p-8 backdrop-blur-lg border border-white/20'
           >
             <div className='flex flex-col items-center gap-8'>
               <AnimatePresence>
@@ -124,7 +128,7 @@ const Practice = () => {
                   transition={{
                     duration: 1,
                     repeat: status !== 'recording' ? Infinity : 0,
-                    ease: "easeInOut"
+                    ease: 'easeInOut'
                   }}
                 >
                   <AudioRecording />

@@ -1,5 +1,5 @@
 'use client'
-import {useState } from 'react'
+import { useState } from 'react'
 import {
   Table,
   TableBody,
@@ -34,16 +34,16 @@ const Completed = () => {
         _eq: '$CURRENT_USER'
       }
     },
-    limit: -1 
+    limit: -1
   }
 
   const url = ['/items/answer', query]
-  const { data} = useSWR(url, fetcherClient)
+  const { data } = useSWR(url, fetcherClient)
 
   const completedQuizzes = data?.data?.data || []
 
   const quizGroups = completedQuizzes.reduce((acc: any, curr: any) => {
-    const quizId = curr.quiz.id
+    const quizId = curr?.quiz?.id
     if (
       !acc[quizId] ||
       new Date(curr.date_created) > new Date(acc[quizId].date_created)
@@ -54,20 +54,19 @@ const Completed = () => {
   }, {})
 
   const submissionCounts = completedQuizzes.reduce((acc: any, curr: any) => {
-    const quizId = curr.quiz.id
+    const quizId = curr?.quiz?.id
     acc[quizId] = (acc[quizId] || 0) + 1
     return acc
   }, {})
 
   const processedQuizzes = Object.values(quizGroups).filter(
-    (quiz: any) => quiz.quiz.data_type == activeSkill
+    (quiz: any) => quiz?.quiz?.data_type == activeSkill
   )
-  console.log(processedQuizzes,'processedQuizzes');
-  
+  console.log(processedQuizzes, 'processedQuizzes')
 
   const quizzesBySkill: any = Object.values(quizGroups).reduce(
     (acc: any, quiz: any) => {
-      acc[quiz.quiz.data_type] = (acc[quiz.quiz.data_type] || 0) + 1
+      acc[quiz?.quiz?.data_type] = (acc[quiz?.quiz?.data_type] || 0) + 1
       return acc
     },
     {}
@@ -109,15 +108,15 @@ const Completed = () => {
         ))}
       </div>
       <div className='md:hidden space-y-4'>
-        <h2 className='text-2xl font-bold text-center mb-8 text-gray-800'>
+        <h2 className='md:text-2xl font-bold md:text-center mb-4 md:mb-8 text-gray-800'>
           Danh sách bài đã làm
         </h2>
         {paginatedQuizzes.map((quiz: any) => (
           <div
             key={quiz.id}
-            className='bg-white rounded-2xl shadow-md p-6 border border-gray-100 hover:border-primary1/30 hover:shadow-lg transition-all duration-300'
+            className='bg-white rounded-2xl shadow-md p-4 md:p-6 border border-gray-100 hover:border-primary1/30 hover:shadow-lg transition-all duration-300'
           >
-            <h3 className='font-semibold text-lg mb-4 text-gray-800'>
+            <h3 className='font-semibold text-lg md:mb-4 mb-2 text-gray-800'>
               {quiz?.quiz?.title}
             </h3>
             <div className='space-y-3 text-sm'>
@@ -203,9 +202,6 @@ const Completed = () => {
                 Lớp học
               </TableHead>
               <TableHead className='font-semibold text-primary1 py-5 px-6'>
-                Điểm số
-              </TableHead>
-              <TableHead className='font-semibold text-primary1 py-5 px-6'>
                 Thời gian làm bài
               </TableHead>
               <TableHead className='font-semibold text-primary1 py-5 px-6'>
@@ -231,17 +227,16 @@ const Completed = () => {
                   <TableCell className='py-5 px-6 font-medium group-hover:text-primary1'>
                     {quiz?.quiz?.title}
                   </TableCell>
-                  <TableCell className='py-5 px-6'>
+                  <TableCell className='py-5 px-6 group-hover:text-primary1'>
                     {quiz?.class?.title || '-'}
                   </TableCell>
-                  <TableCell className='py-5 px-6'>{quiz?.score}</TableCell>
-                  <TableCell className='py-5 px-6'>
+                  <TableCell className='py-5 px-6 group-hover:text-primary1'>
                     {new Date(quiz?.date_created).toLocaleString()}
                   </TableCell>
-                  <TableCell className='py-5 px-6'>
+                  <TableCell className='py-5 px-6 group-hover:text-primary1'>
                     {submissionCounts[quiz?.quiz.id]}
                   </TableCell>
-                  <TableCell className='py-5 px-6'>
+                  <TableCell className='py-5 px-6 group-hover:text-primary1'>
                     <span
                       className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                         quiz.passed
@@ -249,7 +244,9 @@ const Completed = () => {
                           : 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
                       }`}
                     >
-                      {quiz.passed ? 'Đạt' : 'Không đạt'}
+                      {quiz?.review_status === 'reviewed'
+                        ? 'Đã review'
+                        : 'Đã nộp'}
                     </span>
                   </TableCell>
                 </TableRow>

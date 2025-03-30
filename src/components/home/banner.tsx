@@ -4,7 +4,8 @@ import { Button } from '../ui/button'
 import { motion } from 'framer-motion'
 import { useAuth } from '@/hook/use-auth'
 const Banner = () => {
-  const { isLogin }: any = useAuth()
+  const { isLogin, profile }: any = useAuth()
+  const isTeacher = profile?.role?.name === 'Teacher'
   return (
     <div className='w-full bg-gradient-to-b from-white to-[#f5f5f7] relative overflow-hidden'>
       <div className='absolute inset-0' />
@@ -48,12 +49,12 @@ const Banner = () => {
           </p>
 
           <div className='flex flex-col sm:flex-row gap-4 justify-center lg:justify-start'>
-            <Link href={isLogin ? '/courses' : '/login'}>
+            <Link href={isLogin ? (isTeacher ? '/teacher' : '/courses') : '/login'}>
               <Button
                 className=' text-white px-8 py-6 rounded-2xl text-lg font-medium transition-all duration-300 shadow-xl hover:shadow-blue-500/25 hover:scale-105'
                 size='lg'
               >
-                Vào làm bài tập ✨
+                {isTeacher ? 'Quản lý bài tập' : 'Vào làm bài tập ✨'}
               </Button>
             </Link>
           </div>

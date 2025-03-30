@@ -6,7 +6,7 @@ import usePractice from '@/components/practice/helper/store'
 import { Send } from 'lucide-react'
 
 const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
-  <div className='flex gap-3 items-center justify-center'>
+  <div className='flex gap-3 items-center md:justify-center overflow-x-auto py-2'>
     {data?.part?.map((item: any, index: number) => (
       <div
         key={`part-${index}`}
@@ -18,7 +18,7 @@ const PartSelector = ({ data, activePart, setActivePart, setPart }: any) => (
           activePart === index ? 'border-primary1 bg-[#e5f0f9] text-black' : ''
         }`}
       >
-        <p className='uppercase text-primary1'>{item.title}</p>
+        <p className='uppercase text-primary1 md:text-md text-[12px] whitespace-nowrap'>{item.title}</p>
         <p className='text-gray-500 text-xs'>
           Questions: {item?.question?.length}
         </p>
@@ -39,8 +39,8 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
   }
 
   return (
-    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-12'>
-      <div className='flex justify-between items-center'>
+    <div className='w-full bottom-[0px] border-solid border-t border-neu3 bg-orange-01 relative z-10 py-1 px-4 md:px-12'>
+      <div className='md:flex justify-between items-center'>
         <PartSelector
           data={data}
           activePart={activePart}
@@ -48,13 +48,15 @@ const PracticeFooter = ({ data, onSubmit }: any) => {
           setPart={setPart}
         />
         {!isResult && (
-          <Button
+          <div className='flex justify-center items-center'>
+            <Button
             variant={loading ? 'ghost' : 'default'}
             className='px-10 flex items-center gap-2 justify-between'
             onClick={handleSubmit}
           >
             Submit <Send />
           </Button>
+          </div>
         )}
       </div>
     </div>

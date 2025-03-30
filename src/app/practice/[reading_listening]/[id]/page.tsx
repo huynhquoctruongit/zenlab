@@ -15,6 +15,13 @@ import AxiosClient from '@/lib/api/axios-client'
 import useDetail from '@/components/practice/helper/use-detail'
 import usePractice from '@/components/practice/helper/store'
 import { Loading } from '@/components/ui/loading'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup
+} from '@/components/ui/resizable'
+import { useResponsive } from '@/hook/use-resize'
+
 const Practice = () => {
   const dataType = (question: any) => {
     if (question.type === 'gap_filling')
@@ -29,6 +36,8 @@ const Practice = () => {
 
   const { data } = useDetail('')
   const { part }: any = usePractice()
+  const width = useResponsive()
+  const isMobile = width < 768
 
   const questionList = data?.part[part]?.question
   const quiz_data = data?.part[part]
@@ -59,53 +68,67 @@ const Practice = () => {
       </div>
     )
   }
-  
+
   return (
     <div className='absolute top-0 left-0 w-full h-full flex flex-col flex-1 practice-screen'>
-      <div
-        className='grid gap-2 p-2 mx-10 h-full relative flex-1 overflow-y-hidden'
-        style={{
-          gridTemplateColumns: data_type === 'listening' ? '30% 70%' : '50% 50%'
-        }}
-      >
-        <div className='p-4 overflow-y-auto border-r-2 bg-white rounded-md font-light text-sm'>
-          <div className='h-full w-full'>
-            <p className='text-2xl font-bold my-4'>{quiz_data?.title}</p>
-            {data_type === 'listening' ? (
-              <Listening audio={quiz_data?.file} />
-            ) : (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: cleanLocation(quiz_data?.content)
-                }}
-              ></div>
-            )}
-          </div>
-        </div>
-        <div className='p-4 flex flex-col gap-6 bg-white rounded-md overflow-y-auto'>
-          {dataList?.map((question: any) => {
-            const { location, title, id, introductory } = question
-            const index =
-              location.start === location.end
-                ? location.start
-                : `${location.start} - ${location.end}`
-            return (
-              <div key={id}>
-                {title?.trim() && (
-                  <div className='py-2 mb-2 font-medium'>
-                    <span className='text-xl'>{index}</span>. {title}
-                  </div>
+      <div className='p-2 lg:mx-10 h-full relative flex-1'>
+        <ResizablePanelGroup
+          direction={isMobile ? 'vertical' : 'horizontal'}
+          className='overflow-y-auto absolute top-0 left-0 w-full h-full'
+        >
+          <ResizablePanel
+            className='overflow-y-auto panel-resize'
+            minSize={30}
+            defaultSize={data_type === 'listening' ? 30 : 50}
+          >
+            <div className='p-4 overflow-y-auto bg-white rounded-md font-light text-sm'>
+              <div className='h-full w-full'>
+                <p className='lg:text-xl font-bold my-4'>{quiz_data?.title}</p>
+                {data_type === 'listening' ? (
+                  <Listening audio={quiz_data?.file} />
+                ) : (
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: cleanLocation(quiz_data?.content)
+                    }}
+                  ></div>
                 )}
-                <div
-                  className='mb-4 text-sm'
-                  dangerouslySetInnerHTML={{ __html: introductory }}
-                ></div>
-                {dataType(question)}
               </div>
-            )
-          })}
-        </div>
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel
+            className='overflow-y-auto panel-resize p-4 mb-4'
+            minSize={30}
+            defaultSize={data_type === 'listening' ? 70 : 50}
+          >
+            <div className='flex flex-col gap-6 bg-white rounded-md h-full'>
+              {dataList?.map((question: any) => {
+                const { location, title, id, introductory } = question
+                const index =
+                  location.start === location.end
+                    ? location.start
+                    : `${location.start} - ${location.end}`
+                return (
+                  <div key={id}>
+                    {title?.trim() && (
+                      <div className='py-2 mb-2 font-medium'>
+                        <span className='text-xl'>{index}</span>. {title}
+                      </div>
+                    )}
+                    <div
+                      className='mb-4 text-sm'
+                      dangerouslySetInnerHTML={{ __html: introductory }}
+                    ></div>
+                    {dataType(question)}
+                  </div>
+                )
+              })}
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </div>
+
       <PracticeFooter onSubmit={onSubmit} data={data} />
     </div>
   )

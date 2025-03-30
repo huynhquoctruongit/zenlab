@@ -62,7 +62,8 @@ const itemVariants = {
 }
 
 const Courses = () => {
-  const { isLogin } = useAuth()
+  const { isLogin, profile }: any = useAuth()
+  const isTeacher = profile?.role?.name === 'Teacher'
   return (
     <div className='relative'>
       <div className='w-full bg-gradient-to-b from-[#f5f5f7] to-white py-16 md:py-24'>
@@ -86,7 +87,7 @@ const Courses = () => {
             <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
               {listCourses.map((course, index) => (
                 <motion.div variants={itemVariants} key={index}>
-                  <Link href={isLogin ? course.href : '/login'}>
+                  <Link href={isLogin ? (isTeacher ? '/teacher' : course.href) : '/login'}>
                     <div
                       style={{ background: course.color }}
                       className='h-[280px] rounded-[35px] p-6 relative group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'

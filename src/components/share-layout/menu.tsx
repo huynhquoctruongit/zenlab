@@ -1,22 +1,23 @@
 import { useAuth } from '@/hook/use-auth'
+import { usePathname } from 'next/navigation'
 
 let menuList = [
   {
-    title: 'Home',
+    title: 'HOME',
     url: '/',
     icon: 'home'
   },
   {
-    title: 'Khoá học',
+    title: 'KHOÁ HỌC',
     url: '/courses',
     icon: 'courses',
     submenu: [
       {
-        title: 'Khoá đang học',
+        title: 'KHOÁ ĐANG HỌC',
         url: '/courses'
       },
       {
-        title: 'Khoá đã học',
+        title: 'KHOÁ ĐÃ HỌC',
         url: '/courses'
       }
     ]
@@ -24,12 +25,12 @@ let menuList = [
 ]
 let menuListTeacher = [
   {
-    title: 'Home',
+    title: 'HOME',
     url: '/',
     icon: 'home'
   },
   {
-    title: 'Quản lý khóa học',
+    title: 'QUẢN LÝ BÀI TẬP',
     url: '/teacher',
     icon: 'teacher'
   }
@@ -38,6 +39,7 @@ let menuListTeacher = [
 const Menu = () => {
   const { profile, isLogin }: any = useAuth()
   const isTeacher = profile?.role?.name === 'Teacher'
+  const pathname = usePathname()
   menuList = isTeacher ? menuListTeacher : menuList
 
   return (
@@ -46,9 +48,11 @@ const Menu = () => {
         <div key={index} className='relative group'>
           <a
             href={menu.url}
-            className='flex items-center gap-2 px-4 py-2 text-gray-700 hover:text-primary1 transition-colors duration-200'
+            className={`flex items-center gap-2 px-4 py-2 transition-colors duration-200 ${
+              pathname === menu.url ? 'text-primary1' : 'text-gray-700 hover:text-primary1'
+            }`}
           >
-            <span className='text-sm font-light'>{menu.title}</span>
+            <span className='text-sm font-medium'>{menu.title}</span>
             {menu.submenu && (
               <svg
                 className='w-4 h-4 transition-transform duration-200 group-hover:rotate-180'
@@ -73,7 +77,9 @@ const Menu = () => {
                   <a
                     key={idx}
                     href={item.url}
-                    className='block px-4 py-2 text-sm font-light text-gray-700 hover:bg-white/50 hover:text-primary1'
+                    className={`block px-4 py-2 text-sm font-light hover:bg-white/50 hover:text-primary1 ${
+                      pathname === item.url ? 'text-primary1 font-medium' : 'text-gray-700'
+                    }`}
                   >
                     {item.title}
                   </a>
