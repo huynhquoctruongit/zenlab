@@ -44,7 +44,7 @@ export const Multiple = ({ question, answerResult }: any) => {
   }
   return (
     <div className='flex flex-col gap-4'>
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='grid grid-cols-1 gap-4'>
         {question.multiple_choice.map((item: any, index: any) => {
           const isSelected = selectDefault?.find(
             (elm: any) => elm?.title == item.title

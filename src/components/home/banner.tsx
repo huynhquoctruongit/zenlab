@@ -81,14 +81,6 @@ const Banner = () => {
             transition={{ delay: 1 }}
             className='absolute top-1/2 -right-8 bg-white p-4 rounded-xl shadow-lg'
           >
-            <div className='flex items-center gap-2'>
-              <div className='w-3 h-3 rounded-full bg-green' />
-              <p className='text-sm font-medium'>2,431 người đang học</p>
-              <div
-                className='w-3 h-3 rounded-full bg-green-500 pulse-dot'
-                style={{ marginLeft: '4px' }}
-              />
-            </div>
           </motion.div>
         </motion.div>
       </div>

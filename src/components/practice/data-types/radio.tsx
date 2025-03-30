@@ -40,7 +40,7 @@ export const Radio = ({ question, answerResult }: any) => {
     }, 100)
   }
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+    <div className='grid grid-cols-1 gap-4'>
       {question.radio.map((item: any, index: any) => {
         const choised: any = answer?.answer === item.title
         const isSelected = selected.title === item.title
