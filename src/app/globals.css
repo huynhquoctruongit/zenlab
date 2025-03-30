@@ -72,6 +72,10 @@ body {
     @apply bg-background text-foreground;
   }
 }
+ul,ol {
+  margin-left: 14px;
+  list-style-type: disc;
+}
 
 .practice-screen table,
 .practice-screen th,
@@ -110,7 +114,7 @@ body {
   font-size: 12px !important;
   font-weight: 500 !important;
 }
-.panel-resize{
+.panel-resize {
   overflow-y: auto !important;
 }
 strong {

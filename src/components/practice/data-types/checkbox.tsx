@@ -102,9 +102,12 @@ export const Multiple = ({ question, answerResult }: any) => {
               <div className='flex items-start gap-4'>
                 {question.explanation && (
                   <div className='mt-2 w-full'>
-                    <p className='font-bold text-sm text-primary1'>Explanation*</p>
+                    <p className='font-bold text-sm text-primary1'>
+                      Explanation*
+                    </p>
                     <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                       <div
+                        className='font-extralight'
                         dangerouslySetInnerHTML={{
                           __html: question.explanation
                         }}
@@ -112,13 +115,9 @@ export const Multiple = ({ question, answerResult }: any) => {
                     </div>
                   </div>
                 )}
-                <div className='mt-2 w-full'>
+                <div className='mt-2 w-fit flex flex-col justify-center items-center gap-2'>
                   <p className='font-bold text-sm text-primary1'>Location*</p>
-                  <div
-                    onClick={() =>
-                      onLocation(question.location.start)
-                    }
-                  >
+                  <div onClick={() => onLocation(question.location.start)}>
                     <div className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'>
                       <Goal />
                     </div>
@@ -146,7 +145,7 @@ const CheckboxUI = ({ choised, isSelected, isResult }: any) => {
             className={cn(
               'absolute inset-0 flex items-center justify-center',
               { 'bg-green': correct == true },
-              { 'bg-red': correct == undefined }
+              { 'bg-red': correct == undefined && isSelected?.title }
             )}
           >
             <Check color='white' size={16} />
