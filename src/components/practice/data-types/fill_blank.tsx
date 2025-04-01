@@ -145,7 +145,7 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
           className='mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 p-4 border border-blue-100'
         >
           <h3 className='text-sm font-semibold text-primary1 mb-2'>ĐÁP ÁN</h3>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <div className='flex flex-col gap-2'>
             {inputs.map((item: any, index: any) => (
               <div
                 key={index}
@@ -173,7 +173,7 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
                           parseInt(question.location.start) + parseInt(index)
                         )
                       }
-                      className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2 my-2'
+                      className='text-sm border border-dashed border-primary1 rounded-full w-fit hover:bg-primary1/30 cursor-pointer p-2'
                     >
                       <Goal />
                     </div>
