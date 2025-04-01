@@ -109,6 +109,7 @@ export const Radio = ({ question, answerResult }: any) => {
                 <p className='font-bold text-sm text-primary1'>Explanation*</p>
                 <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                   <div
+                  className='font-extralight'
                     dangerouslySetInnerHTML={{
                       __html: question.explanation
                     }}

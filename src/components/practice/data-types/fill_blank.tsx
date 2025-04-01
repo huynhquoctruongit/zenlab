@@ -184,9 +184,12 @@ export const FillBlank = ({ resultList, question, answerResult }: any) => {
             {question.explanation && (
               <div className='flex items-start gap-4'>
                 <div className='mt-2 w-full'>
-                  <p className='font-bold text-sm text-primary1'>Explanation*</p>
+                  <p className='font-bold text-sm text-primary1'>
+                    Explanation*
+                  </p>
                   <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                     <div
+                      className='font-extralight'
                       dangerouslySetInnerHTML={{
                         __html: question.explanation
                       }}

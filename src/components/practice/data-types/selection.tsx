@@ -131,9 +131,12 @@ export const Selection = ({ question, answerResult }: any) => {
             <div className='flex items-start gap-4'>
               {question.explanation && (
                 <div className='mt-2 w-full'>
-                  <p className='font-bold text-sm text-primary1'>Explanation*</p>
+                  <p className='font-bold text-sm text-primary1'>
+                    Explanation*
+                  </p>
                   <div className='text-sm border border-primary1 border-dashed rounded-md p-2 my-2'>
                     <div
+                      className='font-extralight'
                       dangerouslySetInnerHTML={{
                         __html: question.explanation
                       }}
