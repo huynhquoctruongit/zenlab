@@ -9,7 +9,7 @@ const listCourses = [
   {
     title: 'Reading',
     description:
-      'Khóa học giúp bạn cải thiện kỹ năng đọc hiểu qua việc luyện tập với các bài đọc đa dạng, nắm bắt ý chính, chi tiết và mở rộng vốn từ vựng.',
+      'Các bài đọc được chọn lọc từ các trang báo nổi tiếng, và các sách luyện thi IELTS, có sẵn đáp án và giải thích chi tiết cho từng câu hỏi. Bạn hãy chăm chỉ làm bài, để tích lũy thêm kiến thức xã hội, học thêm <span class="font-bold">TỪ VỰNG</span>, và cải thiện khả năng đọc hiểu nhé!',
     color:
       'linear-gradient(135deg, #052794 0%, #1445B8 35%, #2D69E3 65%, #4A8BFF 100%)',
     icon: <BookOpen className='w-8 h-8' />,
@@ -18,7 +18,7 @@ const listCourses = [
   {
     title: 'Listening',
     description:
-      'Phát triển kỹ năng nghe qua các bài hội thoại, thông báo và bài giảng, giúp bạn nghe hiểu chi tiết và nắm bắt thông tin chính xác hơn.',
+      'Nguồn bài tập nghe phong phú, đi từ các đoạn hội thoại, thuyết trình đơn giản, tới những bài nghe IELTS học thuật khó hơn, giúp các bạn làm quen với đa dạng accents, cải thiện phản xạ nghe, và đạt điểm nghe cao hơn. Điều quan trọng là bạn phải <span class="font-bold">NGHE NHIỀU</span>, và hình thành <span class="font-bold">THÓI QUEN</span> nghe tiếng Anh nhé!',
     color:
       'linear-gradient(135deg, #2682E5 0%, #3B95F0 35%, #54ACFF 65%, #75C3FF 100%)',
     icon: <Headphones className='w-8 h-8' />,
@@ -27,7 +27,7 @@ const listCourses = [
   {
     title: 'Writing',
     description:
-      'Học cách viết rõ ràng, mạch lạc và có tổ chức thông qua việc luyện tập viết câu, đoạn văn và bài luận, diễn đạt ý tưởng một cách logic và hiệu quả.',
+      'Mọi bài tập viết đều được giáo viên chấm chữa cẩn thận, theo bốn tiêu chí chấm thi (Ý tưởng, mạch lạc, từ vựng, ngữ pháp). Các bài tập viết có độ khó tăng dần, đi từ việc viết câu, viết đoạn, đến viết hoàn chỉnh 1 bài essay. Bạn hãy viết để được <span class="font-bold">SỬA SAI</span> và viết giỏi hơn nhé!',
     color:
       'linear-gradient(135deg, #879CF3 0%, #9BAFF6 35%, #B4C5FA 65%, #D0DDFF 100%)',
     icon: <PenTool className='w-8 h-8' />,
@@ -36,9 +36,9 @@ const listCourses = [
   {
     title: 'Speaking',
     description:
-      'Tập trung vào việc phát âm đúng, luyện ngữ điệu và thực hành đối thoại để nâng cao sự tự tin khi giao tiếp lưu loát trong các tình huống hàng ngày.',
+      'Nói là một kỹ năng khó, áp lực đối mặt 1-1 với giám khảo, đòi hỏi bạn phải có ý tưởng nói, kiểm soát tốt phát âm - ngữ pháp - từ vựng. Bạn hãy ghi âm bài tập nói của mình, giáo viên sẽ nghe và phân tích các lỗi trong bài nói, để bạn rút kinh nghiệm và cải thiện <span class="font-bold">FLUENCY</span> nhé!',
     color:
-      'linear-gradient(135deg, #D4A6F2 0%, #E0BBF5 35%, #ECCDF8 65%, #FFE3FF 100%)',
+      'linear-gradient(135deg, #B06CD4 0%, #C485E0 35%, #D9A1EC 65%, #EBB9F7 100%)',
     icon: <Mic2 className='w-8 h-8' />,
     href: '/courses'
   }
@@ -84,24 +84,38 @@ const Courses = () => {
               giúp bạn cải thiện toàn diện
             </p>
 
-            <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
+            <div className='grid lg:grid-cols-2 xl:grid-cols-4 gap-6'>
               {listCourses.map((course, index) => (
                 <motion.div variants={itemVariants} key={index}>
-                  <Link href={isLogin ? (isTeacher ? '/teacher' : course.href) : '/login'}>
+                  <Link
+                    href={
+                      isLogin
+                        ? isTeacher
+                          ? '/teacher'
+                          : course.href
+                        : '/login'
+                    }
+                  >
                     <div
                       style={{ background: course.color }}
-                      className='h-[280px] rounded-[35px] p-6 relative group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
+                      className='lg:h-[300px] rounded-[35px] p-5 relative group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl'
                     >
-                      <div className='bg-white/20 w-14 h-14 rounded-xl flex items-center justify-center mb-6'>
-                        {course.icon}
+                      <div className='flex items-center gap-4 mb-4'>
+                        <div className='bg-white/20 w-14 h-14 rounded-xl flex items-center justify-center'>
+                          {course.icon}
+                        </div>
+                        <h3 className='text-xl font-bold text-white mb-3'>
+                          {course.title}
+                        </h3>
                       </div>
-                      <h3 className='text-xl font-bold text-white mb-3'>
-                        {course.title}
-                      </h3>
-                      <p className='text-white/90 text-sm leading-relaxed'>
-                        {course.description}
-                      </p>
-
+                      <div className='text-white/90 md:text-[12px] text-[13px] leading-relaxed'>
+                        <div
+                        className=''
+                          dangerouslySetInnerHTML={{
+                            __html: course.description
+                          }}
+                        ></div>
+                      </div>
                       <div className='absolute -bottom-8 backdrop-blur-[4px] -right-4 border border-black/10 bg-white/30 rounded-full p-2 transform group-hover:translate-x-2 transition-transform'>
                         <ArrowRight className='w-20 h-20 text-gray-700' />
                       </div>
