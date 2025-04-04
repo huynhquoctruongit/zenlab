@@ -8,7 +8,7 @@ import Table from './table'
 const CoursesPage = () => {
   const [activeTab, setActiveTab]: any = useState(0)
   const query = {
-    fields: ['*', 'students.*', 'teachers.*', 'quiz.*'],
+    fields: ['*', 'students.*', 'teachers.*', 'quiz.*', 'week.*'],
     filter: {
       teachers: {
         directus_users_id: {

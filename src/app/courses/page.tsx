@@ -23,7 +23,7 @@ const CoursesPage = () => {
   const router = useRouter()
 
   const query = {
-    fields: ['*', 'students.*', 'quiz.*'],
+    fields: ['*', 'students.*', 'quiz.*', 'week.*', 'week.quiz.*', 'week.week_id.*', 'week.week_id.week.*', 'week.week_id.week.quiz_id.*',],
     filter: {
       students: {
         directus_users_id: {

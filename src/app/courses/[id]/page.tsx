@@ -26,7 +26,17 @@ const CoursePage = () => {
   const [selectedQuiz, setSelectedQuiz] = useState<any>(null)
 
   const query = {
-    fields: ['*', 'quiz.*', 'quiz.part.*', 'quiz.part.question.*']
+    fields: [
+      '*',
+      'quiz.*',
+      'quiz.part.*',
+      'quiz.part.question.*',
+      'week.*',
+      'week.quiz.*',
+      'week.week_id.*',
+      'week.week_id.quiz.*',
+      'week.week_id.quiz.quiz_id.*'
+    ]
   }
 
   const { data } = useSWR([`/items/class/${id}`, query], fetcherClient)
@@ -61,44 +71,66 @@ const CoursePage = () => {
               ></ChevronLeft>
               <h2 className='text-md font-bold flex items-center'>
                 <FileText className='mr-2 text-primary1' />
-                Quiz list of <span className='text-primary1 ml-1 line-clamp-1'> {course.title}</span>
+                Quiz list of{' '}
+                <span className='text-primary1 ml-1 line-clamp-1'>
+                  {' '}
+                  {course.title}
+                </span>
               </h2>
             </div>
             <div className='space-y-4'>
-              {course.quiz?.map((quiz: any, index: number) => (
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  key={index}
-                  onClick={() => setSelectedQuiz(quiz)}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all ${
-                    selectedQuiz?.id === quiz.id
-                      ? 'border-primary1 bg-primary1/5'
-                      : 'border-gray-200 hover:border-primary1/30'
-                  }`}
-                >
-                  <div className='flex justify-between items-center'>
-                    <h3 className='font-semibold text-sm mb-2'>{quiz.title}</h3>
-                    <ChevronRight
-                      className={`transition-transform ${
-                        selectedQuiz?.id === quiz.id ? 'rotate-90' : ''
+              {course.week?.map(
+                (week: any, index: number) => (
+                  console.log(week, 'week'),
+                  (
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      key={index}
+                      className={`p-4 border rounded-lg transition-all ${
+                        selectedQuiz?.id === week.id
+                          ? 'border-primary1 bg-primary1/5'
+                          : 'border-gray-200 hover:border-primary1/30'
                       }`}
-                    />
-                  </div>
-                  <p className='text-gray-600 text-xs mb-2 line-clamp-2'>
-                    {quiz.description}
-                  </p>
-                  <div className='flex justify-between items-center text-gray-500 text-sm'>
-                    <p className='uppercase text-primary1 font-bold'>
-                      {enumTypeTitle[quiz.data_type]}
-                    </p>
-                    <div className='flex justify-between items-center text-gray-500 text-sm'>
-                      <Clock size={14} className='mr-1' />
-                      <span>{quiz.duration || 10} minutes</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                    >
+                      <div className='flex justify-between items-center'>
+                        <h3 className='font-semibold text-md mb-2'>
+                          {week.week_id.title}
+                        </h3>
+                        <ChevronRight
+                          className={`transition-transform ${
+                            selectedQuiz?.id === week.id ? 'rotate-90' : ''
+                          }`}
+                        />
+                      </div>
+                      <div className='mt-2 ml-2'>
+                        {week?.week_id?.quiz?.map((elm: any) => (
+                          <div
+                            onClick={() => setSelectedQuiz(elm.quiz_id)}
+                            className='text-gray-600 hover:text-primary1 text-sm mb-2 line-clamp-2 cursor-pointer'
+                          >
+                            <span className='text-sm mb-2 line-clamp-2 flex items-center gap-2'>
+                            <FileText className='mr-2 text-primary1' />{elm.quiz_id.title}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      <p className='text-gray-600 text-xs mb-2 line-clamp-2'>
+                        {week.description}
+                      </p>
+                      <div className='flex justify-between items-center text-gray-500 text-sm'>
+                        <p className='uppercase text-primary1 font-bold'>
+                          {enumTypeTitle[week.data_type]}
+                        </p>
+                        <div className='flex justify-between items-center text-gray-500 text-sm'>
+                          <Clock size={14} className='mr-1' />
+                          <span>{week.duration || 10} minutes</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                )
+              )}
             </div>
           </div>
         </div>
@@ -129,7 +161,9 @@ const CoursePage = () => {
                 <p className='uppercase text-primary1 font-bold mb-4'>
                   {enumTypeTitle[selectedQuiz.data_type]}
                 </p>
-                <p className='text-gray-600 mb-8 text-xs'>{selectedQuiz.description}</p>
+                <p className='text-gray-600 mb-8 text-xs'>
+                  {selectedQuiz.description}
+                </p>
 
                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8'>
                   <div className='flex items-center bg-gray-50 p-4 rounded-lg'>
